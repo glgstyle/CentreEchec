@@ -1,4 +1,5 @@
 '''Define the Main Controller'''
+from os import name
 from time import strptime
 from typing import List
 
@@ -14,6 +15,9 @@ class Controller:
         #models
         self.players = []
         self.tournament = Tournament
+        self.team_of_players = 0
+        #self.results = []
+        
         #view
         #self.view = view
 
@@ -50,27 +54,30 @@ class Controller:
                 print("La date n'est pas au bon format, Veuillez recommencer")
                 player.date_of_birth = input("Veuillez saisir la date de naissance(jj/mm/aaaa) :")
         player.sexe = input("Veuillez entrer son sexe(F/M) : ")
-        """Player.sexe = Player.sexe.upper()
-        print(Player.sexe)
-        while True:
+        #Check if value is F or M
+        """"while True:
+            player.sexe = input("Veuillez entrer son sexe(F/M) : ")
+            upper_sexe = player.sexe.upper()
+            print(upper_sexe)
             try:
-                if not Player.sexe == "F" or not Player.sexe =="M":
+                if not upper_sexe == "F" or not upper_sexe == "M":
+                    print(f"voici ce qui n'est pas bon : {upper_sexe}")
                     raise NameError
             except NameError:
-                print("Veuillez entrer F pour féminin et M pour masculin")
-                Player.sexe = input("Veuillez entrer son sexe(F/M) : ")
+                print(f"{upper_sexe} n'est pas pas une valeur valide, veuillez entrer F pour féminin et M pour masculin")
             else:
-                break"""            
-        return(player.firstname, player.name, player.date_of_birth.date(), player.sexe)
+                break"""
 
-    def make_a_team_pool(self):
+        return(player.firstname, player.name, player.sexe,player.date_of_birth.date())
+
+    def make_a_tournament_team(self):
         """Add players until players list = 8, return the list of players."""
         #while len([self.players]) < 2:  
         pool = 0
         while pool < 8:  
             pool = pool + 1
             player = self.add_a_player()
-            self.players.append([player])
+            self.players.append(player)
         """for p in self.players:
             print(p)
             print(p.name, p.firstname, p.date_of_birth, p.sexe)"""
@@ -100,25 +107,59 @@ class Controller:
             self.tournament.numbers_of_turns = 4
             print(f"Le nombre de tours est incorrect, utilisation de la valeur par défaut : {self.tournament.numbers_of_turns} ")
         tournament_infos.append(self.tournament.numbers_of_turns)
-        team = self.make_a_team_pool()
+        team = self.make_a_tournament_team()
         tournament_infos.append(team)
         return tournament_infos
 
-    def make_pair_of_players(self):
-        pairs_of_players = []
-        tournament = self.create_a_tournament()
-        tournaments_players = tournament[3]
-        print(f"voici la liste de nos joueurs :{tournaments_players}")
-        
-        for player in tournaments_players:
-            p = random.choice(player)
-            pairs_of_players.append(p)
-            print(f"ce joueur vient d'etre ajouté au tableau des paires{pairs_of_players}")
-        """    tournaments_players.remove(p)
-            print(f"Voici la nouvelle liste de joueurs avec le dernier joueur supprimé{tournaments_players}")"""
-
-
+    def make_players_pairs(self):
+        """Make teams of two, return the list of pairs."""
+        tournaments_players = self.players
+        number_of_players = len(tournaments_players)
+        number_of_teams = 4
+        while number_of_players > 0 and number_of_teams > 0:
+            # while there is players to put in teams and teams to create, return a list of random players
+            self.team_of_players = random.sample(tournaments_players, number_of_players)
+            # then decrement the number of teams
+            number_of_teams -= 1
+        # each pair of player in a variable
+        first_team = self.team_of_players[0:2]
+        second_team = self.team_of_players[2:4]
+        third_team = self.team_of_players[4:6]
+        fourth_team = self.team_of_players[6:8]
+        # the list of pairs of players
+        pairs_of_players = first_team, second_team, third_team, fourth_team
+        print(f"Les bibômes sont les suivants : \n équipe A :{first_team},\n équipe B :{second_team},\n équipe C :{third_team},\n équipe D :{fourth_team}")
+        return pairs_of_players
     
+    def input_results(self):
+        """Input the result of the match, return the player infos with the score inserted."""
+        score = Player().score
+        # create a variable to insert the player infos with score to each iteration without modify init variable
+        players_infos = []
+        for player in self.players:
+            name = player[1]
+            firstname = player[0]
+            # As long as the score is incorrect request the score again, then insert it in the player list
+            while True:  
+                try:        
+                    score = input(f"Veuillez entrer le score de joueur {firstname} {name} : ")
+                    score = int(score)
+                    # define the exact place where is inserted the score
+                    liste = (*player, score)
+                    break
+                except ValueError:
+                    print(f"({score}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ")    
+            players_infos.append(liste)
+        self.players = players_infos
+        return self.players
+
+
 controller = Controller()
 #tournament = controller.create_a_tournament()
-tournament = controller.make_pair_of_players()
+controller.create_a_tournament()
+#controller.make_a_tournament_team()
+#tournament = controller.select_random_players()
+#controller.make_pair_of_players()
+controller.make_players_pairs()
+controller.input_results()
+#controller.get_players_infos()

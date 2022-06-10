@@ -4,12 +4,13 @@
 class Player:
     '''Player.'''
 
-    def __init__(self, name="", firstname="", date_of_birth="", sexe=""):
+    def __init__(self, name="", firstname="", date_of_birth="", sexe="", score=0):
         '''A player has a name, a firstname, a date of birth and a sexe.'''
         self.name = name
         self.firstname = firstname
         self.date_of_birth = date_of_birth
         self.sexe = sexe
+        self.score = score
 
     # Getters
     @property
@@ -28,6 +29,10 @@ class Player:
     def sexe(self):
         return self._sexe
     
+    @property
+    def score(self):
+        return self._score
+
     # Setters
     @name.setter
     def name(self, name):
@@ -45,6 +50,9 @@ class Player:
     def sexe(self, sexe):
         self._sexe = sexe    
 
+    @score.setter
+    def score(self, score):
+        self._score = score
 
 
 
