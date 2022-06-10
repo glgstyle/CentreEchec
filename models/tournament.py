@@ -13,6 +13,7 @@ class Tournament:
         self.place = place
         self.comments = comment
         self.numbers_of_turns = numbers_of_turns
+    
 
     # Getters
     @property
