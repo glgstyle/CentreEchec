@@ -131,35 +131,49 @@ class Controller:
         print(f"Les bibômes sont les suivants : \n équipe A :{first_team},\n équipe B :{second_team},\n équipe C :{third_team},\n équipe D :{fourth_team}")
         return pairs_of_players
     
+    def start_a_match(self):
+        self.make_players_pairs()
+        self.input_results()
+
+    def start_a_tournament(self):
+        self.create_a_tournament()
+        while self.tournament.numbers_of_turns > 0:
+            self.tournament.numbers_of_turns = self.tournament.numbers_of_turns -1
+            self.start_a_match()
+
     def input_results(self):
         """Input the result of the match, return the player infos with the score inserted."""
-        score = Player().score
-        # create a variable to insert the player infos with score to each iteration without modify init variable
+        points = Player.points
+        # create a variable to insert the player infos with points get per match to each iteration without modify init variable
         players_infos = []
         for player in self.players:
             name = player[1]
             firstname = player[0]
             # As long as the score is incorrect request the score again, then insert it in the player list
             while True:  
+                points = input(f"Veuillez entrer le score de joueur {firstname} {name} : ")
                 try:        
-                    score = input(f"Veuillez entrer le score de joueur {firstname} {name} : ")
-                    score = int(score)
-                    # define the exact place where is inserted the score
-                    liste = (*player, score)
+                    points = int(points)
+                    # define the exact place where is inserted the score  
+                    liste = (*player, points)    
                     break
                 except ValueError:
-                    print(f"({score}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ")    
+                    print(f"({points}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ")  
             players_infos.append(liste)
         self.players = players_infos
         return self.players
+       
+       
 
-
+        print(f"match terminé, voici les score : {self.players}")
 controller = Controller()
 #tournament = controller.create_a_tournament()
-controller.create_a_tournament()
+#controller.create_a_tournament()
 #controller.make_a_tournament_team()
 #tournament = controller.select_random_players()
 #controller.make_pair_of_players()
-controller.make_players_pairs()
-controller.input_results()
+#controller.make_players_pairs()
+#controller.input_results()
 #controller.get_players_infos()
+#controller.start_a_match()
+controller.start_a_tournament()
