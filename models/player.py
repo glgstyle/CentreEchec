@@ -61,5 +61,3 @@ class Player:
     @score.setter
     def points(self, points):
         self._points = points
-
-

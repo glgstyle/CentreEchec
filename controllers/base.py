@@ -161,11 +161,9 @@ class Controller:
                     print(f"({points}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ")  
             players_infos.append(liste)
         self.players = players_infos
+        print(f"match terminé, voici les score : {self.players}")
         return self.players
        
-       
-
-        print(f"match terminé, voici les score : {self.players}")
 controller = Controller()
 #tournament = controller.create_a_tournament()
 #controller.create_a_tournament()
