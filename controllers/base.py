@@ -2,12 +2,14 @@
 from os import name
 from time import strptime
 from typing import List
+from datetime import datetime
+import random
 
 from models.player import Player
 #from views.base import View
 from models.tournament import Tournament
-from datetime import datetime
-import random
+from models.match import Match
+
 
 class Controller:
     def __init__(self):
@@ -16,6 +18,7 @@ class Controller:
         self.players = []
         self.tournament = Tournament
         self.team_of_players = 0
+        self.match = Match
         #self.results = []
         
         #view
@@ -127,23 +130,46 @@ class Controller:
         third_team = self.team_of_players[4:6]
         fourth_team = self.team_of_players[6:8]
         # the list of pairs of players
+        #pairs_of_players = Match.pair_of_players
         pairs_of_players = first_team, second_team, third_team, fourth_team
         print(f"Les bibômes sont les suivants : \n équipe A :{first_team},\n équipe B :{second_team},\n équipe C :{third_team},\n équipe D :{fourth_team}")
         return pairs_of_players
     
     def start_a_match(self):
-        self.make_players_pairs()
-        self.input_results()
+        match_infos = []
+        pair = self.make_players_pairs()
+        result = self.input_results()
+        #print(self.match.pair_of_players)
+        match_infos.append(pair)
+        match_infos.append(result)
+        print(f"Match infos : {match_infos}")
+    
+    def name_a_round(self):
+        """Copy the number of turns in tournament to get an iteration of round, then return the name of rounds."""
+        round_number = self.tournament.numbers_of_turns
+        round_name = []
+        for i in range(round_number):
+            round_name.append(f"Round {i+1}")
+        return round_name
+
+    def start_a_round(self):
+        """Start to give a name to the round then until ther is no more round, start a new match."""
+        round = self.name_a_round()
+        while self.tournament.numbers_of_turns > 0:
+            self.tournament.numbers_of_turns = self.tournament.numbers_of_turns -1
+        for i in round:
+            print(i)
+            self.start_a_match()
+
 
     def start_a_tournament(self):
         self.create_a_tournament()
-        while self.tournament.numbers_of_turns > 0:
-            self.tournament.numbers_of_turns = self.tournament.numbers_of_turns -1
-            self.start_a_match()
+        self.start_a_round()
 
     def input_results(self):
         """Input the result of the match, return the player infos with the score inserted."""
         points = Player.points
+        score = Player.score
         # create a variable to insert the player infos with points get per match to each iteration without modify init variable
         players_infos = []
         for player in self.players:
@@ -153,17 +179,18 @@ class Controller:
             while True:  
                 points = input(f"Veuillez entrer le score de joueur {firstname} {name} : ")
                 try:        
-                    points = int(points)
-                    # define the exact place where is inserted the score  
+                    points = float(points)
+                    # define the exact place where are inserted the points  
                     liste = (*player, points)    
                     break
                 except ValueError:
                     print(f"({points}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ")  
             players_infos.append(liste)
         self.players = players_infos
-        print(f"match terminé, voici les score : {self.players}")
+        print(f"match terminé, voici les scores : {self.players}")
         return self.players
        
+
 controller = Controller()
 #tournament = controller.create_a_tournament()
 #controller.create_a_tournament()
@@ -175,3 +202,4 @@ controller = Controller()
 #controller.get_players_infos()
 #controller.start_a_match()
 controller.start_a_tournament()
+#controller.update_the_score()

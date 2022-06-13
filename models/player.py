@@ -37,6 +37,7 @@ class Player:
     @property
     def points(self):
         return self._points
+        
     # Setters
     @name.setter
     def name(self, name):
