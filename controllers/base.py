@@ -169,7 +169,7 @@ class Controller:
     def input_results(self):
         """Input the result of the match, return the player infos with the score inserted."""
         points = Player.points
-        score = Player.score
+        #score = Player.score
         # create a variable to insert the player infos with points get per match to each iteration without modify init variable
         players_infos = []
         for player in self.players:
@@ -190,6 +190,30 @@ class Controller:
         print(f"match terminé, voici les scores : {self.players}")
         return self.players
        
+    def update_the_score(self):
+        """Calculate players score after tournament, remove each match score from player_list and replace by players infos + final score"""
+        # create a variable to insert the player infos with final score
+        players_infos = []
+        score = Player.score
+        print("****** Voici les scores du tournoi : ******")
+        #For each player in the list, take the firstname, the name and the match_results in player list
+        for player in self.players:
+            name = player[1]
+            firstname = player[0]
+            matchs_results = player[4:]
+            score = 0
+            #for each match result add the points to the final score 
+            for i in matchs_results:
+                score += i
+                #copy the infos of list players before the match points
+                liste = (*player[:4],score)
+            #display the firstname and name with the total score
+            players_infos.append(liste)
+            print(f"{firstname} {name} :{score} points")
+            #liste = (*player, score)
+        self.players = players_infos
+        print(self.players)
+
 
 controller = Controller()
 #tournament = controller.create_a_tournament()
@@ -202,4 +226,4 @@ controller = Controller()
 #controller.get_players_infos()
 #controller.start_a_match()
 controller.start_a_tournament()
-#controller.update_the_score()
+controller.update_the_score()
