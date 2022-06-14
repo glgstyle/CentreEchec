@@ -9,6 +9,7 @@ from models.player import Player
 #from views.base import View
 from models.tournament import Tournament
 from models.match import Match
+from models.round import Round
 
 
 class Controller:
@@ -19,6 +20,7 @@ class Controller:
         self.tournament = Tournament
         self.team_of_players = 0
         self.match = Match
+        self.round = []
         #self.results = []
         
         #view
@@ -136,14 +138,33 @@ class Controller:
         return pairs_of_players
     
     def start_a_match(self):
+        """Create a list to insert the match informations, create a pair of players, when the match ended the ended time is displayed, input the players results in the list, insert the pair of players and their reuslts in match infos"""
         match_infos = []
         pair = self.make_players_pairs()
+        self.is_the_match_finished()
         result = self.input_results()
-        #print(self.match.pair_of_players)
         match_infos.append(pair)
         match_infos.append(result)
         print(f"Match infos : {match_infos}")
+        return match_infos
+
+    def is_the_match_finished(self):
+        input("Appuyez sur entrée lorsque le match est terminé.")
+        self.end_time()
     
+    def start_time(self):
+        """Define the time when start the match."""
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        print(f"Heure de démarrage : {current_time}")
+        return current_time
+    
+    def end_time(self):
+        """Define the time when end the match."""
+        now = datetime.now()
+        actual_time = now.strftime("%H:%M:%S")
+        print(f"Heure de fin : {actual_time}")
+
     def name_a_round(self):
         """Copy the number of turns in tournament to get an iteration of round, then return the name of rounds."""
         round_number = self.tournament.numbers_of_turns
@@ -154,15 +175,24 @@ class Controller:
 
     def start_a_round(self):
         """Start to give a name to the round then until ther is no more round, start a new match."""
-        round = self.name_a_round()
+        round_name = self.name_a_round()
         while self.tournament.numbers_of_turns > 0:
             self.tournament.numbers_of_turns = self.tournament.numbers_of_turns -1
-        for i in round:
+        print(f"Ce qui est dans round{round_name}")
+        for i in round_name:
             print(i)
-            self.start_a_match()
+            input("Appuyez sur entrée pour démarrer le match")
+            start_time = self.start_time()
+            match = self.start_a_match()
+            self.round.append(i)
+            self.round.append(start_time)
+            self.round.append(match)
+        #break
+        print(f"Voici les infos du self.round{self.round}")
 
-
+            
     def start_a_tournament(self):
+        """Starting processus of tournament, create a tournament with players... and a round with them."""
         self.create_a_tournament()
         self.start_a_round()
 
