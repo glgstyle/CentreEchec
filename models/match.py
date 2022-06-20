@@ -3,7 +3,7 @@
 
 class Match:
     '''A match has a pair of players and a result for each player'''
-    def __init__(self, pair_of_players, player_match_result):
+    def __init__(self, pair_of_players=[], player_match_result=0):
         self.pair_of_players = pair_of_players
         self.player_match_result = player_match_result
 
