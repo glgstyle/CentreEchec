@@ -96,14 +96,14 @@ class Controller:
     def start_time(self):
         """Define the time when start the match."""
         now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
+        current_time = now.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Heure de démarrage : {current_time}")
         return current_time
     
     def end_time(self):
         """Define the time when end the match."""
         now = datetime.now()
-        actual_time = now.strftime("%H:%M:%S")
+        actual_time = now.strftime("%d/%m/%Y %H:%M:%S")
         print(f"Heure de fin : {actual_time}")
         return actual_time
 
