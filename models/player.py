@@ -64,6 +64,14 @@ class Player:
     def points(self, points):
         self._points = points
 
+    #retourne au moins le firstname et non pas player.object
+    def __str__(self):
+        return str(self.firstname)
+
+    #retourne le player si il est dans une liste
+    def __repr__(self):
+        return self.__str__()
+
     def add_a_player():
         player = Player()
         # As long as the name is incorrect request the name again, then insert it in the player list
@@ -113,3 +121,5 @@ class Player:
 
         #return(player.firstname, player.name, player.sexe,player.date_of_birth.date())
         return player
+
+    

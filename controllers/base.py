@@ -9,6 +9,8 @@ from models.player import Player
 from models.tournament import Tournament
 from models.match import Match
 from models.round import Round
+import views
+from views.base import View
 
 
 class Controller:
@@ -80,7 +82,8 @@ class Controller:
         """Record the players in a match and return them"""
         players_in_match = []
         for player in self.players:
-            players_in_match.append([player.firstname , player.name, player.points])
+            #players_in_match.append([player.firstname , player.name, player.points])
+            players_in_match.append(player)
         return players_in_match
 
     def results_of_match(self):
@@ -117,23 +120,26 @@ class Controller:
 
     def start_a_round(self):
         """Start to give a name to the round then until there is no more round, start a new match."""
-        round_name = self.name_a_round()
-        while self.tournament.numbers_of_turns > 0:
-            self.tournament.numbers_of_turns = self.tournament.numbers_of_turns -1  
+        self.rounds = []
+        list_name_round = self.name_a_round()
+        """while self.tournament.numbers_of_turns > 0:
+            self.tournament.numbers_of_turns = self.tournament.numbers_of_turns -1  """
         #for each round, create pairs of players, append start, end time and players pairs with their score in a round 
-        for i in round_name:
+        for i in list_name_round:
+            round = Round()
+            round.name = i
             print(i)
             self.make_players_pairs()
             input("Appuyez sur entrée pour démarrer le match")
-            start_time = self.start_time()
-            self.round.append(i)
-            self.round.append(start_time)
-            end_time = self.is_the_match_finished()
-            self.round.append(end_time)
-            self.results_of_match()
-            self.round.append(self.match.pair_of_players)
-        print(f"**********Voici les infos des rounds{self.round}")
+            round.start_time = self.start_time()
+            round.end_time = self.is_the_match_finished()
+            round.results = self.results_of_match()
+            round.players = self.match.pair_of_players
+            self.rounds.append(round)
             
+        #print(f"**********Voici les infos des rounds{self.round}")
+        View.display_infos_rounds(self.rounds)   
+
     def start_a_tournament(self):
         """Starting processus of tournament, create a tournament with players... and a round with them."""
         self.create_a_tournament()

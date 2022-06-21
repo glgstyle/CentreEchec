@@ -3,6 +3,7 @@
 #from controllers import base
 from models import player
 from models.player import Player
+from models.round import Round
 
 class View:
     '''Chess game.'''
@@ -10,10 +11,12 @@ class View:
     def __init__(self):
         '''Define the view.'''
 
-    def prompt_for_player(self):
-        '''Ask for name.'''
-        name = player.__name__(input("Veuillez le nom de famille du joueur"))
-        #name = input("Veuillez le nom de famille du joueur")
-        if not name: #or firstname or date_of_birth or sexe :
-            return None
-        return name # firstname, date_of_birth, sexe
+    def display_infos_rounds(rounds):
+        #print(round.start_time)
+        print(f"**********Voici les infos des rounds{rounds}")
+        for round in rounds:
+            print(f"Dans le round : {round.name}")
+            print(f"qui s'est joué le {round.start_time}")
+            print(f"et s'est terminé le {round.end_time}")
+            print(f"avec les joueurs suivants : {round.players}")
+            print(f"Voici les résultats : {round.results}")
