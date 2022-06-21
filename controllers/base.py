@@ -171,6 +171,4 @@ class Controller:
             print(f"{player.firstname} {player.name} :{player.score} points")
 
 
-controller = Controller()
-controller.start_a_tournament()
-controller.update_the_score()
+

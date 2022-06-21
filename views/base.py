@@ -1,6 +1,6 @@
 '''Base view'''
 
-from controllers import base
+#from controllers import base
 from models import player
 from models.player import Player
 
