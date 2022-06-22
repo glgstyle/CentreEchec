@@ -5,7 +5,7 @@ from datetime import datetime
 class Player:
     '''Player.'''
 
-    def __init__(self, name="", firstname="", date_of_birth="", sexe="", points=[], score=0):
+    def __init__(self, name="", firstname="", date_of_birth="", sexe="", points=[], score=0, rank=0):
         '''A player has a name, a firstname, a date of birth and a sexe.'''
         self.name = name
         self.firstname = firstname
@@ -13,6 +13,7 @@ class Player:
         self.sexe = sexe
         self.score = score
         self.points = points
+        self.rank = rank
 
     # Getters
     @property
@@ -39,6 +40,10 @@ class Player:
     def points(self):
         return self._points
         
+    @property
+    def rank(self):
+        return self._rank
+
     # Setters
     @name.setter
     def name(self, name):
@@ -63,6 +68,10 @@ class Player:
     @points.setter
     def points(self, points):
         self._points = points
+    
+    @rank.setter
+    def rank(self, rank):
+        self._rank = rank
 
     #retourne au moins le firstname et non pas player.object
     def __str__(self):
@@ -104,12 +113,10 @@ class Player:
             except ValueError:
                 print("La date n'est pas au bon format, Veuillez recommencer")
                 player.date_of_birth = input("Veuillez saisir la date de naissance(jj/mm/aaaa) :")
-        #player.sexe = input("Veuillez entrer son sexe(F/M) : ")
         #Check if value is F or M
         while True:
             player.sexe = input("Veuillez entrer son sexe(F/M) : ")
             upper_sexe = player.sexe.upper()
-            #print(upper_sexe)
             try:#ni F et ni M c'est pour ca que c'est and et non pas or
                 if not upper_sexe == "F" and not upper_sexe == "M":
                     print(f"voici ce qui n'est pas bon : {upper_sexe}")
@@ -118,8 +125,14 @@ class Player:
                 print(f"{upper_sexe} n'est pas pas une valeur valide, veuillez entrer F pour féminin et M pour masculin")
             else:
                 break
-
-        #return(player.firstname, player.name, player.sexe,player.date_of_birth.date())
+        #Ckeck if rank is a int 
+        while True:
+            player.rank = input("Veuillez saisir le classement du joueur :")
+            try:
+                player.rank == int(player.rank)
+                break
+            except ValueError:
+                print(f"{player.rank} n'est pas un classement valide")
         return player
 
     

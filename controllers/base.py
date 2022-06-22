@@ -169,5 +169,3 @@ class Controller:
             #display the player with his score
             print(f"{player.firstname} {player.name} :{player.score} points")
 
-
-
