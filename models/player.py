@@ -75,7 +75,7 @@ class Player:
 
     #retourne au moins le firstname et non pas player.object
     def __str__(self):
-        return str(self.firstname)
+        return str(self.firstname + " " +self.name)
 
     #retourne le player si il est dans une liste
     def __repr__(self):

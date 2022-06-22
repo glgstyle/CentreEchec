@@ -55,8 +55,14 @@ class Controller:
         for player in team:
             print(player.name, player.firstname)
 
-    def make_players_pairs(self):
-        """Make teams of two, return the list of players."""
+    def sort_players_by_rank(self):
+        """Print the list of players sorted by rank, return the sorted list"""
+        sorted_by_rank = sorted(self.players, key=lambda player: player.rank)
+        print(sorted_by_rank)
+        return sorted_by_rank
+
+    """def make_players_pairs(self):
+        #Make teams of two, return the list of players.
         # while there is players to put in teams and teams to create, return a list of random players
         random.shuffle(self.players)
         # each pair of player in a variable
@@ -74,8 +80,31 @@ class Controller:
         self.display_team(self.list_of_teams[2])
         print(f"\nEquipe D :")
         self.display_team(self.list_of_teams[3])
-        return self.players
-    
+        return self.players"""
+    def make_players_pairs(self):
+        """Divide sorted players in two half, the best player of upper half play against the best player of lower half etc..."""
+        sorted_players = self.sort_players_by_rank()
+        half = len(sorted_players) / 2
+        half = int(half)
+        upper_half = sorted_players[0:half] 
+        lower_half = sorted_players[half:len(sorted_players)]
+        print(upper_half)
+        print(lower_half)
+        first_team = upper_half[0], lower_half[0]
+        second_team = upper_half[1], lower_half[1]
+        third_team = upper_half[2], lower_half[2]
+        fourth_team = upper_half[3], lower_half[3]
+        # the list of pairs of players
+        self.list_of_teams = [first_team , second_team , third_team , fourth_team]
+        print(f"Les bibômes sont les suivants :\n\nEquipe A :")
+        self.display_team(self.list_of_teams[0])
+        print(f"\nEquipe B :")
+        self.display_team(self.list_of_teams[1])
+        print(f"\nEquipe C :")
+        self.display_team(self.list_of_teams[2])
+        print(f"\nEquipe D :")
+        self.display_team(self.list_of_teams[3])
+        
     def match_record(self):
         """Record the players in a match and return them"""
         players_in_match = []
