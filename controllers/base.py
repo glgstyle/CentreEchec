@@ -5,11 +5,9 @@ from typing import List
 from datetime import datetime
 import random
 from models.player import Player
-#from views.base import View
 from models.tournament import Tournament
 from models.match import Match
 from models.round import Round
-import views
 from views.base import View
 
 
@@ -112,9 +110,8 @@ class Controller:
 
     def name_a_round(self):
         """Copy the number of turns in tournament to get an iteration of round, then return the name of rounds."""
-        round_number = self.tournament.numbers_of_turns
         round_name = []
-        for i in range(round_number):
+        for i in range(self.tournament.numbers_of_turns):
             round_name.append(f"Round {i+1}")
         return round_name
 
@@ -122,8 +119,6 @@ class Controller:
         """Start to give a name to the round then until there is no more round, start a new match."""
         self.rounds = []
         list_name_round = self.name_a_round()
-        """while self.tournament.numbers_of_turns > 0:
-            self.tournament.numbers_of_turns = self.tournament.numbers_of_turns -1  """
         #for each round, create pairs of players, append start, end time and players pairs with their score in a round 
         for i in list_name_round:
             round = Round()
@@ -136,8 +131,6 @@ class Controller:
             round.results = self.results_of_match()
             round.players = self.match.pair_of_players
             self.rounds.append(round)
-            
-        #print(f"**********Voici les infos des rounds{self.round}")
         View.display_infos_rounds(self.rounds)   
 
     def start_a_tournament(self):
