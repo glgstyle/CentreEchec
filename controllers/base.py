@@ -9,6 +9,7 @@ from models.tournament import Tournament
 from models.match import Match
 from models.round import Round
 from views.base import View
+from operator import itemgetter, attrgetter
 
 
 class Controller:
@@ -83,11 +84,11 @@ class Controller:
         return self.players"""
     def make_players_pairs(self):
         """Divide sorted players in two half, the best player of upper half play against the best player of lower half etc..."""
-        sorted_players = self.sort_players_by_rank()
-        half = len(sorted_players) / 2
+        sorted_players_by_rank = self.sort_players_by_rank()
+        half = len(sorted_players_by_rank) / 2
         half = int(half)
-        upper_half = sorted_players[0:half] 
-        lower_half = sorted_players[half:len(sorted_players)]
+        upper_half = sorted_players_by_rank[0:half] 
+        lower_half = sorted_players_by_rank[half:len(sorted_players_by_rank)]
         print(upper_half)
         print(lower_half)
         first_team = upper_half[0], lower_half[0]
@@ -104,7 +105,13 @@ class Controller:
         self.display_team(self.list_of_teams[2])
         print(f"\nEquipe D :")
         self.display_team(self.list_of_teams[3])
-        
+
+    def sort_players_by_score_then_rank(self):
+        """Sorted the list of players by score first and if score is equal, sort them by rank"""
+        sorted_by_score_then_rank = sorted(self.players, key=lambda x: (-x.score, x.rank))
+        print(sorted_by_score_then_rank)
+        return sorted_by_score_then_rank
+
     def match_record(self):
         """Record the players in a match and return them"""
         players_in_match = []
@@ -116,6 +123,9 @@ class Controller:
     def results_of_match(self):
         """Input the players results in the list, insert the pair of players and their reuslts in match """
         self.match.player_match_result = self.input_results()
+        """for player in self.match.player_match_result:
+            print(f"//les points {player.points}")
+        print(f"//////player match result{self.match.player_match_result}")"""
         self.match.pair_of_players = self.match_record()
 
     def is_the_match_finished(self):
@@ -149,16 +159,33 @@ class Controller:
         self.rounds = []
         list_name_round = self.name_a_round()
         #for each round, create pairs of players, append start, end time and players pairs with their score in a round 
-        for i in list_name_round:
+        for i in list_name_round[0:1]:
             round = Round()
             round.name = i
             print(i)
+            #***
             self.make_players_pairs()
             input("Appuyez sur entrée pour démarrer le match")
             round.start_time = self.start_time()
             round.end_time = self.is_the_match_finished()
             round.results = self.results_of_match()
             round.players = self.match.pair_of_players
+            self.update_the_score()
+            self.rounds.append(round)
+        for i in list_name_round[1:len(list_name_round)]:
+            round = Round()
+            round.name = i
+            print(i)
+            #***
+            #self.make_players_pairs()
+            #self.sort_players_by_points()
+            self.sort_players_by_score_then_rank()
+            input("Appuyez sur entrée pour démarrer le match")
+            round.start_time = self.start_time()
+            round.end_time = self.is_the_match_finished()
+            round.results = self.results_of_match()
+            round.players = self.match.pair_of_players
+            self.update_the_score()
             self.rounds.append(round)
         View.display_infos_rounds(self.rounds)   
 
@@ -187,8 +214,8 @@ class Controller:
         return self.players
        
     def update_the_score(self):
-        """Calculate players score after tournament by doing the sum of player points"""
-        print("****** Voici les scores du tournoi : ******")
+        """Calculate players score by doing the sum of player points"""
+        print("****** Voici les scores des joueurs : ******")
         #For each player in the list, take the firstname, the name and the match_results in player list
         for player in self.players:
             player.score = 0
