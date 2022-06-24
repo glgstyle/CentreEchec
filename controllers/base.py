@@ -106,10 +106,28 @@ class Controller:
         print(f"\nEquipe D :")
         self.display_team(self.list_of_teams[3])
 
+    def make_players_pairs_by_score_or_rank(self):
+        """Make players pairs by score or rank after the first round"""
+        sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
+        team1 = sorted_by_score_or_rank[0:2]
+        team2 = sorted_by_score_or_rank[2:4]
+        team3 = sorted_by_score_or_rank[4:6]
+        team4 = sorted_by_score_or_rank[6:8]
+        # the list of pairs of players
+        self.teams = [team1 , team2 , team3 , team4]
+        print(f"Les bibômes sont les suivants :\n\nEquipe A :")
+        self.display_team(self.teams[0])
+        print(f"\nEquipe B :")
+        self.display_team(self.teams[1])
+        print(f"\nEquipe C :")
+        self.display_team(self.teams[2])
+        print(f"\nEquipe D :")
+        self.display_team(self.teams[3])
+
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal, sort them by rank"""
+        #-x.score is the reverse order because we need the most important score first and the first of rank, second after etc....
         sorted_by_score_then_rank = sorted(self.players, key=lambda x: (-x.score, x.rank))
-        print(sorted_by_score_then_rank)
         return sorted_by_score_then_rank
 
     def match_record(self):
@@ -177,9 +195,8 @@ class Controller:
             round.name = i
             print(i)
             #***
-            #self.make_players_pairs()
-            #self.sort_players_by_points()
-            self.sort_players_by_score_then_rank()
+            #self.sort_players_by_score_then_rank()
+            self.make_players_pairs_by_score_or_rank()
             input("Appuyez sur entrée pour démarrer le match")
             round.start_time = self.start_time()
             round.end_time = self.is_the_match_finished()
