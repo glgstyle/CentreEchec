@@ -62,46 +62,52 @@ class Controller:
         print(f"\nEquipe D :")
         View.display_team(self.list_of_teams[3])
         return self.list_of_teams
-                    
-    def make_players_pairs_by_score_or_rank(self):
-        """Make players pairs by score or rank after the first round"""
-        sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
-        team1 = sorted_by_score_or_rank[0:2]
-        team2 = sorted_by_score_or_rank[2:4]
-        team3 = sorted_by_score_or_rank[4:6]
-        team4 = sorted_by_score_or_rank[6:8]
-        # the list of pairs of players
-        self.teams = [team1 , team2 , team3 , team4]
+    
+    def find_all_players_in_rounds(self):
+        """Look for all teams of players by round and list them together"""
+        players_in_rounds=[]
         for round in self.rounds:
-            print(f"ici------------{round.players}")
-            for pair in round.players:
-                    while True:
-                        try:
-                            pair in self.teams or reversed(pair) in self.teams or pair in self.list_of_teams or reversed(pair) in self.list_of_teams
-                            #print ("The original list is : " + str(sorted_by_score_or_rank)) 
-                            for i in range(len(sorted_by_score_or_rank)-1, 0, -1): 
-                                j = random.randint(0, i + 1) 
-                                sorted_by_score_or_rank[i], sorted_by_score_or_rank[j] = sorted_by_score_or_rank[j], sorted_by_score_or_rank[i] 
-                            #print ("The shuffled list is : " +  str(sorted_by_score_or_rank))
-                        except: 
-                            #print("pas de doublon")
-                            team1 = sorted_by_score_or_rank[0:2]
-                            team2 = sorted_by_score_or_rank[2:4]
-                            team3 = sorted_by_score_or_rank[4:6]
-                            team4 = sorted_by_score_or_rank[6:8]
-                            self.teams = [team1, team2, team3, team4]
-                            break
-        print(f"self.teams : {self.teams}")
-        print(f"self.list_of_teams : {self.list_of_teams}")
+            #print(f"les joueurs du round : {round.players}")
+            players_in_rounds.append(round.players)
+        #print(f"players in rounds : {players_in_rounds}")  
+        return players_in_rounds
+
+    def make_players_pairs_by_score_or_rank(self):
+        """Make players pairs by score or rank after the first round by checking if they have already played together"""
+        sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
+        players_in_rounds = self.find_all_players_in_rounds()
+        players= sorted_by_score_or_rank
+        #print(f"players : {players}")
+        teams=[]
+        #While there is players, remove the first and the second player of the list
+        while(len(players)>0):
+            a=players.pop(0)
+            b=players.pop(0)
+            #for lists of teams in rounds and for team in list of teams, check if they have already play together
+            for competitors in players_in_rounds:
+                for competitor in competitors:
+                    #if they have play together, put back b in list and take the first of the list as b, then rearrange the list as it was initially(put c in first index)
+                    if(competitor[0]==a and competitor[1]==b or competitor[0]==b and competitor[1]==a):
+                        #print(a,b, "------deja joué ensemble")
+                        players.append(b)
+                        #print(f"------on remet {b} dans liste",players)
+                        b=players.pop(0)
+                        #print(f"-----on prend {b} le premier de ",players )
+                        if len(players) > 0:
+                            c=players.pop()
+                            players.insert(0, c)
+                        #print("------on trie de nouveau ",players)  
+            print("team", a,b)
+            teams.append([a,b])
         print(f"Les bibômes sont les suivants :\n\nEquipe A :")
-        View.display_team(self.teams[0])
+        View.display_team(teams[0])
         print(f"\nEquipe B :")
-        View.display_team(self.teams[1])
+        View.display_team(teams[1])
         print(f"\nEquipe C :")
-        View.display_team(self.teams[2])
+        View.display_team(teams[2])
         print(f"\nEquipe D :")
-        View.display_team(self.teams[3])
-        return self.teams
+        View.display_team(teams[3])
+        return teams
 
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal, sort them by rank"""
