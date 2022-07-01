@@ -1,0 +1,76 @@
+{
+    "serialized_players": {
+        "1": {
+            "name": "marvin",
+            "firstname": "gaylord",
+            "date_of_birth": "{TinyDate}:1985-12-23T00:00:00",
+            "sexe": "m",
+            "score": 0,
+            "points": [],
+            "rank": "5"
+        },
+        "2": {
+            "name": "lein",
+            "firstname": "karine",
+            "date_of_birth": "{TinyDate}:1996-04-25T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "7"
+        },
+        "3": {
+            "name": "jouik",
+            "firstname": "melanie",
+            "date_of_birth": "{TinyDate}:1976-05-06T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "3"
+        },
+        "4": {
+            "name": "boutraingain",
+            "firstname": "alexandre ",
+            "date_of_birth": "{TinyDate}:1988-09-17T00:00:00",
+            "sexe": "m",
+            "score": 0,
+            "points": [],
+            "rank": "1"
+        },
+        "5": {
+            "name": "boutraingain",
+            "firstname": "william",
+            "date_of_birth": "{TinyDate}:2019-11-18T00:00:00",
+            "sexe": "m",
+            "score": 0,
+            "points": [],
+            "rank": "2"
+        },
+        "6": {
+            "name": "boutraingain",
+            "firstname": "azylis",
+            "date_of_birth": "{TinyDate}:2021-04-21T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "8"
+        },
+        "7": {
+            "name": "le guenno",
+            "firstname": "gwenaelle",
+            "date_of_birth": "{TinyDate}:1985-07-15T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "4"
+        },
+        "8": {
+            "name": "carvalho",
+            "firstname": "jessica",
+            "date_of_birth": "{TinyDate}:1979-07-23T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "6"
+        }
+    }
+}

@@ -1,9 +1,15 @@
 '''The player.'''
 
 from datetime import datetime
+from tinydb import JSONStorage, Storage, TinyDB, Query
+from tinydb_serialization import SerializationMiddleware
+from tinydb_serialization.serializers import DateTimeSerializer
+#import json
+
 
 class Player:
     '''Player.'''
+
 
     def __init__(self, name="", firstname="", date_of_birth="", sexe="", points=[], score=0, rank=0):
         '''A player has a name, a firstname, a date of birth and a sexe.'''
@@ -80,6 +86,21 @@ class Player:
     #retourne le player si il est dans une liste
     def __repr__(self):
         return self.__str__()
+
+    def clean_table():
+        serialization = SerializationMiddleware(JSONStorage)
+        db = TinyDB('db.json', storage=serialization, indent=4)
+        players_table = db.table('serialized_players') 
+        players_table.truncate()	# clear the table first
+
+    def insert_player_in_database(self):
+        serialization = SerializationMiddleware(JSONStorage)
+        serialization.register_serializer(DateTimeSerializer(),'TinyDate')
+        db = TinyDB('db.json', storage=serialization, indent=4)
+        players_table = db.table('serialized_players') 
+        players_table.insert({'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
+    
+    #utiliser un uid -> id unique pour stocker chaque entrée
 
     def add_a_player():
         player = Player()

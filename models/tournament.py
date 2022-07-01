@@ -1,7 +1,10 @@
 ''''Define the tournament.'''
 
 
-from models.player import Player
+#from models.player import Player
+from tinydb import JSONStorage, Storage, TinyDB, Query
+from tinydb_serialization import SerializationMiddleware
+from tinydb_serialization.serializers import DateTimeSerializer
 
 class Tournament:
     """A tournament"""
@@ -11,7 +14,7 @@ class Tournament:
         self.name = name
         self.date = date
         self.place = place
-        self.comments = comment
+        self.comment = comment
         self.numbers_of_turns = numbers_of_turns
     
 
@@ -57,23 +60,21 @@ class Tournament:
     def numbers_of_turns(self, numbers_of_turns):
         self._numbers_of_turns = numbers_of_turns   
 
-    """def create_a_tournament(self):
-        tournament = []
-        print("--------Création d'un tournoi--------")
-        self.name = input("Veuillez créer un nom pour ce tournoi : ")
-        tournament.append(self.name)
-        self.date = input("Veuillez saisir la date du tournoi :")
-        tournament.append(self.date)
-        self.place = input("Veuillez saisir le lieu du tournoi :")
-        tournament.append(self.place)
-        self._numbers_of_turns = input("Veuillez saisir le nombre de tours (par défaut 4) ")
-        players = Player.make_a_team_pool()
-        tournament.append(players)
-        
-        print(tournament)"""
+    def clean_table():
+        serialization = SerializationMiddleware(JSONStorage)
+        db = TinyDB('db.json', storage=serialization, indent=4)
+        tournament_table = db.table('tournament') 
+        tournament_table.truncate()	# clear the table first
 
+    def insert_tournament_in_database(self):
+        data = {'name' :self.name, 'place' :self.place, 'comment' :self.comment, 'number_of_turns' :self.numbers_of_turns}
+        serialization = SerializationMiddleware(JSONStorage)
+        serialization.register_serializer(DateTimeSerializer(),'TinyDate')
+        db = TinyDB('db.json', storage=serialization, indent=4)
+        tournament_table = db.table('tournament') 
+        #tournament_table.insert({'name' :self.name, 'place' :self.place, 'comment' :self.comment, 'number_of_turns' :self.numbers_of_turns})
+        tournament_table.insert(data)
 
-#tournoi = Tournament().create_a_tournament()
 
 
 

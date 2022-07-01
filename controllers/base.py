@@ -1,17 +1,17 @@
 '''Define the Main Controller'''
-from os import name
-from time import strptime
-from typing import List
-from datetime import datetime
-import random
-from models import tournament
+#from os import name
+#from time import strptime
+#from typing import List
+#from datetime import datetime
+#import random
+#from models import tournament
 from models.player import Player
 from models.tournament import Tournament
 from models.match import Match
 from models.round import Round
 from views.base import View
-from operator import itemgetter, attrgetter
-
+#from operator import itemgetter, attrgetter
+#import json
 
 class Controller:
     def __init__(self):
@@ -24,16 +24,19 @@ class Controller:
 
     def make_a_tournament_team(self):
         """Add players until players list = 8, return the list of players."""
+        Player.clean_table()
         pool = 0
         while pool < 8:  
             pool = pool + 1
             player = Player.add_a_player()
             self.players.append(player)
+            Player.insert_player_in_database(player)
     
     def create_a_tournament(self):
         """Set up a new tournament"""
         View.display_create_a_tournament(self.tournament)
         self.make_a_tournament_team()
+        Tournament.insert_tournament_in_database(self.tournament)
 
     def sort_players_by_rank(self):
         """Sort the list of players sorted by rank, return the sorted list"""
