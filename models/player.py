@@ -89,14 +89,14 @@ class Player:
 
     def clean_table():
         serialization = SerializationMiddleware(JSONStorage)
-        db = TinyDB('db.json', storage=serialization, indent=4)
+        db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
         players_table.truncate()	# clear the table first
 
     def insert_player_in_database(self):
         serialization = SerializationMiddleware(JSONStorage)
         serialization.register_serializer(DateTimeSerializer(),'TinyDate')
-        db = TinyDB('db.json', storage=serialization, indent=4)
+        db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
         players_table.insert({'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
     

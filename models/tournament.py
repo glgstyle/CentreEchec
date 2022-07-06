@@ -5,6 +5,7 @@
 from tinydb import JSONStorage, Storage, TinyDB, Query
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
+import json
 
 class Tournament:
     """A tournament"""
@@ -58,24 +59,35 @@ class Tournament:
 
     @numbers_of_turns.setter
     def numbers_of_turns(self, numbers_of_turns):
-        self._numbers_of_turns = numbers_of_turns   
+        self._numbers_of_turns = numbers_of_turns  
+
+    def __str__(self):
+        return json.dumps(dict(self), ensure_ascii=False)
+
+    def __repr__(self):
+        return self.__str__() 
 
     def clean_table():
         serialization = SerializationMiddleware(JSONStorage)
-        db = TinyDB('db.json', storage=serialization, indent=4)
+        db = TinyDB('Database/tournamentDb.json', storage=serialization, indent=4)
         tournament_table = db.table('tournament') 
         tournament_table.truncate()	# clear the table first
 
+    """def toJSON(self):
+        data = {'name' :self.name, 'date' :self.date, 'place' :self.place, 'comment' :self.comment, 'number_of_turns' :self.numbers_of_turns}
+        return json.loads(json.dumps(data, default=lambda o: o.__dict__, sort_keys=True, indent=4))"""
+
     def insert_tournament_in_database(self):
-        data = {'name' :self.name, 'place' :self.place, 'comment' :self.comment, 'number_of_turns' :self.numbers_of_turns}
+        data = {'name' :self.name, 'date' :self.date, 'place' :self.place, 'comment' :self.comment, 'number_of_turns' :self.numbers_of_turns}
         serialization = SerializationMiddleware(JSONStorage)
         serialization.register_serializer(DateTimeSerializer(),'TinyDate')
-        db = TinyDB('db.json', storage=serialization, indent=4)
+        db = TinyDB('Database/tournamentDb.json', storage=serialization, indent=4)
         tournament_table = db.table('tournament') 
-        #tournament_table.insert({'name' :self.name, 'place' :self.place, 'comment' :self.comment, 'number_of_turns' :self.numbers_of_turns})
         tournament_table.insert(data)
+        #tournament_table.insert(json.loads(json.dumps(data, default=lambda o: o.__dict__, sort_keys=True, indent=4)))
 
 
 
-
-
+#Tournament.clean_table()
+"""tour=Tournament("hhh","")
+tour.insert_tournament_in_database()"""

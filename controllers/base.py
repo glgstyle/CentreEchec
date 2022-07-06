@@ -18,7 +18,7 @@ class Controller:
         '''Has a list of Players and a view.'''
         #models
         self.players = []
-        self.tournament = Tournament
+        self.tournament = Tournament()
         self.match = Match()
         #self.round = []
 
@@ -36,7 +36,9 @@ class Controller:
         """Set up a new tournament"""
         View.display_create_a_tournament(self.tournament)
         self.make_a_tournament_team()
-        Tournament.insert_tournament_in_database(self.tournament)
+        #Tournament.insert_tournament_in_database(self.tournament)
+        Tournament.clean_table()
+        self.tournament.insert_tournament_in_database()
 
     def sort_players_by_rank(self):
         """Sort the list of players sorted by rank, return the sorted list"""

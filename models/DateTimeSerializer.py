@@ -8,4 +8,4 @@ class DateTimeSerializer(Serializer):
         return obj.isoformat()
 
     def decode(self, s):
-        return datetime.fromisoformat(s)
+        return datetime.fromisoformat(s).date()

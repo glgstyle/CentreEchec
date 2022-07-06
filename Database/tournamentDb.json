@@ -1,0 +1,11 @@
+{
+    "tournament": {
+        "1": {
+            "name": "Rolland Garros",
+            "date": "{TinyDate}:2021-03-15T00:00:00",
+            "place": "Paris",
+            "comment": "",
+            "number_of_turns": 4
+        }
+    }
+}

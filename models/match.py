@@ -6,7 +6,7 @@ class Match:
     def __init__(self, pair_of_players=[], player_match_result=0):
         self.pair_of_players = pair_of_players
         self.player_match_result = player_match_result
-
+        
     #Getters
     @property
     def pair_of_players(self):
