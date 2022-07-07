@@ -4,6 +4,7 @@ from datetime import datetime
 from tinydb import JSONStorage, Storage, TinyDB, Query
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
+import uuid
 #import json
 
 
@@ -98,7 +99,8 @@ class Player:
         serialization.register_serializer(DateTimeSerializer(),'TinyDate')
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
-        players_table.insert({'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
+        id = uuid.uuid4().hex
+        players_table.insert({'id' :id, 'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
     
     #utiliser un uid -> id unique pour stocker chaque entrée
 
