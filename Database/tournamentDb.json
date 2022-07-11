@@ -4,8 +4,9 @@
             "name": "Rolland Garros",
             "date": "{TinyDate}:2021-03-15T00:00:00",
             "place": "Paris",
-            "comment": "",
-            "number_of_turns": 4
+            "comment": "C'est la premi\u00e8re fois que le tournoi sera jou\u00e9 \u00e0 l'aide de l'application",
+            "number_of_turns": 4,
+            "time_control": "rapid"
         }
     }
 }

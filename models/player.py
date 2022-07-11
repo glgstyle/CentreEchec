@@ -5,7 +5,6 @@ from tinydb import JSONStorage, Storage, TinyDB, Query
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
 import uuid
-#import json
 
 
 class Player:
@@ -89,20 +88,21 @@ class Player:
         return self.__str__()
 
     def clean_table():
+        """Define the path, the name of table and clean it before inserting datas."""
         serialization = SerializationMiddleware(JSONStorage)
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
         players_table.truncate()	# clear the table first
 
     def insert_player_in_database(self):
+        """Define the path of database, the name of table, and the datas to insert in the players table."""
         serialization = SerializationMiddleware(JSONStorage)
         serialization.register_serializer(DateTimeSerializer(),'TinyDate')
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
+        # utiliser un uid -> id unique pour stocker chaque entrée
         id = uuid.uuid4().hex
         players_table.insert({'id' :id, 'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
-    
-    #utiliser un uid -> id unique pour stocker chaque entrée
 
     def add_a_player():
         player = Player()
