@@ -12,8 +12,9 @@ class Player:
     '''Player.'''
 
 
-    def __init__(self, name="", firstname="", date_of_birth="", sexe="", points=[], score=0, rank=0):
+    def __init__(self, id="",name="", firstname="", date_of_birth="", sexe="", points=[], score=0, rank=0):
         '''A player has a name, a firstname, a date of birth and a sexe.'''
+        self.id = id
         self.name = name
         self.firstname = firstname
         self.date_of_birth = date_of_birth
@@ -23,6 +24,10 @@ class Player:
         self.rank = rank
 
     # Getters
+    @property
+    def id(self):
+        return self._id
+
     @property
     def name(self):
         return self._name
@@ -52,6 +57,10 @@ class Player:
         return self._rank
 
     # Setters
+    @id.setter
+    def id(self, id):
+        self._id = id
+
     @name.setter
     def name(self, name):
         self._name = name
@@ -140,6 +149,7 @@ class Player:
                 break
             except ValueError:
                 print(f"{player.rank} n'est pas un classement valide")
+        player.id =uuid.uuid4().hex
         return player
 
     def clean_table():
@@ -156,25 +166,25 @@ class Player:
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
         # utiliser un uid -> id unique pour stocker chaque entrée
-        id = uuid.uuid4().hex
-        players_table.insert({'id' :id, 'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
+        #id = uuid.uuid4().hex
+        players_table.insert({'id' :self.id, 'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
     
-    def update_player_points_in_database(firstname, points):
+    def update_player_points_in_database(id, points):
         """Insert the player points after each match in database."""
         serialization = SerializationMiddleware(JSONStorage)
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
         q = Query()
-        players_table.update({'points' :points}, q.firstname == firstname)
+        players_table.update({'points' :points}, q.id == id)
         #db.update({'points': self.points})
 
-    def update_player_score_in_database(firstname, score):
+    def update_player_score_in_database(id, score):
         """update the score after each match"""
         serialization = SerializationMiddleware(JSONStorage)
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
         q = Query()
-        players_table.update({'score' :score}, q.firstname == firstname)
+        players_table.update({'score' :score}, q.id == id)
     
     def report_by_alphabetical_order():
         """Display a report of players by alphabetical order"""

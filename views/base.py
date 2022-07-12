@@ -60,24 +60,24 @@ class View:
             str = str + f"{player.name} {player.firstname}"+ "\n"
         return str
 
-    def start_time(round):
+    def start_time():
         """Define the time when start the match."""
         now = datetime.now()
-        round.start_time = now.strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Heure de démarrage : {round.start_time}")
-        return round.start_time
+        start_time = now.strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Heure de démarrage : {start_time}")
+        return start_time
     
-    def end_time(round):
+    def end_time():
         """Define the time when end the match."""
         now = datetime.now()
-        round.end_time = now.strftime("%d/%m/%Y %H:%M:%S")
-        print(f"Heure de fin : {round.end_time}")
-        return round.end_time
+        end_time = now.strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Heure de fin : {end_time}")
+        return end_time
     
-    def is_the_match_finished(round):
+    def is_the_match_finished():
         """Ask to press enter when the match is finished and record the end time"""
         input("Appuyez sur entrée lorsque le match est terminé.")
-        return View.end_time(round)
+        return View.end_time()
 
     def display_infos_rounds(rounds):
         """Display the round informations in a table at the end of tournament."""

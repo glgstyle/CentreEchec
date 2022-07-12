@@ -13,7 +13,7 @@ class Controller:
     def __init__(self):
         '''Has a list of Players and a view.'''
         #models
-        self.players = []
+        self.players = [] #relier au tournoi et les rounds au tournoi, (essayer de faire des menus), faire des fonctions uniques pour les vues (dans View)
         self.tournament = Tournament()
         self.match = Match()
         
@@ -151,8 +151,8 @@ class Controller:
             console.print("\n" + i + "\n", style="blue", justify="left")
             self.make_players_pairs()
             console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
-            round.start_time = View.start_time(round)
-            round.end_time = View.is_the_match_finished(round)
+            round.start_time = View.start_time()
+            round.end_time = View.is_the_match_finished()
             round.results = self.results_of_match()
             round.players = self.list_of_teams
             self.update_the_score()
@@ -163,8 +163,8 @@ class Controller:
             console.print("\n" + i + "\n", style="blue", justify="left")
             round.players = self.make_players_pairs_by_score_or_rank()
             console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
-            round.start_time = View.start_time(round)
-            round.end_time = View.is_the_match_finished(round)
+            round.start_time = View.start_time()
+            round.end_time = View.is_the_match_finished()
             round.results = self.results_of_match()
             self.update_the_score()
             self.rounds.append(round)
@@ -178,9 +178,9 @@ class Controller:
     def get_match_score(round):
         "Return the player points by round."
         for player in round.players:
-            points = (player.points)
+            points = player.points
             # update the points in serialized players
-            Player.update_player_points_in_database(player.firstname, player.points)
+            Player.update_player_points_in_database(player.id, player.points)
         return points
 
     def input_results(self):
@@ -216,7 +216,7 @@ class Controller:
             for points in player.points:
                 player.score += points
                 # update the score in serialized players
-                Player.update_player_score_in_database(player.firstname, player.score)
+                Player.update_player_score_in_database(player.id, player.score)
             #display the player with his score
             table.add_row(f"{player.firstname} {player.name}",f"{player.points}",f"{player.score}")
         console.print(table)
