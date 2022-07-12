@@ -1,83 +1,123 @@
 {
     "serialized_players": {
         "1": {
-            "id": "fc5aa6c270904b33bc05728731c4c8f6",
+            "id": "c2c21e8917004e008a1f843fc2ea3127",
             "name": "marvin",
             "firstname": "gaylord",
             "date_of_birth": "{TinyDate}:1985-12-23T00:00:00",
             "sexe": "m",
-            "score": 0,
-            "points": [],
+            "score": 14.0,
+            "points": [
+                2.0,
+                3.0,
+                4.0,
+                5.0
+            ],
             "rank": "5"
         },
         "2": {
-            "id": "9a9eda2e80244d9bb94a4e9b4c3a802b",
+            "id": "f018285a6f2d4568a70ee51a384333fd",
             "name": "lein",
             "firstname": "karine",
             "date_of_birth": "{TinyDate}:1996-04-25T00:00:00",
             "sexe": "f",
-            "score": 0,
-            "points": [],
+            "score": 25.0,
+            "points": [
+                6.0,
+                7.0,
+                6.0,
+                6.0
+            ],
             "rank": "7"
         },
         "3": {
-            "id": "e1ce525d6a004994b34fdaa0490d52aa",
+            "id": "97a683be0d7a4147a721d66978544d6a",
             "name": "jouik",
             "firstname": "melanie",
             "date_of_birth": "{TinyDate}:1976-05-06T00:00:00",
             "sexe": "f",
-            "score": 0,
-            "points": [],
+            "score": 28.0,
+            "points": [
+                5.0,
+                6.0,
+                8.0,
+                9.0
+            ],
             "rank": "3"
         },
         "4": {
-            "id": "34366e27328842c4a37fccd310ede8f4",
+            "id": "2b056a50a5374bfeb5e024d3508d10d6",
             "name": "boutraingain",
             "firstname": "alexandre ",
             "date_of_birth": "{TinyDate}:1988-09-17T00:00:00",
             "sexe": "m",
-            "score": 0,
-            "points": [],
+            "score": 9.0,
+            "points": [
+                1.0,
+                2.0,
+                2.0,
+                4.0
+            ],
             "rank": "1"
         },
         "5": {
-            "id": "312d2e6c49964966acfdcc9819ee32ec",
+            "id": "027816b8d7a94eb3af72a2e8b7ab7739",
             "name": "boutraingain",
             "firstname": "william",
             "date_of_birth": "{TinyDate}:2019-11-18T00:00:00",
             "sexe": "m",
-            "score": 0,
-            "points": [],
+            "score": 19.0,
+            "points": [
+                3.0,
+                4.0,
+                5.0,
+                7.0
+            ],
             "rank": "2"
         },
         "6": {
-            "id": "5d35b17fbdde4cf5b8e25dbb431f3790",
+            "id": "6a94cab64522443bb78fbe24540719c8",
             "name": "boutraingain",
             "firstname": "azylis",
             "date_of_birth": "{TinyDate}:2021-04-21T00:00:00",
             "sexe": "f",
-            "score": 0,
-            "points": [],
+            "score": 22.0,
+            "points": [
+                8.0,
+                9.0,
+                3.0,
+                2.0
+            ],
             "rank": "8"
         },
         "7": {
-            "id": "4134a77bd4e84fd8a6cea009bb6fe041",
+            "id": "f6a61d44da5e4a3b8f254c11f253cf77",
             "name": "le guenno",
             "firstname": "gwenaelle",
             "date_of_birth": "{TinyDate}:1985-07-15T00:00:00",
             "sexe": "f",
-            "score": 0,
-            "points": [],
+            "score": 27.0,
+            "points": [
+                7.0,
+                8.0,
+                9.0,
+                3.0
+            ],
             "rank": "4"
         },
         "8": {
-            "id": "577f445e4494448a952cd553875f3623",
+            "id": "0c33730641ce4aa4aaf588ab1e1c8fee",
             "name": "carvalho",
             "firstname": "jessica",
             "date_of_birth": "{TinyDate}:1979-07-23T00:00:00",
             "sexe": "f",
-            "score": 0,
-            "points": [],
+            "score": 24.0,
+            "points": [
+                4.0,
+                5.0,
+                7.0,
+                8.0
+            ],
             "rank": "6"
         }
     }

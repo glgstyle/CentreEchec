@@ -1,7 +1,8 @@
 '''The player.'''
 
+from calendar import weekheader
 from datetime import datetime
-from tinydb import JSONStorage, Storage, TinyDB, Query
+from tinydb import JSONStorage, Storage, TinyDB, Query, where
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
 import uuid
@@ -103,6 +104,24 @@ class Player:
         # utiliser un uid -> id unique pour stocker chaque entrée
         id = uuid.uuid4().hex
         players_table.insert({'id' :id, 'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
+    
+    def update_player_points_in_database(firstname, points):
+        """Insert the player points after each match in database."""
+        serialization = SerializationMiddleware(JSONStorage)
+        db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
+        players_table = db.table('serialized_players') 
+        q = Query()
+        players_table.update({'points' :points}, q.firstname == firstname)
+        #db.update({'points': self.points})
+
+    def update_player_score_in_database(firstname, score):
+        """update the score after each match"""
+        serialization = SerializationMiddleware(JSONStorage)
+        db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
+        players_table = db.table('serialized_players') 
+        q = Query()
+        players_table.update({'score' :score}, q.firstname == firstname)
+
 
     def add_a_player():
         player = Player()

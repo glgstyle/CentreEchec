@@ -179,6 +179,8 @@ class Controller:
         "Return the player points by round."
         for player in round.players:
             points = (player.points)
+            # update the points in serialized players
+            Player.update_player_points_in_database(player.firstname, player.points)
         return points
 
     def input_results(self):
@@ -195,6 +197,7 @@ class Controller:
                         break
                     except ValueError:
                         print(f"({points}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ") 
+                #Player.update_player_points(player, player.points)
         Controller.get_match_score(self) 
         return self.players
        
@@ -212,6 +215,8 @@ class Controller:
             #for each match add the points to the final score 
             for points in player.points:
                 player.score += points
+                # update the score in serialized players
+                Player.update_player_score_in_database(player.firstname, player.score)
             #display the player with his score
             table.add_row(f"{player.firstname} {player.name}",f"{player.points}",f"{player.score}")
         console.print(table)
