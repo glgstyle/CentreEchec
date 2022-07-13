@@ -6,6 +6,7 @@ from datetime import datetime
 from rich.console import Console
 from rich.theme import Theme
 from rich.table import Table
+#from simple_term_menu import TerminalMenu
 #from models.tournament import Tournament
 
 

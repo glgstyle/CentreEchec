@@ -1,121 +1,121 @@
 {
     "serialized_players": {
         "1": {
-            "id": "f7ba97e8db164597a189fb11dad7b35e",
+            "id": "609a17f7cd49432f8597473cdb5f00a1",
             "name": "marvin",
             "firstname": "gaylord",
             "date_of_birth": "{TinyDate}:1985-12-23T00:00:00",
             "sexe": "m",
-            "score": 11.0,
+            "score": 6.0,
             "points": [
-                3.0,
+                2.0,
+                2.0,
                 1.0,
-                6.0,
                 1.0
             ],
             "rank": 8
         },
         "2": {
-            "id": "3bc0be1c45cb414494023d492c223729",
+            "id": "a17ef59ec3db4cbf9b2dae2a6338ad5d",
             "name": "lein",
             "firstname": "karine",
             "date_of_birth": "{TinyDate}:1996-04-25T00:00:00",
             "sexe": "f",
-            "score": 28.0,
+            "score": 25.0,
             "points": [
-                7.0,
-                9.0,
                 6.0,
-                6.0
+                6.0,
+                5.0,
+                8.0
             ],
-            "rank": 1
+            "rank": 3
         },
         "3": {
-            "id": "176c17b780bf435395d3a0b41c199962",
+            "id": "850c067d1c824eb396396551a485cbab",
             "name": "jouik",
             "firstname": "melanie",
             "date_of_birth": "{TinyDate}:1976-05-06T00:00:00",
             "sexe": "f",
             "score": 22.0,
             "points": [
-                6.0,
-                6.0,
-                8.0,
-                2.0
+                5.0,
+                5.0,
+                5.0,
+                7.0
             ],
             "rank": 4
         },
         "4": {
-            "id": "6e8e937d678b4daa86fbabac9a166e2a",
+            "id": "bed4bcb6bfe140899c92f2df163f43a3",
             "name": "boutraingain",
             "firstname": "alexandre ",
             "date_of_birth": "{TinyDate}:1988-09-17T00:00:00",
             "sexe": "m",
-            "score": 13.0,
+            "score": 7.0,
             "points": [
-                2.0,
-                4.0,
-                5.0,
-                2.0
+                1.0,
+                1.0,
+                1.0,
+                4.0
             ],
             "rank": 7
         },
         "5": {
-            "id": "d345607293b04d9f92b3791760b9b84d",
+            "id": "4c0bb941595646b49a970992aa683c02",
             "name": "boutraingain",
             "firstname": "william",
             "date_of_birth": "{TinyDate}:2019-11-18T00:00:00",
             "sexe": "m",
-            "score": 18.0,
+            "score": 10.0,
             "points": [
-                4.0,
+                3.0,
+                3.0,
                 2.0,
-                9.0,
-                3.0
+                2.0
             ],
             "rank": 6
         },
         "6": {
-            "id": "a25b1c225ef942ab8a4f9a9e91ae5390",
+            "id": "e4109dfa4d7341f7ae2443ef7033ba96",
             "name": "boutraingain",
             "firstname": "azylis",
             "date_of_birth": "{TinyDate}:2021-04-21T00:00:00",
             "sexe": "f",
-            "score": 27.0,
+            "score": 30.0,
             "points": [
-                9.0,
                 8.0,
-                2.0,
-                8.0
+                8.0,
+                8.0,
+                6.0
             ],
-            "rank": 3
+            "rank": 2
         },
         "7": {
-            "id": "70fecbcea7ee42ae91521307b706fe94",
+            "id": "35a53e52ead2436e8f39492e6e192120",
             "name": "le guenno",
             "firstname": "gwenaelle",
             "date_of_birth": "{TinyDate}:1985-07-15T00:00:00",
             "sexe": "f",
-            "score": 27.0,
+            "score": 30.0,
             "points": [
-                8.0,
                 7.0,
-                3.0,
+                7.0,
+                7.0,
                 9.0
             ],
-            "rank": 2
+            "rank": 1
         },
         "8": {
-            "id": "d663f80b12414588bb02b9c2b6c6be5f",
+            "id": "431c616acd3e423cac0f6593ceb629db",
             "name": "carvalho",
             "firstname": "jessica",
             "date_of_birth": "{TinyDate}:1979-07-23T00:00:00",
             "sexe": "f",
-            "score": 20.0,
+            "score": 17.0,
             "points": [
-                5.0,
-                3.0,
-                7.0,
+                4.0,
+                4.0,
+                4.0,
                 5.0
             ],
             "rank": 5
