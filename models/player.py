@@ -1,6 +1,5 @@
 '''The player.'''
 
-from calendar import weekheader
 from datetime import datetime
 from tinydb import JSONStorage, Storage, TinyDB, Query, where
 from tinydb_serialization import SerializationMiddleware
@@ -165,8 +164,6 @@ class Player:
         serialization.register_serializer(DateTimeSerializer(),'TinyDate')
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
-        # utiliser un uid -> id unique pour stocker chaque entrée
-        #id = uuid.uuid4().hex
         players_table.insert({'id' :self.id, 'name' :self.name, 'firstname' :self.firstname, 'date_of_birth' :self.date_of_birth, 'sexe' :self.sexe, 'score' :self.score, 'points' :self.points, 'rank' :self.rank})
     
     def update_player_points_in_database(id, points):
@@ -176,18 +173,25 @@ class Player:
         players_table = db.table('serialized_players') 
         q = Query()
         players_table.update({'points' :points}, q.id == id)
-        #db.update({'points': self.points})
 
     def update_player_score_in_database(id, score):
-        """update the score after each match"""
+        """update the score after each match."""
         serialization = SerializationMiddleware(JSONStorage)
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
         q = Query()
         players_table.update({'score' :score}, q.id == id)
     
+    def update_rank_in_database(id, rank):
+        """Update the rank a the end of tournament."""
+        serialization = SerializationMiddleware(JSONStorage)
+        db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
+        players_table = db.table('serialized_players') 
+        q = Query()
+        players_table.update({'rank' :rank}, q.id == id)     
+
     def report_by_alphabetical_order():
-        """Display a report of players by alphabetical order"""
+        """Display a report of players by alphabetical order."""
 
     def report_by_rank():
         """Display a report of players by rank"""

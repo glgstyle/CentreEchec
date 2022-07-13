@@ -1,7 +1,7 @@
 '''Base view'''
 
-from models.player import Player
-from models.round import Round
+#from models.player import Player
+#from models.round import Round
 from datetime import datetime
 from rich.console import Console
 from rich.theme import Theme

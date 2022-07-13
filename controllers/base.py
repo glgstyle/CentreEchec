@@ -108,7 +108,6 @@ class Controller:
         console = Console()
         table.add_column("Equipe", style="cyan", no_wrap=True)
         table.add_column("Nom des joueurs de l'équipe", style="magenta")
-        #equipe_a =  View.display_team(self.list_of_teams[0])
         table.add_row("A", View.display_team(teams[0]))
         table.add_row("B", View.display_team(teams[1]))
         table.add_row("C", View.display_team(teams[2]))
@@ -171,6 +170,7 @@ class Controller:
             round.results = self.results_of_match()
             self.update_the_score()
             self.tournament.rounds.append(round)
+        self.update_player_rank()
         View.display_infos_rounds(self.tournament.rounds)   
 
     def start_a_tournament(self):
@@ -183,7 +183,6 @@ class Controller:
         for player in self.round.players:
             points = player.points
             # update the points in serialized players
-            #Player.update_player_points_in_database(player.id, player.points)
             return points
 
     def input_results(self):
@@ -224,4 +223,16 @@ class Controller:
             table.add_row(f"{player.firstname} {player.name}",f"{player.points}",f"{player.score}")
         console.print(table)
 
+    def update_player_rank(self):
+        """Update the rank of player at the end of tournament."""
+        sorted_by_score = self.sort_players_by_score_then_rank()
+        self.tournament.players = sorted_by_score
+        rank = 0
+        #for each player in the sorted list by score give a rank from first +1 by incrementation
+        for player in sorted_by_score:
+            rank += 1
+            player.rank = rank
+            Player.update_rank_in_database(player.id, player.rank)
+        return self.tournament.players
+            
 
