@@ -56,17 +56,7 @@ class Controller:
         fourth_team = upper_half[3], lower_half[3]
         # the list of pairs of players
         self.list_of_teams = [first_team , second_team , third_team , fourth_team]
-        print(f"Les binômes sont les suivants :\n")
-        # display the teams in table 
-        table = Table()
-        console = Console()
-        table.add_column("Equipe", style="cyan", no_wrap=True)
-        table.add_column("Nom des joueurs de l'équipe", style="magenta")
-        table.add_row("A", View.display_team(self.list_of_teams[0]))
-        table.add_row("B", View.display_team(self.list_of_teams[1]))
-        table.add_row("C", View.display_team(self.list_of_teams[2]))
-        table.add_row("D", View.display_team(self.list_of_teams[3]))
-        console.print(table)
+        View.display_all_teams_in_first_round(list_of_teams=self.list_of_teams)
         return self.list_of_teams
     
     def find_all_players_in_rounds(self):
@@ -91,28 +81,13 @@ class Controller:
                 for competitor in competitors:
                     #if they have play together, put back b in list and take the first of the list as b, then rearrange the list as it was initially(put c in first index)
                     if(competitor[0]==a and competitor[1]==b or competitor[0]==b and competitor[1]==a):
-                        #print(a,b, "------deja joué ensemble")
                         players.append(b)
-                        #print(f"------on remet {b} dans liste",players)
                         b=players.pop(0)
-                        #print(f"-----on prend {b} le premier de ",players )
                         if len(players) > 0:
                             c=players.pop()
                             players.insert(0, c)
-                        #print("------on trie de nouveau ",players)  
-            #print("team", a,b)
             teams.append([a,b])
-        print(f"Les bibômes sont les suivants :\n")
-        # display the teams in a table
-        table = Table()
-        console = Console()
-        table.add_column("Equipe", style="cyan", no_wrap=True)
-        table.add_column("Nom des joueurs de l'équipe", style="magenta")
-        table.add_row("A", View.display_team(teams[0]))
-        table.add_row("B", View.display_team(teams[1]))
-        table.add_row("C", View.display_team(teams[2]))
-        table.add_row("D", View.display_team(teams[3]))
-        console.print(table)
+        View.display_all_teams_after_first_round(teams)
         return teams
 
     def sort_players_by_score_then_rank(self):
@@ -150,7 +125,7 @@ class Controller:
         for i in list_name_round[0:1]:
             round = Round()
             round.name = i
-            console.print("\n" + i + "\n", style="blue", justify="left")
+            View.display_round_name(round=i)
             self.make_players_pairs()
             console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
             round.start_time = View.start_time()
@@ -162,7 +137,7 @@ class Controller:
         for i in list_name_round[1:len(list_name_round)]:
             round = Round()
             round.name = i
-            console.print("\n" + i + "\n", style="blue", justify="left")
+            View.display_round_name(round=i)
             round.players = self.make_players_pairs_by_score_or_rank()
             console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
             round.start_time = View.start_time()
@@ -182,7 +157,6 @@ class Controller:
         "Return the player points by round."
         for player in self.round.players:
             points = player.points
-            # update the points in serialized players
             return points
 
     def input_results(self):
@@ -198,20 +172,13 @@ class Controller:
                         player.points = [*player.points , points]
                         break
                     except ValueError:
-                        print(f"({points}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ") 
+                        View.display_value_error(points)
                 Player.update_player_points_in_database(player.id, player.points)
         self.get_match_score() 
         return self.tournament.players
        
     def update_the_score(self):
         """Calculate players score by doing the sum of player points"""
-        print("\n****** Voici les scores des joueurs : ******\n")
-        #For each player in the list, display the firstname, the name and the match_results in player list with the score updated
-        table = Table(title="Scores")
-        console = Console()
-        table.add_column("Nom", style="cyan", no_wrap=True)
-        table.add_column("Points")
-        table.add_column("Score", style="magenta")
         for player in self.tournament.players:
             player.score = 0
             #for each match add the points to the final score 
@@ -219,9 +186,8 @@ class Controller:
                 player.score += points
                 # update the score in serialized players
                 Player.update_player_score_in_database(player.id, player.score)
-            #display the player with his score
-            table.add_row(f"{player.firstname} {player.name}",f"{player.points}",f"{player.score}")
-        console.print(table)
+        #display the player with his score
+        View.display_score_after_match(tournament=self.tournament)
 
     def update_player_rank(self):
         """Update the rank of player at the end of tournament."""

@@ -6,6 +6,7 @@ from datetime import datetime
 from rich.console import Console
 from rich.theme import Theme
 from rich.table import Table
+#from models.tournament import Tournament
 
 
 class View:
@@ -59,6 +60,33 @@ class View:
         for player in team:
             str = str + f"{player.name} {player.firstname}"+ "\n"
         return str
+    
+    def display_all_teams_in_first_round(list_of_teams):
+        print(f"Les binômes sont les suivants :\n")
+        # display the teams in table 
+        table = Table()
+        console = Console()
+        table.add_column("Equipe", style="cyan", no_wrap=True)
+        table.add_column("Nom des joueurs de l'équipe", style="magenta")
+        table.add_row("A", View.display_team(list_of_teams[0]))
+        table.add_row("B", View.display_team(list_of_teams[1]))
+        table.add_row("C", View.display_team(list_of_teams[2]))
+        table.add_row("D", View.display_team(list_of_teams[3]))
+        console.print(table)
+    
+    def display_all_teams_after_first_round(teams):
+        print(f"Les bibômes sont les suivants :\n")
+        # display the teams in a table
+        table = Table()
+        console = Console()
+        table.add_column("Equipe", style="cyan", no_wrap=True)
+        table.add_column("Nom des joueurs de l'équipe", style="magenta")
+        table.add_row("A", View.display_team(teams[0]))
+        table.add_row("B", View.display_team(teams[1]))
+        table.add_row("C", View.display_team(teams[2]))
+        table.add_row("D", View.display_team(teams[3]))
+        console.print(table)
+
 
     def start_time():
         """Define the time when start the match."""
@@ -79,6 +107,24 @@ class View:
         input("Appuyez sur entrée lorsque le match est terminé.")
         return View.end_time()
 
+    def display_score_after_match(tournament):
+        """Display players score by doing the sum of player points after match"""
+        print("\n****** Voici les scores des joueurs : ******\n")
+        #For each player in the list, display the firstname, the name and the match_results in player list with the score updated
+        table = Table(title="Scores")
+        console = Console()
+        table.add_column("Nom", style="cyan", no_wrap=True)
+        table.add_column("Points")
+        table.add_column("Score", style="magenta")
+        for player in tournament.players:
+            table.add_row(f"{player.firstname} {player.name}",f"{player.points}",f"{player.score}")
+        console.print(table)
+        
+    def display_round_name(round):
+        console = Console()
+        i = round
+        console.print("\n" + i + "\n", style="blue", justify="left")
+
     def display_infos_rounds(rounds):
         """Display the round informations in a table at the end of tournament."""
         table = Table(title="Récapitulatif du tournoi par round")
@@ -94,3 +140,5 @@ class View:
             table.add_row(f"{round.name}", f"{round.start_time}", f"{round.end_time}", f"{competitors}")
         console.print(table)
 
+    def display_value_error(points):
+        print(f"({points}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ") 
