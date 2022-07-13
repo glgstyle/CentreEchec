@@ -9,14 +9,16 @@ import json
 class Tournament:
     """A tournament"""
 
-    def __init__(self, name="", date="", place="", comment="", numbers_of_turns=4, time_control=""):
+    def __init__(self, name="",date="",place="",comment="",numbers_of_turns=4,rounds="",time_control="",players=""):
         """Has a name, a date, a place, a number of turns, turns, a pool of players,  time control, comments"""
         self.name = name
         self.date = date
         self.place = place
         self.comment = comment
         self.numbers_of_turns = numbers_of_turns
+        self.rounds = rounds
         self.time_control = time_control
+        self.players = players
        
     
 
@@ -48,6 +50,10 @@ class Tournament:
     @property
     def time_control(self):
         return self._time_control
+
+    @property
+    def players(self):
+        return self._players
     
     # Setters
     @name.setter
@@ -77,6 +83,10 @@ class Tournament:
     @time_control.setter
     def time_control(self, time_control):
         self._time_control = time_control
+
+    @players.setter
+    def players(self, players):
+        self._players = players
 
     def __str__(self):
         return json.dumps(dict(self), ensure_ascii=False)

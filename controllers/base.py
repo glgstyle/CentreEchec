@@ -13,9 +13,12 @@ class Controller:
     def __init__(self):
         '''Has a list of Players and a view.'''
         #models
-        self.players = [] #relier au tournoi et les rounds au tournoi, (essayer de faire des menus), faire des fonctions uniques pour les vues (dans View)
         self.tournament = Tournament()
+        self.tournament.players = []
+        #self.players = [] #relier au tournoi et les rounds au tournoi, (essayer de faire des menus), faire des fonctions uniques pour les vues (dans View)
         self.match = Match()
+        self.round = Round()
+        self.tournament.rounds = []
         
     def make_a_tournament_team(self):
         """Add players until players list = 8, return the list of players."""
@@ -24,7 +27,7 @@ class Controller:
         while pool < 8:  
             pool = pool + 1
             player = Player.add_a_player()
-            self.players.append(player)
+            self.tournament.players.append(player)
             Player.insert_player_in_database(player)
     
     def create_a_tournament(self):
@@ -37,7 +40,7 @@ class Controller:
 
     def sort_players_by_rank(self):
         """Sort the list of players by rank, return the sorted list."""
-        sorted_by_rank = sorted(self.players, key=lambda player: player.rank)
+        sorted_by_rank = sorted(self.tournament.players, key=lambda player: player.rank)
         return sorted_by_rank
 
     def make_players_pairs(self):
@@ -69,7 +72,7 @@ class Controller:
     def find_all_players_in_rounds(self):
         """Look for all teams of players by round and list them together..."""
         players_in_rounds=[]
-        for round in self.rounds:
+        for round in self.tournament.rounds:
             players_in_rounds.append(round.players)
         return players_in_rounds
 
@@ -116,7 +119,7 @@ class Controller:
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal, sort them by rank."""
         #-x.score is the reverse order because we need the most important score first and the first of rank, second after etc....
-        sorted_by_score_then_rank = sorted(self.players, key=lambda x: (-x.score, x.rank))
+        sorted_by_score_then_rank = sorted(self.tournament.players, key=lambda x: (-x.score, x.rank))
         return sorted_by_score_then_rank
 
     def match_record(self):
@@ -142,7 +145,7 @@ class Controller:
     def start_a_round(self):
         """Start to give a name to the round then until there is no more round, start a new match."""
         console = Console()
-        self.rounds = []
+        #self.rounds = []
         list_name_round = self.name_a_round()
         #for each round, create pairs of players, append start, end time and players pairs with their score in a round 
         for i in list_name_round[0:1]:
@@ -156,7 +159,7 @@ class Controller:
             round.results = self.results_of_match()
             round.players = self.list_of_teams
             self.update_the_score()
-            self.rounds.append(round)
+            self.tournament.rounds.append(round)
         for i in list_name_round[1:len(list_name_round)]:
             round = Round()
             round.name = i
@@ -167,21 +170,21 @@ class Controller:
             round.end_time = View.is_the_match_finished()
             round.results = self.results_of_match()
             self.update_the_score()
-            self.rounds.append(round)
-        View.display_infos_rounds(self.rounds)   
+            self.tournament.rounds.append(round)
+        View.display_infos_rounds(self.tournament.rounds)   
 
     def start_a_tournament(self):
         """Starting processus of tournament, create a tournament with players... and a round with them."""
         self.create_a_tournament()
         self.start_a_round()
 
-    def get_match_score(round):
+    def get_match_score(self):
         "Return the player points by round."
-        for player in round.players:
+        for player in self.round.players:
             points = player.points
             # update the points in serialized players
-            Player.update_player_points_in_database(player.id, player.points)
-        return points
+            #Player.update_player_points_in_database(player.id, player.points)
+            return points
 
     def input_results(self):
         """Input the result of the match, return the player infos with the score inserted."""
@@ -197,9 +200,9 @@ class Controller:
                         break
                     except ValueError:
                         print(f"({points}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ") 
-                #Player.update_player_points(player, player.points)
-        Controller.get_match_score(self) 
-        return self.players
+                Player.update_player_points_in_database(player.id, player.points)
+        self.get_match_score() 
+        return self.tournament.players
        
     def update_the_score(self):
         """Calculate players score by doing the sum of player points"""
@@ -210,7 +213,7 @@ class Controller:
         table.add_column("Nom", style="cyan", no_wrap=True)
         table.add_column("Points")
         table.add_column("Score", style="magenta")
-        for player in self.players:
+        for player in self.tournament.players:
             player.score = 0
             #for each match add the points to the final score 
             for points in player.points:
