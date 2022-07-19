@@ -7,11 +7,16 @@ from rich.console import Console
 from rich.theme import Theme
 from rich.table import Table
 #from simple_term_menu import TerminalMenu
-#from models.tournament import Tournament
+from models.tournament import Tournament
+import json
+from tinydb import TinyDB, Query
 
+from models import tournament
 
+console = Console()
 class View:
     '''Chess game.'''
+    
     def __init__(self):
         '''Define the view.'''
 
@@ -46,7 +51,7 @@ class View:
                 print("La date n'est pas au bon format, Veuillez recommencer")
                 tournament.date = input("Veuillez saisir la date du tournoi(jj/mm/aaaa) :")
         tournament.place = input("Veuillez saisir le lieu du tournoi :")
-        tournament.comment = input("Saisissez un commentiare ici si vous le souhaitez sinon appuyez sur entrée : ")
+        tournament.comment = input("Saisissez un commentaire ici si vous le souhaitez sinon appuyez sur entrée : ")
         tournament.time_control = input("Veuillez saisir le controle du temps (bullet, blitz ou rapid) : ")
         try:
             tournament.numbers_of_turns = int(input(
@@ -55,6 +60,16 @@ class View:
             tournament.numbers_of_turns = 4
             print(f"Le nombre de tours est incorrect, utilisation de la valeur par défaut : {tournament.numbers_of_turns} ")
     
+    def display_add_players_or_not():
+        print("----------------------------")
+        print("Sélectionnez une option")
+        print("1 - Ajouter de nouveaux joueurs")
+        print("2 - Sélectionner des joueurs dans la base de données")
+        print("3 - >> Retour")
+        print("----------------------------")
+        option = input("Veuillez saisir votre choix :")
+        return option
+
     def display_team(team):
         """Return the competitor list converted in string in shuffle order(already done in function make_players_pairs)"""
         str = ""
@@ -143,3 +158,115 @@ class View:
 
     def display_value_error(points):
         print(f"({points}) n'est pas un score valide veuillez rentrer un chiffre ou un nombre ") 
+
+    # mainMenu
+    def menuTitle():
+        console.print(" ____           _              _____     _                   ", style = "purple")
+        console.print("/ ___|___ _ __ | |_ _ __ ___  | ____|___| |__   ___  ___ ___ ", style = "purple")
+        console.print("| |   / _ \ '_ \| __| '__/ _ \ |  _| / __| '_ \ / _ \/ __/ __|", style = "purple")
+        console.print("| |__|  __/ | | | |_| | |  __/ | |__| (__| | | |  __/ (__\__ \"", style = "purple")
+        console.print("\____\___|_| |_|\__|_|  \___| |_____\___|_| |_|\___|\___|___/", style = "purple")
+
+    def display_main_menu():
+        print("----------------------------")
+        print("Sélectionnez une option")
+        print("1 - Tournois")
+        print("2 - Joueurs")
+        print("3 - Rapports")
+        print("----------------------------")
+        option = input("Veuillez saisir votre choix :")
+        return option
+
+    def display_tournament_submenu():
+        print("----------------------------")
+        print("Sélectionnez une option")
+        print("1 - Créer un nouveau tournoi")#avec des joueurs existant ou créer de nouveaux joueurs
+        print("2 - Choisir un tournoi existant")#lister les tournois avec l'id + le lieu de la bdd et l'uuid, pouvoir rentrer le numéro du tournoi à consulter et à utiliser si on veut y mettre des joueurs
+        print("3 - >> Retour")
+        print("----------------------------")
+        option = input("Veuillez saisir votre choix :")
+        return option
+
+    def display_joueurs_submenu():
+        print("----------------------------")
+        print("Sélectionnez une option")
+        print("1 - Ajouter un nouveau joueur")
+        print("2 - Voir la liste des joueurs")
+        print("3 - >> Retour")
+        print("----------------------------")
+        option = input("Veuillez saisir votre choix :")
+        return option
+
+    def display_rapports_submenu():
+        print("----------------------------")
+        print("Sélectionnez une option")
+        print("1 - Liste de tous les joueurs par ordre alphabétique")
+        print("2 - Liste de tous les joueurs par classement")
+        print("3 - Liste de tous les joueurs d'un tournoi par ordre alphabétique")
+        print("4 - Liste de tous les joueurs d'un tournoi par classement")
+        print("5 - Liste de tous les joueurs de tous les tournois")
+        print("6 - Liste de tous les tours d'un tournoi")
+        print("7 - Liste de tous les matchs d'un tournoi")
+        print("8 - >> Retour")
+        print("----------------------------")
+        option = input("Veuillez saisir votre choix :")
+        return option
+
+    def display_players_by_alphabetical_order():
+        """Display a report of players by alphabetical order."""
+        #player = Query()
+        db = TinyDB('Database/playersDb.json')
+        players_table = db.table('serialized_players') 
+        # sort players by name in database
+        players = sorted(players_table.all(), key=lambda k: k['name'])
+        #print(players)
+        for player in players:
+            print(player)
+
+
+    def display_players_by_rank():
+        """Display a report of players by rank."""
+        #player = Query()
+        db = TinyDB('Database/playersDb.json')
+        players_table = db.table('serialized_players') 
+        # sort players by rank in database
+        players = sorted(players_table.all(), key=lambda k: k['rank'])
+        for player in players:
+            print(player)    
+    
+    def display_players_by_rank_with_tournament_id(sorted_by_rank):
+        for player in sorted_by_rank:
+            print(player.name, player.firstname,"---> " "classement : ",player.rank)
+    
+    def display_all_tournaments():
+        db = TinyDB('DAtabase/tournamentDb.json') 
+        tournament = db.table('tournament')
+        #print(tournament.all())
+        tournaments = sorted(tournament.all(), key=lambda k: k['date'])
+        for tournament in tournaments:
+            print(tournament, "\n")
+        return tournaments
+
+    def display_select_players():
+        selection = input("Sélectionnez les joueurs dans la liste :")
+        return selection
+
+    def display_select_tournament():
+        result = input("Sélectionnez le tournoi dans la liste :")
+        return result
+    
+    def display_tournament_record():
+        console = Console()
+        console.print("Le tournoi à bien été enregistré !", style="purple")
+    
+    def display_player_added():
+        console = Console()
+        console.print("Le joueur à bien été ajouté", style="purple")
+        answer = input("Souhaitez-vous en ajouter un autre (O/N) ?")
+        return answer
+
+    def display_tournaments_players_by_alphabetic_order():
+        print("***********Voici la liste des joueurs du tournoi par ordre alphabétique :")
+        
+
+

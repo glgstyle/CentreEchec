@@ -5,6 +5,7 @@ from tinydb import JSONStorage, Storage, TinyDB, Query, where
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
 import uuid
+import json
 
 
 class Player:
@@ -90,7 +91,8 @@ class Player:
 
     #retourne au moins le firstname et non pas player.object
     def __str__(self):
-        return str(self.firstname + " " +self.name)
+        #return str(self.firstname + " " + self.name)
+        return f"{self.firstname} {self.name}"
 
     #retourne le player si il est dans une liste
     def __repr__(self):
@@ -149,6 +151,7 @@ class Player:
             except ValueError:
                 print(f"{player.rank} n'est pas un classement valide")
         player.id =uuid.uuid4().hex
+        Player.insert_player_in_database(player)
         return player
 
     def clean_table():
@@ -189,9 +192,29 @@ class Player:
         players_table = db.table('serialized_players') 
         q = Query()
         players_table.update({'rank' :rank}, q.id == id)     
+    
+    def search_player_by_id(id):
+        """"Allow the research of player by id"""
+        db = TinyDB('Database/playersDb.json')
+        players_table = db.table('serialized_players') 
+        q = Query()
+        result = players_table.search(q.id == id)
+        #print(result)
+        if len(result) == 1:
+            # convert the TinyDb object in object player
+            player = Player()
+            player.id = result[0]['id']
+            player.name = result[0]['name']
+            player.firstname = result[0]['firstname']
+            player.date_of_birth = result[0]['date_of_birth']
+            player.sexe = result[0]['sexe']
+            player.score = result[0]['score']
+            player.points = result[0]['points']
+            player.rank = result[0]['rank']
+            return player
+        else:
+            return None
 
-    def report_by_alphabetical_order():
-        """Display a report of players by alphabetical order."""
 
     def report_by_rank():
         """Display a report of players by rank"""
