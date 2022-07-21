@@ -163,7 +163,7 @@ class View:
     def menuTitle():
         console.print(" ____           _              _____     _                   ", style = "purple")
         console.print("/ ___|___ _ __ | |_ _ __ ___  | ____|___| |__   ___  ___ ___ ", style = "purple")
-        console.print("| |   / _ \ '_ \| __| '__/ _ \ |  _| / __| '_ \ / _ \/ __/ __|", style = "purple")
+        console.print("| |   / _ \  _ \| __|  __/ _ \ |  _| / __| '_ \ / _ \/ __/ __|", style = "purple")
         console.print("| |__|  __/ | | | |_| | |  __/ | |__| (__| | | |  __/ (__\__ \"", style = "purple")
         console.print("\____\___|_| |_|\__|_|  \___| |_____\___|_| |_|\___|\___|___/", style = "purple")
 

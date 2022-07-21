@@ -1,6 +1,7 @@
 ''''Define the tournament.'''
 
 from tinydb import JSONStorage, Storage, TinyDB, Query
+from tinydb.table import Document
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
 import json
@@ -121,15 +122,47 @@ class Tournament:
         for p in self.players:
             #print(f"Voici le p, {p}")
             data["players"].append(p.id)
-        for r in self.rounds:
-            data['rounds'].append(r)
+        """for r in self.rounds:
+            data['rounds'].append(r)"""
         serialization = SerializationMiddleware(JSONStorage)
         serialization.register_serializer(DateTimeSerializer(),'TinyDate')
         db = TinyDB('Database/tournamentDb.json', storage=serialization, indent=4)
         tournament_table = db.table('tournament') 
         tournament_table.insert(data)
         #tournament_table.insert(json.loads(json.dumps(data, default=lambda o: o.__dict__, sort_keys=True, indent=4)))
-    
+
+    def update_rounds_in_tournament_database(id, rounds):
+        serialization = SerializationMiddleware(JSONStorage)
+        db = TinyDB('Database/tournamentDb.json', storage=serialization, indent=4)
+        tournament_table = db.table('tournament')
+        q = Query()
+        place = tournament_table.search(q.id == id)
+        #docId = Tournament.find_doc_id_in_database_with_tournament_id(id)
+        all_rounds = []
+        i=0
+        for round in rounds:
+            i+=1
+
+            a_round = {'round'+str(i): []}
+            a_round['round'+str(i)].append(round.name)
+            a_round['round'+str(i)].append(round.start_time)
+            a_round['round'+str(i)].append(round.end_time)
+            a_round['round'+str(i)].append(round.results)
+            all_rounds.append(a_round)
+            #tournament_table.insert(Document({'rounds' : [round.name, round.start_time, round.end_time, round.results]},doc_id=docId))
+        tournament_table.upsert({'rounds':[all_rounds]}, q.id == id)
+        #tournament_table.update({'rounds' : [round.name, round.start_time, round.end_time, round.results]}, q.id == Tournament.id)
+
+    def find_doc_id_in_database_with_tournament_id(id):
+        serialization = SerializationMiddleware(JSONStorage)
+        db = TinyDB('Database/tournamentDb.json', storage=serialization, indent=4)
+        tournament_table = db.table('tournament')
+        q = Query()
+        docId = tournament_table.get(q.id == id)
+        print("***********id du doc_id", docId.doc_id)
+        print("////////////////",id)
+        return docId.doc_id
+
     def search_tournament_by_id(id):
         """"Allow the research of tournament by id"""
         db = TinyDB('Database/tournamentDb.json')
@@ -158,3 +191,8 @@ class Tournament:
 #Tournament.clean_table()
 """tour=Tournament("hhh","")
 tour.insert_tournament_in_database()"""
+#pour le tournoi il ne faut pas que le tournoi deja executé puisse être écrasé ou renouvellé( si un tournoi où tous les rounds ont été fait on ne peut pas le recommencer mais on doit pouvoir le reprendre si on s'est arrété au round 1 par exemple)
+#faire des boucles pour revenir au menu principal ou au menu précédent
+#updater les rounds apres chaque round et non pas dans insert tournament in database
+#quand on doirt choisir un joueur ou un tournoi lister les joueurs par numéro au lieu des id par les indexes de position dans la liste
+#Embellir l'affichage

@@ -9,7 +9,8 @@ from models.round import Round
 from views.base import View
 from rich.table import Table
 from rich.console import Console
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, JSONStorage
+from tinydb_serialization import SerializationMiddleware
 import uuid
 
 
@@ -161,6 +162,12 @@ class Controller:
             round.players = self.list_of_teams
             self.update_the_score()
             self.tournament.rounds.append(round)
+            Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
+            #Tournament.update_rounds_in_tournament_database(self.tournament, self.tournament.rounds)
+
+            #tournament_table.insert({'rounds' : round.start_time})
+            #q = Query()
+            #tournament_table.update({'rounds' : round})
         for i in list_name_round[1:len(list_name_round)]:
             round = Round()
             round.name = i
@@ -172,6 +179,8 @@ class Controller:
             round.results = self.results_of_match()
             self.update_the_score()
             self.tournament.rounds.append(round)
+            Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
+            #tournament_table.update({'rounds' : [round.name, round.start_time, round.end_time, round.results]}, q.id == self.tournament.id)
         self.update_player_rank()
         View.display_infos_rounds(self.tournament.rounds)   
 
@@ -198,14 +207,14 @@ class Controller:
             option = View.display_tournament_submenu()
             if option == "1":
                 self.start_a_tournament()
-                break
+                option
             elif option == "2":
                 self.replay_tournament_by_id()
                 self.start_a_round()
-                break
+                option
             elif option == "3":
                 self.main_menu()
-                break
+                option
 
     def choose_an_existing_tournament(self):
         """Return the tournament object"""
@@ -216,6 +225,7 @@ class Controller:
     def replay_tournament_by_id(self):
         """Replay an existing tournament with the same players."""
         id = self.choose_an_existing_tournament()
+        self.tournament.id = id
         tournament = Tournament.search_tournament_by_id(id)
         ids = tournament.players
         for i in ids:
@@ -223,7 +233,6 @@ class Controller:
             player = Player.search_player_by_id(i)
             print(player)
             self.tournament.players.append(player)
-        
 
     def players_submenu(self):
         while True:
@@ -235,10 +244,10 @@ class Controller:
                     Player.add_a_player()
                     response = View.display_player_added()
                 else :
-                    break
+                    option
             elif option == "2":
                 View.display_players_by_alphabetical_order()
-                break
+                option
             elif option == "3":
                 self.main_menu()
                 break
@@ -248,10 +257,10 @@ class Controller:
             option = View.display_rapports_submenu()
             if option == "1":
                 View.display_players_by_alphabetical_order()
-                break
+                option
             elif option == "2":
                 View.display_players_by_rank()
-                break
+                option
             elif option == "3":
                 id = Controller.choose_an_existing_tournament(self)
                 tournament_players = Controller.find_players_in_tournament(id)
@@ -260,24 +269,24 @@ class Controller:
                 print(sorted_by_name)
                 #for player in tournament_players():
                     #print(player)
-                break
+                option
             elif option == "4":
                 View.display_all_tournaments()
                 id = View.display_select_tournament()
                 Controller.find_players_by_rank_with_tournament_id(id)
-                break
+                option
             elif option == "5":
                 self.find_all_players_in_all_tournaments()
-                break
+                option
             elif option == "6":
                 pass
-                break
+                option
             elif option == "7":
                 pass
-                break
+                option
             elif option == "8":
                 self.main_menu()
-                break
+                
 
     def find_players_in_tournament(id):
         """Search all the players with the tournament id."""
@@ -292,7 +301,7 @@ class Controller:
 
     def find_players_by_rank_with_tournament_id(id):
         Tournament.search_tournament_by_id(id)
-        tournament_players = Controller.find_players_in_tournament(self=Controller)
+        tournament_players = Controller.find_players_in_tournament(id)
         sorted_by_rank = sorted(tournament_players, key=lambda player: player.rank)
         View.display_players_by_rank_with_tournament_id(sorted_by_rank)
     
