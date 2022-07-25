@@ -8,6 +8,8 @@ import json
 
 #from controllers.base import Controller
 from models.player import Player
+from models.match import Match
+
 
 
 class Tournament:
@@ -136,18 +138,50 @@ class Tournament:
         db = TinyDB('Database/tournamentDb.json', storage=serialization, indent=4)
         tournament_table = db.table('tournament')
         q = Query()
-        place = tournament_table.search(q.id == id)
+        #place = tournament_table.search(q.id == id)
+        match = Match()
         #docId = Tournament.find_doc_id_in_database_with_tournament_id(id)
         all_rounds = []
+        all_match = []
         i=0
+        j=0
         for round in rounds:
             i+=1
-
             a_round = {'round'+str(i): []}
+            #a_match = {'match'+str(j): []}
             a_round['round'+str(i)].append(round.name)
             a_round['round'+str(i)].append(round.start_time)
             a_round['round'+str(i)].append(round.end_time)
-            a_round['round'+str(i)].append(round.results)
+            #a_round['round'+str(i)].append(a_match)
+            #a_match['match'+str(i)].append(match.pair_of_players[0])
+
+            """for team in round.players:
+                for player in team:
+                    a_round['round'+str(i)].append(player.name)
+                    a_round['round'+str(i)].append(player.score)"""
+            #a_match['match'+str(i)].append(round.name)
+
+            for team in match.pair_of_players:
+                j+=1
+                a_match = {'match'+str(j): []}
+                a_round['round'+str(i)].append(a_match)
+                for player in team:
+                    a_match['match'+str(j)].append(player.firstname)
+                    a_match['match'+str(j)].append(player.points[int(i)-1])
+
+                    #a_match['match'+str(i)].append(player.firstname)
+                    #all_match.append(a_match)"""
+                #a_round['round'+str(i)].append(player.score)
+                
+
+
+            #print(round.match)
+            #for p in round.match:
+                #a_round['round'+str(i)].append(p.points)
+            """for team in round.players:
+                a_round['round'+str(i)].append(match.pair_of_players)"""
+            """for p in team:
+                    a_round['round'+str(i)].append(p.id)"""
             all_rounds.append(a_round)
             #tournament_table.insert(Document({'rounds' : [round.name, round.start_time, round.end_time, round.results]},doc_id=docId))
         tournament_table.upsert({'rounds':[all_rounds]}, q.id == id)

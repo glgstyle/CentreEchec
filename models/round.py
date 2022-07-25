@@ -3,7 +3,7 @@
 class Round:
     """A round is a list of matchs, has a name, a start time and a end time"""
     def __init__(self, name="", start_time="", end_time="", players="", results=""):
-        self.match = []
+        self.matchs = []
         self.name = name
         self.start_time = start_time
         self.end_time = end_time

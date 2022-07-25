@@ -78,7 +78,7 @@ class View:
         return str
     
     def display_all_teams_in_first_round(list_of_teams):
-        print(f"Les binômes sont les suivants :\n")
+        print(f"ômes sont les suivants :\n")
         # display the teams in table 
         table = Table()
         console = Console()

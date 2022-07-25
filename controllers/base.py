@@ -83,7 +83,16 @@ class Controller:
         third_team = upper_half[2], lower_half[2]
         fourth_team = upper_half[3], lower_half[3]
         # the list of pairs of players
-        self.list_of_teams = [first_team , second_team , third_team , fourth_team]
+        self.list_of_teams = [(first_team) , (second_team) , (third_team) , (fourth_team)]
+        print("**********",self.list_of_teams)
+        #self.match.pair_of_players = (self.list_of_teams[0]), (self.list_of_teams[1]), (self.list_of_teams[2]), (self.list_of_teams[3])
+        for team in self.list_of_teams:
+            self.match.pair_of_players.append(team)
+        #self.match.pair_of_players.append(self.list_of_teams[0])
+        """self.match.pair_of_players.append(self.list_of_teams[1])
+        self.match.pair_of_players.append(self.list_of_teams[2])
+        self.match.pair_of_players.append(self.list_of_teams[3])"""
+        #print("******self.round.matchs :", self.round.matchs)
         View.display_all_teams_in_first_round(list_of_teams=self.list_of_teams)
         return self.list_of_teams
     
@@ -133,10 +142,13 @@ class Controller:
         return players_in_match
 
     def results_of_match(self):
-        """Input the players results in the list, insert the pair of players and their reuslts in match."""
-        self.match.player_match_result = self.input_results()
-        self.match.pair_of_players = self.match_record()
-
+        """Input the players results in the list, insert the pair of players and their results in match."""
+        self.match.player_result = self.input_results()
+        self.match_record()
+        #self.match.pair_of_players
+        print("******self.match.pair_of_players", self.match.pair_of_players)
+        #self.match.pair_of_players = self.list_of_teams
+        
     def name_a_round(self):
         """Copy the number of turns in tournament to get an iteration of round, then return the name of rounds."""
         round_name = []
@@ -154,20 +166,16 @@ class Controller:
             round = Round()
             round.name = i
             View.display_round_name(round=i)
-            self.make_players_pairs()
+            round.players = self.make_players_pairs()
+            print("*******round.players", round.players[0])
             console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
             round.start_time = View.start_time()
             round.end_time = View.is_the_match_finished()
-            round.results = self.results_of_match()
-            round.players = self.list_of_teams
+            self.results_of_match()
+            #round.matchs.append(self.results_of_match())
             self.update_the_score()
             self.tournament.rounds.append(round)
             Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
-            #Tournament.update_rounds_in_tournament_database(self.tournament, self.tournament.rounds)
-
-            #tournament_table.insert({'rounds' : round.start_time})
-            #q = Query()
-            #tournament_table.update({'rounds' : round})
         for i in list_name_round[1:len(list_name_round)]:
             round = Round()
             round.name = i
@@ -176,11 +184,10 @@ class Controller:
             console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
             round.start_time = View.start_time()
             round.end_time = View.is_the_match_finished()
-            round.results = self.results_of_match()
+            self.results_of_match()
             self.update_the_score()
             self.tournament.rounds.append(round)
             Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
-            #tournament_table.update({'rounds' : [round.name, round.start_time, round.end_time, round.results]}, q.id == self.tournament.id)
         self.update_player_rank()
         View.display_infos_rounds(self.tournament.rounds)   
 
@@ -319,7 +326,7 @@ class Controller:
         self.create_a_tournament()
         #self.start_a_round()
 
-    def get_match_score(self):
+    def get_round_points(self):
         "Return the player points by round."
         for player in self.round.players:
             points = player.points
@@ -340,7 +347,7 @@ class Controller:
                     except ValueError:
                         View.display_value_error(points)
                 Player.update_player_points_in_database(player.id, player.points)
-        self.get_match_score() 
+        self.get_round_points() 
         return self.tournament.players
        
     def update_the_score(self):
