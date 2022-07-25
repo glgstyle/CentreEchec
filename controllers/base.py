@@ -1,5 +1,6 @@
 '''Define the Main Controller'''
 
+from os import remove
 from unicodedata import name
 from xml.dom.minidom import Identified
 from models.player import Player
@@ -190,6 +191,8 @@ class Controller:
             Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
         self.update_player_rank()
         View.display_infos_rounds(self.tournament.rounds)   
+        self.remove_points_of_player()
+        Player.remove_player_points_in_database()
 
     def program_start(self):
         """Show the title program, open the mainmenu with options to select."""
@@ -361,6 +364,10 @@ class Controller:
                 Player.update_player_score_in_database(player.id, player.score)
         #display the player with his score
         View.display_score_after_match(tournament=self.tournament)
+
+    def remove_points_of_player(self):
+        for player in self.tournament.players:
+            player.points=[]
 
     def update_player_rank(self):
         """Update the rank of player at the end of tournament."""

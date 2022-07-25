@@ -6,14 +6,9 @@
             "firstname": "gaylord",
             "date_of_birth": "{TinyDate}:1985-12-23T00:00:00",
             "sexe": "m",
-            "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 4
+            "score": 11.0,
+            "points": [],
+            "rank": 6
         },
         "2": {
             "id": "0a5fc863f34c47bc99e9a4b0639088ff",
@@ -21,14 +16,9 @@
             "firstname": "karine",
             "date_of_birth": "{TinyDate}:1996-04-25T00:00:00",
             "sexe": "f",
-            "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 7
+            "score": 11.0,
+            "points": [],
+            "rank": 8
         },
         "3": {
             "id": "39e5f22cab2e4a978782cf075ea9bd13",
@@ -36,14 +26,9 @@
             "firstname": "melanie",
             "date_of_birth": "{TinyDate}:1976-05-06T00:00:00",
             "sexe": "f",
-            "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 6
+            "score": 11.0,
+            "points": [],
+            "rank": 5
         },
         "4": {
             "id": "e811f85aecec47cbac1fcf292f5c8250",
@@ -51,14 +36,9 @@
             "firstname": "alexandre ",
             "date_of_birth": "{TinyDate}:1988-09-17T00:00:00",
             "sexe": "m",
-            "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 2
+            "score": 11.0,
+            "points": [],
+            "rank": 4
         },
         "5": {
             "id": "885d139b6fc346baae87831278c2cff7",
@@ -66,14 +46,9 @@
             "firstname": "william",
             "date_of_birth": "{TinyDate}:2019-11-18T00:00:00",
             "sexe": "m",
-            "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 3
+            "score": 11.0,
+            "points": [],
+            "rank": 7
         },
         "6": {
             "id": "76588f868ff349ed89d39b196d470b52",
@@ -81,14 +56,9 @@
             "firstname": "azylis",
             "date_of_birth": "{TinyDate}:2021-04-21T00:00:00",
             "sexe": "f",
-            "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 8
+            "score": 11.0,
+            "points": [],
+            "rank": 1
         },
         "7": {
             "id": "64db155ce0da4541a7e7322822838445",
@@ -96,18 +66,9 @@
             "firstname": "gwenaelle",
             "date_of_birth": "{TinyDate}:1985-07-15T00:00:00",
             "sexe": "f",
-            "score": 20.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0,
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 1
+            "score": 11.0,
+            "points": [],
+            "rank": 2
         },
         "8": {
             "id": "df52c08fb9544ce2b52104e7cb480c61",
@@ -115,14 +76,9 @@
             "firstname": "jessica",
             "date_of_birth": "{TinyDate}:1979-07-23T00:00:00",
             "sexe": "f",
-            "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 5
+            "score": 11.0,
+            "points": [],
+            "rank": 3
         }
     }
 }

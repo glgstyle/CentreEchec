@@ -142,50 +142,23 @@ class Tournament:
         match = Match()
         #docId = Tournament.find_doc_id_in_database_with_tournament_id(id)
         all_rounds = []
-        all_match = []
         i=0
         j=0
         for round in rounds:
             i+=1
-            a_round = {'round'+str(i): []}
-            #a_match = {'match'+str(j): []}
-            a_round['round'+str(i)].append(round.name)
-            a_round['round'+str(i)].append(round.start_time)
-            a_round['round'+str(i)].append(round.end_time)
-            #a_round['round'+str(i)].append(a_match)
-            #a_match['match'+str(i)].append(match.pair_of_players[0])
-
-            """for team in round.players:
-                for player in team:
-                    a_round['round'+str(i)].append(player.name)
-                    a_round['round'+str(i)].append(player.score)"""
-            #a_match['match'+str(i)].append(round.name)
-
+            a_round = {'round'+'-'+str(i): []}
+            a_round['round'+'-'+str(i)].append(round.name)
+            a_round['round'+'-'+str(i)].append(round.start_time)
+            a_round['round'+'-'+str(i)].append(round.end_time)
             for team in match.pair_of_players:
                 j+=1
-                a_match = {'match'+str(j): []}
-                a_round['round'+str(i)].append(a_match)
+                a_match = {'match'+'-'+str(j): []}
+                a_round['round'+'-'+str(i)].append(a_match)
                 for player in team:
-                    a_match['match'+str(j)].append(player.firstname)
-                    a_match['match'+str(j)].append(player.points[int(i)-1])
-
-                    #a_match['match'+str(i)].append(player.firstname)
-                    #all_match.append(a_match)"""
-                #a_round['round'+str(i)].append(player.score)
-                
-
-
-            #print(round.match)
-            #for p in round.match:
-                #a_round['round'+str(i)].append(p.points)
-            """for team in round.players:
-                a_round['round'+str(i)].append(match.pair_of_players)"""
-            """for p in team:
-                    a_round['round'+str(i)].append(p.id)"""
+                    a_match['match'+'-'+str(j)].append(player.firstname)
+                    a_match['match'+'-'+str(j)].append(player.points[int(i)-1])
             all_rounds.append(a_round)
-            #tournament_table.insert(Document({'rounds' : [round.name, round.start_time, round.end_time, round.results]},doc_id=docId))
         tournament_table.upsert({'rounds':[all_rounds]}, q.id == id)
-        #tournament_table.update({'rounds' : [round.name, round.start_time, round.end_time, round.results]}, q.id == Tournament.id)
 
     def find_doc_id_in_database_with_tournament_id(id):
         serialization = SerializationMiddleware(JSONStorage)
@@ -226,7 +199,7 @@ class Tournament:
 """tour=Tournament("hhh","")
 tour.insert_tournament_in_database()"""
 #pour le tournoi il ne faut pas que le tournoi deja executé puisse être écrasé ou renouvellé( si un tournoi où tous les rounds ont été fait on ne peut pas le recommencer mais on doit pouvoir le reprendre si on s'est arrété au round 1 par exemple)
-#faire des boucles pour revenir au menu principal ou au menu précédent
-#updater les rounds apres chaque round et non pas dans insert tournament in database
-#quand on doirt choisir un joueur ou un tournoi lister les joueurs par numéro au lieu des id par les indexes de position dans la liste
+#faire des boucles pour revenir au menu principal ou au menu précédent --> OK
+#updater les rounds apres chaque round et non pas dans insert tournament in database --> OK
+#quand on doit choisir un joueur ou un tournoi lister les joueurs par numéro au lieu des id par les indexes de position dans la liste
 #Embellir l'affichage

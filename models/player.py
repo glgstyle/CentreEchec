@@ -154,12 +154,20 @@ class Player:
         Player.insert_player_in_database(player)
         return player
 
-    def clean_table():
-        """Define the path, the name of table and clean it before inserting datas."""
+    """def clean_table():
+        #Define the path, the name of table and clean it before inserting datas.
         serialization = SerializationMiddleware(JSONStorage)
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
-        players_table.truncate()	# clear the table first
+        players_table.truncate()	# clear the table first"""
+
+    def remove_player_points_in_database():
+        "Remove the points of player in database after the match(clean the field 'points')."
+        serialization = SerializationMiddleware(JSONStorage)
+        db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
+        players_table = db.table('serialized_players') 
+        players_table.update({'points': []})
+        #players_table.update({'score': 0})
 
     def insert_player_in_database(self):
         """Define the path of database, the name of table, and the datas to insert in the players table."""
