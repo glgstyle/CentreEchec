@@ -1,10 +1,11 @@
 ''''Define the tournament.'''
 
-from tinydb import JSONStorage, Storage, TinyDB, Query
+from tinydb import JSONStorage, Storage, TinyDB, Query, where
 from tinydb.table import Document
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
 import json
+import re
 
 #from controllers.base import Controller
 from models.player import Player
@@ -141,24 +142,38 @@ class Tournament:
         #place = tournament_table.search(q.id == id)
         match = Match()
         #docId = Tournament.find_doc_id_in_database_with_tournament_id(id)
+        current_round = Tournament.search_field_round(id)
         all_rounds = []
+        """if current_round != 0:
+            i = current_round
+        else:
+            i=0"""
         i=0
         j=0
         for round in rounds:
             i+=1
-            a_round = {'round'+'-'+str(i): []}
-            a_round['round'+'-'+str(i)].append(round.name)
-            a_round['round'+'-'+str(i)].append(round.start_time)
-            a_round['round'+'-'+str(i)].append(round.end_time)
+            roundData = {}
+            roundData['name'] = 'round'+'_'+str(i)
+            roundData['start_date']= round.start_time
+            roundData['end_date']= round.end_time
+            roundData['matchs']=[]
+
+            """a_round = {'round'+'_'+str(i): []}
+            a_round['round'+'_'+str(i)].append(round.name)
+            a_round['round'+'_'+str(i)].append(round.start_time)
+            a_round['round'+'_'+str(i)].append(round.end_time)"""
             for team in match.pair_of_players:
-                j+=1
-                a_match = {'match'+'-'+str(j): []}
-                a_round['round'+'-'+str(i)].append(a_match)
-                for player in team:
-                    a_match['match'+'-'+str(j)].append(player.firstname)
-                    a_match['match'+'-'+str(j)].append(player.points[int(i)-1])
-            all_rounds.append(a_round)
-        tournament_table.upsert({'rounds':[all_rounds]}, q.id == id)
+                """a_match = {'match'+'_'+str(j): []}
+                a_round['round'+'_'+str(i)].append(a_match)"""
+                matchData = []
+                for player in team: #chaque joueur doit avoir son tableau contenant id et point
+                    print(player)
+                    matchData.append([player.id, player.points[int(i)-1]])
+                    #a_match['match'+'_'+str(j)].append([player.id, player.points[int(i)-1]])
+                    #a_match['match'+'_'+str(j)].append(player.points[int(i)-1])
+                roundData['matchs'].append(matchData)
+            all_rounds.append(roundData)
+        tournament_table.upsert({'rounds':all_rounds}, q.id == id)
 
     def find_doc_id_in_database_with_tournament_id(id):
         serialization = SerializationMiddleware(JSONStorage)
@@ -192,8 +207,23 @@ class Tournament:
         else:
             return None
 
+    def search_field_round(id):
+        """Search field in tounrament."""
+        db = TinyDB('Database/tournamentDb.json')
+        tournament_table = db.table('tournament') 
+        q = Query()
+        find = tournament_table.search((q.id == id))[0]
+        result = len(find["rounds"])
+        print("************ résultat :",result)
+        return result
 
-
+    def getFieldData(fieldName, id):
+        """Get the datas from a field in tiny database with tournament id."""
+        db = TinyDB('Database/tournamentDb.json')
+        tournament_table = db.table('tournament') 
+        results = tournament_table.search(where('id') == id)
+        result = [r[fieldName] for r in results]
+        return result
 
 #Tournament.clean_table()
 """tour=Tournament("hhh","")

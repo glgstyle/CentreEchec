@@ -1,8 +1,7 @@
 '''Define the Main Controller'''
 
-from os import remove
-from unicodedata import name
-from xml.dom.minidom import Identified
+
+from operator import countOf
 from models.player import Player
 from models.tournament import Tournament
 from models.match import Match
@@ -27,8 +26,7 @@ class Controller:
         self.tournament.rounds = []
         
     def make_a_tournament_team(self):
-        """Add players until players list = 8, return the list of players."""
-        Player.clean_table()
+        """Add players until players list = 8"""
         pool = 0
         while pool < 8:  
             pool = pool + 1
@@ -43,7 +41,7 @@ class Controller:
         option = View.display_add_players_or_not()
         if option == "1":
             self.make_a_tournament_team()
-            View.display_tournament_record()
+            View.display_tournament_well_recorded()
         elif option == "2":
             View.display_players_by_alphabetical_order()
             ids = self.select_players()
@@ -109,7 +107,7 @@ class Controller:
         sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
         players_in_rounds = self.find_all_players_in_rounds()
         players= sorted_by_score_or_rank
-        teams=[]
+        self.teams=[]
         # while there is players, remove the first and the second player of the list
         while(len(players)>0):
             a=players.pop(0)
@@ -124,9 +122,12 @@ class Controller:
                         if len(players) > 0:
                             c=players.pop()
                             players.insert(0, c)
-            teams.append([a,b])
-        View.display_all_teams_after_first_round(teams)
-        return teams
+            self.teams.append([a,b])
+        for team in self.teams:
+            self.match.pair_of_players = []
+            self.match.pair_of_players.append(team)
+        View.display_all_teams_after_first_round(self.teams)
+        return self.teams
 
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal, sort them by rank."""
@@ -157,16 +158,23 @@ class Controller:
             round_name.append(f"Round {i+1}")
         return round_name
 
-    def start_a_round(self):
+    def go_in_round(self):
+        result = Tournament.search_field_round(self.tournament.id)
+        print("result is :", result)
+        print("result + 1 is : ", result+1)
+        self.start_a_round(result+1)
+
+    def start_a_round(self, current_round_number=1):
         """Start to give a name to the round then until there is no more round, start a new match."""
         console = Console()
         #self.rounds = []
         list_name_round = self.name_a_round()
         #for each round, create pairs of players, append start, end time and players pairs with their score in a round 
-        for i in list_name_round[0:1]:
+        #if this is the first round 
+        if current_round_number == 1:
             round = Round()
-            round.name = i
-            View.display_round_name(round=i)
+            round.name = list_name_round[0]
+            View.display_round_name(round.name)
             round.players = self.make_players_pairs()
             print("*******round.players", round.players[0])
             console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
@@ -177,22 +185,24 @@ class Controller:
             self.update_the_score()
             self.tournament.rounds.append(round)
             Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
-        for i in list_name_round[1:len(list_name_round)]:
-            round = Round()
-            round.name = i
-            View.display_round_name(round=i)
-            round.players = self.make_players_pairs_by_score_or_rank()
-            console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
-            round.start_time = View.start_time()
-            round.end_time = View.is_the_match_finished()
-            self.results_of_match()
-            self.update_the_score()
-            self.tournament.rounds.append(round)
-            Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
+        
+        else :
+            for round_name in list_name_round[current_round_number-1:len(list_name_round)]:
+                round = Round()
+                round.name = round_name
+                View.display_round_name(round.name)
+                round.players = self.make_players_pairs_by_score_or_rank()
+                console.input("\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
+                round.start_time = View.start_time()
+                round.end_time = View.is_the_match_finished()
+                self.results_of_match()
+                self.update_the_score()
+                self.tournament.rounds.append(round)
+                Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
         self.update_player_rank()
         View.display_infos_rounds(self.tournament.rounds)   
-        self.remove_points_of_player()
-        Player.remove_player_points_in_database()
+        #self.remove_points_of_player()
+        #Player.remove_player_points_in_database()
 
     def program_start(self):
         """Show the title program, open the mainmenu with options to select."""
@@ -219,8 +229,8 @@ class Controller:
                 self.start_a_tournament()
                 option
             elif option == "2":
-                self.replay_tournament_by_id()
-                self.start_a_round()
+                self.continue_to_play_tournament_by_id()
+                #self.start_a_round()
                 option
             elif option == "3":
                 self.main_menu()
@@ -232,8 +242,8 @@ class Controller:
         choice = View.display_select_tournament()
         return choice
     
-    def replay_tournament_by_id(self):
-        """Replay an existing tournament with the same players."""
+    def continue_to_play_tournament_by_id(self):
+        """Continue to play an existing tournament by giving an id."""
         id = self.choose_an_existing_tournament()
         self.tournament.id = id
         tournament = Tournament.search_tournament_by_id(id)
@@ -243,6 +253,18 @@ class Controller:
             player = Player.search_player_by_id(i)
             print(player)
             self.tournament.players.append(player)
+        nb_of_rounds = Tournament.search_field_round(id)
+        #si le tournoi n'a pas 4 rounds: continuer
+        print("************")
+        if nb_of_rounds !=4:
+            self.go_in_round()
+            Tournament.update_rounds_in_tournament_database(self.tournament.id, self.tournament.rounds)
+        #sinon montrer les résultats du tournoi mais ne pas le rejouer
+        else :
+            print("le tournoi est déjà terminé, vous pouvez consulter les résultats ici :")
+            View.display_infos_rounds()
+        
+
 
     def players_submenu(self):
         while True:
@@ -337,8 +359,9 @@ class Controller:
 
     def input_results(self):
         """Input the result of the match, return the player infos with the score inserted."""
-        for pair in self.list_of_teams:
+        for pair in self.match.pair_of_players:
             for player in pair:
+                print("///////player",player)
                 # As long as the score is incorrect request the score again, then insert it in the player list
                 while True:  
                     points = input(f"Veuillez entrer le score de joueur {player.firstname} {player.name} : ")

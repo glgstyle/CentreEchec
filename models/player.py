@@ -54,7 +54,7 @@ class Player:
         
     @property
     def rank(self):
-        return self._rank
+        return int(self._rank)
 
     # Setters
     @id.setter
@@ -199,7 +199,7 @@ class Player:
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players') 
         q = Query()
-        players_table.update({'rank' :rank}, q.id == id)     
+        players_table.update({'rank' :int(rank)}, q.id == id)     
     
     def search_player_by_id(id):
         """"Allow the research of player by id"""

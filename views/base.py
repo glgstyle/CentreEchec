@@ -255,7 +255,7 @@ class View:
         result = input("Sélectionnez le tournoi dans la liste :")
         return result
     
-    def display_tournament_record():
+    def display_tournament_well_recorded():
         console = Console()
         console.print("Le tournoi à bien été enregistré !", style="purple")
     
