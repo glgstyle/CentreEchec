@@ -107,7 +107,7 @@ class Controller:
         sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
         players_in_rounds = self.find_all_players_in_rounds()
         players= sorted_by_score_or_rank
-        self.teams=[]
+        self.list_of_teams=[]
         # while there is players, remove the first and the second player of the list
         while(len(players)>0):
             a=players.pop(0)
@@ -122,12 +122,11 @@ class Controller:
                         if len(players) > 0:
                             c=players.pop()
                             players.insert(0, c)
-            self.teams.append([a,b])
-        for team in self.teams:
-            self.match.pair_of_players = []
+            self.list_of_teams.append([a,b])
+        for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
-        View.display_all_teams_after_first_round(self.teams)
-        return self.teams
+        View.display_all_teams_after_first_round(self.list_of_teams)
+        return self.list_of_teams
 
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal, sort them by rank."""
@@ -159,7 +158,7 @@ class Controller:
         return round_name
 
     def go_in_round(self):
-        result = Tournament.search_field_round(self.tournament.id)
+        result = Tournament.search_length_field_round(self.tournament.id)
         print("result is :", result)
         print("result + 1 is : ", result+1)
         self.start_a_round(result+1)
@@ -181,11 +180,9 @@ class Controller:
             round.start_time = View.start_time()
             round.end_time = View.is_the_match_finished()
             self.results_of_match()
-            #round.matchs.append(self.results_of_match())
             self.update_the_score()
             self.tournament.rounds.append(round)
             Tournament.update_rounds_in_tournament_database(id=self.tournament.id, rounds=self.tournament.rounds)
-        
         else :
             for round_name in list_name_round[current_round_number-1:len(list_name_round)]:
                 round = Round()
@@ -238,22 +235,28 @@ class Controller:
 
     def choose_an_existing_tournament(self):
         """Return the tournament object"""
-        View.display_all_tournaments()
-        choice = View.display_select_tournament()
-        return choice
+        try:
+            tournaments_doc = View.display_all_tournaments()
+            if not tournaments_doc:
+                raise UnboundLocalError
+        except UnboundLocalError:
+            print("Il n'y a pas de tournois dans la base de données.")
+            self.main_menu()
+        else :
+            choice = View.display_select_tournament()
+            if choice <= len(tournaments_doc):
+                print("choix ", choice)
+                chosen_tournament_doc= tournaments_doc[choice-1]
+                print("Le tournoi choisi est : ", chosen_tournament_doc)
+            else:
+                print("veuillez choisir un numero dans la liste")
+        return chosen_tournament_doc['id']
     
     def continue_to_play_tournament_by_id(self):
         """Continue to play an existing tournament by giving an id."""
         id = self.choose_an_existing_tournament()
-        self.tournament.id = id
-        tournament = Tournament.search_tournament_by_id(id)
-        ids = tournament.players
-        for i in ids:
-            print(i)
-            player = Player.search_player_by_id(i)
-            print(player)
-            self.tournament.players.append(player)
-        nb_of_rounds = Tournament.search_field_round(id)
+        self.tournament = Tournament.search_tournament_by_id(id)
+        nb_of_rounds = Tournament.search_length_field_round(id)
         #si le tournoi n'a pas 4 rounds: continuer
         print("************")
         if nb_of_rounds !=4:
@@ -262,7 +265,7 @@ class Controller:
         #sinon montrer les résultats du tournoi mais ne pas le rejouer
         else :
             print("le tournoi est déjà terminé, vous pouvez consulter les résultats ici :")
-            View.display_infos_rounds()
+            View.display_infos_rounds(self.tournament.rounds)
         
 
 
@@ -359,9 +362,9 @@ class Controller:
 
     def input_results(self):
         """Input the result of the match, return the player infos with the score inserted."""
-        for pair in self.match.pair_of_players:
+      
+        for pair in self.list_of_teams:
             for player in pair:
-                print("///////player",player)
                 # As long as the score is incorrect request the score again, then insert it in the player list
                 while True:  
                     points = input(f"Veuillez entrer le score de joueur {player.firstname} {player.name} : ")

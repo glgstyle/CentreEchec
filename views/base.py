@@ -239,12 +239,15 @@ class View:
             print(player.name, player.firstname,"---> " "classement : ",player.rank)
     
     def display_all_tournaments():
-        db = TinyDB('DAtabase/tournamentDb.json') 
+        """"Display the tournaments from database by adding a number(i) to allow an easy selection"""
+        db = TinyDB('Database/tournamentDb.json') 
         tournament = db.table('tournament')
         #print(tournament.all())
         tournaments = sorted(tournament.all(), key=lambda k: k['date'])
+        i = 1
         for tournament in tournaments:
-            print(tournament, "\n")
+            print(i, tournament['date'],tournament['name'], "\n")
+            i+=1
         return tournaments
 
     def display_select_players():
@@ -252,7 +255,7 @@ class View:
         return selection
 
     def display_select_tournament():
-        result = input("Sélectionnez le tournoi dans la liste :")
+        result = int(input("Sélectionnez le tournoi dans la liste :"))
         return result
     
     def display_tournament_well_recorded():

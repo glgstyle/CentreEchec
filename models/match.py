@@ -26,5 +26,11 @@ class Match:
         self._player_result = player_result
 
 
+    #retourne au moins la paire de joueurs et non pas match.object
+    def __str__(self):
+        return f"{self.pair_of_players} {self.player_result}"
 
+    #retourne le match si il est dans une liste
+    def __repr__(self):
+        return self.__str__()
     

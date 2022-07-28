@@ -10,13 +10,15 @@ import re
 #from controllers.base import Controller
 from models.player import Player
 from models.match import Match
+from models.round import Round
+
 
 
 
 class Tournament:
     """A tournament"""
 
-    def __init__(self, id="", name="",date="",place="",comment="",numbers_of_turns=4,rounds="",time_control="",players=""):
+    def __init__(self, id="", name="",date="",place="",comment="",numbers_of_turns=4,rounds=[],time_control="",players=[]):
         """Has a name, a date, a place, a number of turns, turns, a pool of players,  time control, comments"""
         self.id = id
         self.name = name
@@ -142,35 +144,20 @@ class Tournament:
         #place = tournament_table.search(q.id == id)
         match = Match()
         #docId = Tournament.find_doc_id_in_database_with_tournament_id(id)
-        current_round = Tournament.search_field_round(id)
         all_rounds = []
-        """if current_round != 0:
-            i = current_round
-        else:
-            i=0"""
         i=0
-        j=0
         for round in rounds:
             i+=1
-            roundData = {}
+            roundData = {} 
             roundData['name'] = 'round'+'_'+str(i)
             roundData['start_date']= round.start_time
             roundData['end_date']= round.end_time
             roundData['matchs']=[]
-
-            """a_round = {'round'+'_'+str(i): []}
-            a_round['round'+'_'+str(i)].append(round.name)
-            a_round['round'+'_'+str(i)].append(round.start_time)
-            a_round['round'+'_'+str(i)].append(round.end_time)"""
             for team in match.pair_of_players:
-                """a_match = {'match'+'_'+str(j): []}
-                a_round['round'+'_'+str(i)].append(a_match)"""
                 matchData = []
                 for player in team: #chaque joueur doit avoir son tableau contenant id et point
                     print(player)
                     matchData.append([player.id, player.points[int(i)-1]])
-                    #a_match['match'+'_'+str(j)].append([player.id, player.points[int(i)-1]])
-                    #a_match['match'+'_'+str(j)].append(player.points[int(i)-1])
                 roundData['matchs'].append(matchData)
             all_rounds.append(roundData)
         tournament_table.upsert({'rounds':all_rounds}, q.id == id)
@@ -202,12 +189,53 @@ class Tournament:
             tournament.comment = result[0]['comment']
             tournament.numbers_of_turns = result[0]['number_of_turns']
             tournament.time_control = result[0]['time_control']
-            tournament.players = result[0]['players']
+            for p in result[0]['players']:
+                print(p)
+                player = Player.search_player_by_id(p)
+                print(player)
+                tournament.players.append(player)
+            for r in result[0]['rounds']:
+                print(r)  
+                round = Round()
+                round.name = r['name']
+                round.start_time = r['start_date']
+                round.end_time = r['end_date']
+                round.matchs = r['matchs']
+                #refaire une boucle pour les matchs
+                for match in round.matchs:
+                    match = Match()
+                    print(match)
+                tournament.rounds.append(round)
             return tournament
         else:
             return None
 
     def search_field_round(id):
+        """Search field in tounrament."""
+        db = TinyDB('Database/tournamentDb.json')
+        tournament_table = db.table('tournament') 
+        q = Query()
+        #find = tournament_table.search((q.id == id))[0]
+        find = tournament_table.search((q.id == id))
+        if len(find) == 1:
+            tournament = Tournament()
+            round = Round()
+            #result = find["rounds"]
+            tournament.rounds = find[0]['rounds']
+            for round in tournament.rounds:
+                print("round in tournament.rounds", round)
+                print(round['name'])
+                print(round['start_date'])
+                print(round['end_date'])
+        
+                """round.start_time = round[1]['start_time']
+                round.end_time = round[2]['end_time']
+                round.matchs = []"""
+
+        print("************ Rounds :",tournament.rounds)
+        return tournament.rounds
+
+    def search_length_field_round(id):
         """Search field in tounrament."""
         db = TinyDB('Database/tournamentDb.json')
         tournament_table = db.table('tournament') 
