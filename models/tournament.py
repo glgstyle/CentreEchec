@@ -284,3 +284,4 @@ tour.insert_tournament_in_database()"""
 #utiliser le rapport flake8 pour corriger les erreurs
 #retirer les prints et remettre bien ce qui va dans la vue
 #ajouter un entête pour les sous-menu(par exemple tournoi, rapport etc..)
+#changer les numéros d'options de menu par des constantes provenant de constants.py
