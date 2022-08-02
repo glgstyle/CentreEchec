@@ -73,7 +73,7 @@ class Controller:
                     print("/////joueur choisi :",joueur_choisi.id)
                     #Player.search_player_by_id(joueur_choisi.id)
                     #print("p.id", p.id)
-                    
+                    #Attention on ne peut pas ajouter deux fois le meme id (condition if in ..)
                     choices.append(joueur_choisi)
                 else:
                     print("veuillez choisir un numero dans la liste")

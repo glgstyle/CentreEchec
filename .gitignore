@@ -4,3 +4,5 @@
 \.venv
 \__pycache__
 \Database
+.flake8
+flake-report/

@@ -150,8 +150,9 @@ class View:
         table.add_column("Heure de fin", style="magenta")
         table.add_column("Adversaires", style="blue")
         for round in rounds:
+            print("le round dans rounds", round)
             competitors =[]
-            for p in round.players:
+            for p in round.matchs:#aller chercher les noms plutot que les id
                 competitors.append(f"{p[0]} - contre - {p[1]}")
             table.add_row(f"{round.name}", f"{round.start_time}", f"{round.end_time}", f"{competitors}")
         console.print(table)

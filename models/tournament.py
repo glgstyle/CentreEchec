@@ -274,8 +274,13 @@ class Tournament:
 #Tournament.clean_table()
 """tour=Tournament("hhh","")
 tour.insert_tournament_in_database()"""
-#pour le tournoi il ne faut pas que le tournoi deja executé puisse être écrasé ou renouvellé( si un tournoi où tous les rounds ont été fait on ne peut pas le recommencer mais on doit pouvoir le reprendre si on s'est arrété au round 1 par exemple)
+#pour le tournoi il ne faut pas que le tournoi deja executé puisse être écrasé ou renouvellé( si un tournoi où tous les rounds ont été fait on ne peut pas le recommencer mais on doit pouvoir le reprendre si on s'est arrété au round 1 par exemple)-> ok
 #faire des boucles pour revenir au menu principal ou au menu précédent --> OK
 #updater les rounds apres chaque round et non pas dans insert tournament in database --> OK
-#quand on doit choisir un joueur ou un tournoi lister les joueurs par numéro au lieu des id par les indexes de position dans la liste
+#quand on doit choisir un joueur ou un tournoi lister les joueurs par numéro au lieu des id par les indexes de position dans la liste -> ok
 #Embellir l'affichage
+#Attention on ne peut pas ajouter deux fois le meme id (condition if in ..)
+#dans view.display_info_rounds -> aller chercher les noms plutot que les id
+#utiliser le rapport flake8 pour corriger les erreurs
+#retirer les prints et remettre bien ce qui va dans la vue
+#ajouter un entête pour les sous-menu(par exemple tournoi, rapport etc..)

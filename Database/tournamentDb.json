@@ -689,50 +689,6 @@
                 }
             ]
         },
-        "2": {
-            "id": "dab27f7359424de59cfcc9f5843b6644",
-            "name": "Rover",
-            "date": "{TinyDate}:2019-04-18T00:00:00",
-            "place": "Montecarlo",
-            "comment": "Joueurs d'exception",
-            "number_of_turns": 4,
-            "time_control": "blitz",
-            "players": [],
-            "rounds": []
-        },
-        "3": {
-            "id": "e32b06c008d34ea1ac932b9ddfbd9768",
-            "name": "Rover",
-            "date": "{TinyDate}:2019-04-18T00:00:00",
-            "place": "Montecarlo",
-            "comment": "Joueurs d'exception",
-            "number_of_turns": 4,
-            "time_control": "blitz",
-            "players": [],
-            "rounds": []
-        },
-        "4": {
-            "id": "c991cb4597784444bc11749d3c483691",
-            "name": "Rover",
-            "date": "{TinyDate}:2019-04-18T00:00:00",
-            "place": "Montecarlo",
-            "comment": "Joueurs d'exception",
-            "number_of_turns": 4,
-            "time_control": "blitz",
-            "players": [],
-            "rounds": []
-        },
-        "5": {
-            "id": "c157f38a292441b9b44fefcfa4cbe6ff",
-            "name": "Rover",
-            "date": "{TinyDate}:2019-04-18T00:00:00",
-            "place": "Montecarlo",
-            "comment": "Joueurs d'exception",
-            "number_of_turns": 4,
-            "time_control": "blitz",
-            "players": [],
-            "rounds": []
-        },
         "6": {
             "id": "cfbee0a9803741469adbe477933be5a3",
             "name": "Rover",
