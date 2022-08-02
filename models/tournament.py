@@ -190,12 +190,12 @@ class Tournament:
             tournament.numbers_of_turns = result[0]['number_of_turns']
             tournament.time_control = result[0]['time_control']
             for p in result[0]['players']:
-                print(p)
+                #print(p)
                 player = Player.search_player_by_id(p)
-                print(player)
+                #print(player)
                 tournament.players.append(player)
             for r in result[0]['rounds']:
-                print(r)  
+                #print(r)  
                 round = Round()
                 round.name = r['name']
                 round.start_time = r['start_date']
@@ -204,14 +204,14 @@ class Tournament:
                 #refaire une boucle pour les matchs
                 for match in round.matchs:
                     match = Match()
-                    print(match)
+                    #print(match)
                 tournament.rounds.append(round)
             return tournament
         else:
             return None
 
     def search_field_round(id):
-        """Search field in tounrament."""
+        """Search field in tournament."""
         db = TinyDB('Database/tournamentDb.json')
         tournament_table = db.table('tournament') 
         q = Query()
@@ -219,14 +219,18 @@ class Tournament:
         find = tournament_table.search((q.id == id))
         if len(find) == 1:
             tournament = Tournament()
-            round = Round()
+            #round = Round()
             #result = find["rounds"]
             tournament.rounds = find[0]['rounds']
             for round in tournament.rounds:
+                round = Round()
                 print("round in tournament.rounds", round)
                 print(round['name'])
-                print(round['start_date'])
-                print(round['end_date'])
+                round.name = round['name']
+                #print(round.name)
+                #print(round['start_date'])
+                #print(round['end_date'])
+                #print(round['matchs'])
         
                 """round.start_time = round[1]['start_time']
                 round.end_time = round[2]['end_time']
@@ -253,6 +257,18 @@ class Tournament:
         result = [r[fieldName] for r in results]
         return result
 
+    def find_players_in_tournament(id):
+        """Search all the players with the tournament id."""
+        tournament = Tournament.search_tournament_by_id(id)
+        """print("*******tournament.players", tournament.players)
+        ids = tournament.players
+        list_of_players = []
+        for i in ids:
+            player = Player.search_player_by_id(i)
+            print("******player",player)
+            list_of_players.append(player)
+        return list_of_players"""
+        return tournament.players
 #Tournament.clean_table()
 """tour=Tournament("hhh","")
 tour.insert_tournament_in_database()"""

@@ -223,6 +223,15 @@ class Player:
         else:
             return None
 
+    def list_of_players_by_alphabetical_order():
+        """Return a list_doc of players by alphabetical order."""
+        db = TinyDB('Database/playersDb.json')
+        players_table = db.table('serialized_players') 
+        # sort players by name in database
+        players_doc = sorted(players_table.all(), key=lambda k: k['name'])
+        return players_doc
 
     def report_by_rank():
         """Display a report of players by rank"""
+
+    

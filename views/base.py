@@ -1,6 +1,6 @@
 '''Base view'''
 
-#from models.player import Player
+from models.player import Player
 #from models.round import Round
 from datetime import datetime
 from rich.console import Console
@@ -212,27 +212,31 @@ class View:
         option = input("Veuillez saisir votre choix :")
         return option
 
-    def display_players_by_alphabetical_order():
+    def display_list_of_players_by_alphabetical_order():
         """Display a report of players by alphabetical order."""
-        #player = Query()
-        db = TinyDB('Database/playersDb.json')
-        players_table = db.table('serialized_players') 
-        # sort players by name in database
-        players = sorted(players_table.all(), key=lambda k: k['name'])
-        #print(players)
-        for player in players:
-            print(player)
+        players_doc = Player.list_of_players_by_alphabetical_order()
+        i = 0
+        print("\nListe de tous les joueurs par ordre alphabétique :\n")
+        for player in players_doc:
+            p = Player()
+            p.name = player['name']
+            p.firstname = player['firstname']
+            i+=1
+            print(i, p.name, p.firstname)
 
-
-    def display_players_by_rank():
+    def display_list_of_players_by_rank():
         """Display a report of players by rank."""
-        #player = Query()
         db = TinyDB('Database/playersDb.json')
         players_table = db.table('serialized_players') 
         # sort players by rank in database
         players = sorted(players_table.all(), key=lambda k: k['rank'])
+        print("\nListe de tous les joueurs par classement :\n")
         for player in players:
-            print(player)    
+            p = Player()
+            p.rank = player['rank']
+            p.name = player['name']
+            p.firstname = player['firstname']
+            print("Rang ", p.rank,": ",p.name, p.firstname)   
     
     def display_players_by_rank_with_tournament_id(sorted_by_rank):
         for player in sorted_by_rank:
@@ -251,7 +255,7 @@ class View:
         return tournaments
 
     def display_select_players():
-        selection = input("Sélectionnez les joueurs dans la liste :")
+        selection = int(input("Sélectionnez les joueurs dans la liste :"))
         return selection
 
     def display_select_tournament():
@@ -268,8 +272,31 @@ class View:
         answer = input("Souhaitez-vous en ajouter un autre (O/N) ?")
         return answer
 
-    def display_tournaments_players_by_alphabetic_order():
-        print("***********Voici la liste des joueurs du tournoi par ordre alphabétique :")
-        
+    def display_title_list_of_players_by_alphabetic_order():
+        print("\nListe des joueurs du tournoi par ordre alphabétique :\n")
+    
+    def display_tournament_players_by_alphabetical_order(sorted_by_name):
+        for player in sorted_by_name:
+            print(player)     
 
+    def display_should_we_start_the_game():
+        answer = input("Souhaitez vous commencer le tournoi (O/N) ?")
+        return answer
 
+    def display_all_players_in_all_tournaments(tournaments_ids):
+        for id in tournaments_ids:
+            all_players = Tournament.find_players_in_tournament(id)
+            print(all_players)
+    
+    def display_tournament_rounds_in_report(tournament):
+        for round in tournament.rounds:
+            print(round.name)
+            print(round.start_time)
+            print(round.end_time)
+            for match in round.matchs:
+                print(match)
+
+    def display_tournament_matchs_in_report(tournament):
+        for round in tournament.rounds:
+            for match in round.matchs:
+                print(match)

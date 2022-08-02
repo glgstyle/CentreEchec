@@ -1,7 +1,7 @@
 '''Define the Main Controller'''
 
 
-from operator import countOf
+
 from models.player import Player
 from models.tournament import Tournament
 from models.match import Match
@@ -43,29 +43,41 @@ class Controller:
             self.make_a_tournament_team()
             View.display_tournament_well_recorded()
         elif option == "2":
-            View.display_players_by_alphabetical_order()
-            ids = self.select_players()
-            #print(ids)
-            #self.tournament.players.append(id)
-            for i in ids:
+            players = View.display_players_by_alphabetical_order()
+            choices = self.select_players(players)
+            self.tournament.players.clear()
+            for i in choices:
                 p = Player.search_player_by_id(i)
                 self.tournament.players.append(p)
+                print("ici self.tournament.players", self.tournament.players)
             # insert in database
         self.tournament.insert_tournament_in_database()
 
-    def select_players(self):
-        #View.display_players_by_alphabetical_order()
+    def select_players(self, players):
+        #View.list_of_players_by_alphabetical_order()
         choices = []
         list_of_players = 0
         while list_of_players < 8:
             list_of_players += 1
-            id = View.display_select_players()
-            choices.append(id)
+            choice = View.display_select_players()
+            try:
+                if choice <= len(players):
+                    #print("choix ", choice)
+                    joueur_choisi= players[choice-1]
+                    #print("/////joueur choisi :",joueur_choisi['id'])
+                    p =Player.search_player_by_id(joueur_choisi['id'])
+                    #print("p.id", p.id)
+                    choices.append(p.id)
+                else:
+                    print("veuillez choisir un numero dans la liste")
+            except ValueError:
+                print(choice, "n'est pas dans la liste des joueurs. Veuillez saisir un chiffre correspondant au joueur dans la liste.")
+            """else:
+                print("veuillez choisir un numero dans la liste")"""
         return choices
 
     def sort_players_by_rank(self):
         """Sort the list of players by rank, return the sorted list."""
-        print(self.tournament.players)
         sorted_by_rank = sorted(self.tournament.players, key=lambda player: player.rank)
         return sorted_by_rank
 
@@ -130,7 +142,9 @@ class Controller:
 
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal, sort them by rank."""
-        #-x.score is the reverse order because we need the most important score first and the first of rank, second after etc....
+        #remove what there is after the eigth player in the list otherwise ther is a duplicate list with 16 players
+        del self.tournament.players[8:]
+        #-x.score is the reverse order because we need the most important score first and t1he first of rank, second after etc....
         sorted_by_score_then_rank = sorted(self.tournament.players, key=lambda x: (-x.score, x.rank))
         return sorted_by_score_then_rank
 
@@ -247,7 +261,7 @@ class Controller:
             if choice <= len(tournaments_doc):
                 print("choix ", choice)
                 chosen_tournament_doc= tournaments_doc[choice-1]
-                print("Le tournoi choisi est : ", chosen_tournament_doc)
+                print("Le tournoi choisi est le tournoi ", chosen_tournament_doc['name']," qui s'est joué le ", chosen_tournament_doc['date'])
             else:
                 print("veuillez choisir un numero dans la liste")
         return chosen_tournament_doc['id']
@@ -266,9 +280,7 @@ class Controller:
         else :
             print("le tournoi est déjà terminé, vous pouvez consulter les résultats ici :")
             View.display_infos_rounds(self.tournament.rounds)
-        
-
-
+ 
     def players_submenu(self):
         while True:
             option = View.display_joueurs_submenu()
@@ -281,7 +293,7 @@ class Controller:
                 else :
                     option
             elif option == "2":
-                View.display_players_by_alphabetical_order()
+                View.display_list_of_players_by_alphabetical_order()
                 option
             elif option == "3":
                 self.main_menu()
@@ -290,53 +302,46 @@ class Controller:
     def rapports_submenu(self):
         while True:
             option = View.display_rapports_submenu()
-            if option == "1":
-                View.display_players_by_alphabetical_order()
+            if option == "1":#list of all players by alphabetical order
+                View.display_list_of_players_by_alphabetical_order()
                 option
-            elif option == "2":
-                View.display_players_by_rank()
+            elif option == "2":#list of all players by rank
+                View.display_list_of_players_by_rank()
                 option
-            elif option == "3":
+            elif option == "3":#list of tournament players by alphabetical order
                 id = Controller.choose_an_existing_tournament(self)
-                tournament_players = Controller.find_players_in_tournament(id)
-                View.display_tournaments_players_by_alphabetic_order()
+                tournament_players = Tournament.find_players_in_tournament(id)
+                View.display_title_list_of_players_by_alphabetic_order()
                 sorted_by_name = sorted(tournament_players, key=lambda player: player.name)
-                print(sorted_by_name)
-                #for player in tournament_players():
-                    #print(player)
+                View.display_tournament_players_by_alphabetical_order(sorted_by_name)
                 option
-            elif option == "4":
+            elif option == "4":#list of tournament players by rank
                 View.display_all_tournaments()
-                id = View.display_select_tournament()
+                id = Controller.choose_an_existing_tournament(self)
                 Controller.find_players_by_rank_with_tournament_id(id)
                 option
-            elif option == "5":
-                self.find_all_players_in_all_tournaments()
+            elif option == "5":#list of all players from all tournaments
+                tournament_ids = self.find_all_players_in_all_tournaments()
+                View.display_all_players_in_all_tournaments(tournament_ids)
                 option
-            elif option == "6":
-                pass
+            elif option == "6":#list of all rounds in a tournament
+                View.display_all_tournaments()
+                id = Controller.choose_an_existing_tournament(self)
+                tournament = Tournament.search_tournament_by_id(id)
+                View.display_tournament_rounds_in_report(tournament)
                 option
-            elif option == "7":
-                pass
+            elif option == "7":#list of all matchs in a tournament
+                View.display_all_tournaments()
+                id = Controller.choose_an_existing_tournament(self)
+                tournament = Tournament.search_tournament_by_id(id)
+                View.display_tournament_matchs_in_report(tournament)
                 option
             elif option == "8":
                 self.main_menu()
-                
-
-    def find_players_in_tournament(id):
-        """Search all the players with the tournament id."""
-        tournament = Tournament.search_tournament_by_id(id)
-        ids = tournament.players
-        list_of_players = []
-        for i in ids:
-            player = Player.search_player_by_id(i)
-            #print(player)
-            list_of_players.append(player)
-        return list_of_players
 
     def find_players_by_rank_with_tournament_id(id):
         Tournament.search_tournament_by_id(id)
-        tournament_players = Controller.find_players_in_tournament(id)
+        tournament_players = Tournament.find_players_in_tournament(id)
         sorted_by_rank = sorted(tournament_players, key=lambda player: player.rank)
         View.display_players_by_rank_with_tournament_id(sorted_by_rank)
     
@@ -345,14 +350,21 @@ class Controller:
         tournaments_ids = []
         for tournament in tournaments :
             tournaments_ids.append(tournament['id'])
-        for id in tournaments_ids:
-            all_players = Controller.find_players_in_tournament(id)
-            print(all_players)
+        return tournaments_ids
+        """for id in tournaments_ids:
+            all_players = Tournament.find_players_in_tournament(id)
+            print(all_players)"""
 
     def start_a_tournament(self):
         """Starting processus of tournament, create a tournament with players... and a round with them."""
         self.create_a_tournament()
-        #self.start_a_round()
+        #ask if we start a round, if yes : start the first round and then go in second round 
+        response = View.display_should_we_start_the_game()
+        if response == "O" or response == "o":
+            self.start_a_round()
+            self.go_in_round()
+        else:
+            pass
 
     def get_round_points(self):
         "Return the player points by round."
@@ -362,7 +374,6 @@ class Controller:
 
     def input_results(self):
         """Input the result of the match, return the player infos with the score inserted."""
-      
         for pair in self.list_of_teams:
             for player in pair:
                 # As long as the score is incorrect request the score again, then insert it in the player list
