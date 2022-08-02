@@ -124,7 +124,9 @@ class Tournament:
         """Define the path of database, the name of table, and the datas to insert in the tournament table."""
         data = {'id' :self.id, 'name' :self.name, 'date' :self.date, 'place' :self.place, 'comment' :self.comment, 'number_of_turns' :self.numbers_of_turns, 'time_control' :self.time_control, 'players' :[], 'rounds' :[]}
         # insert the players id in tournament
+        print("Ici self.players", self.players)
         for p in self.players:
+    
             #print(f"Voici le p, {p}")
             data["players"].append(p.id)
         """for r in self.rounds:

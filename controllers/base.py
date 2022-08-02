@@ -12,6 +12,8 @@ from rich.console import Console
 from tinydb import TinyDB, Query, JSONStorage
 from tinydb_serialization import SerializationMiddleware
 import uuid
+from controllers.constants import ADD_NEW_PLAYERS, SELECT_EXISTING_PLAYERS
+#import controllers.constants as CONSTANTE (dans ce cas la ecrire CONSTANTE.ADD_NEW_PLAYER dans la fonction par exemple)
 
 
 class Controller:
@@ -39,17 +41,19 @@ class Controller:
         View.display_create_a_tournament(self.tournament)
         self.tournament.id = uuid.uuid4().hex
         option = View.display_add_players_or_not()
-        if option == "1":
+        if option == ADD_NEW_PLAYERS:
             self.make_a_tournament_team()
             View.display_tournament_well_recorded()
-        elif option == "2":
-            players = View.display_players_by_alphabetical_order()
-            choices = self.select_players(players)
-            self.tournament.players.clear()
-            for i in choices:
+        elif option == SELECT_EXISTING_PLAYERS:
+            players = View.display_list_of_players_by_alphabetical_order()
+            self.tournament.players = self.select_players(players)
+            #self.tournament.players.clear()
+            
+            """for i in choices:
+                print("i ====",i)
                 p = Player.search_player_by_id(i)
-                self.tournament.players.append(p)
-                print("ici self.tournament.players", self.tournament.players)
+                self.tournament.players.append(p)"""
+            print("ici self.tournament.players", self.tournament.players)
             # insert in database
         self.tournament.insert_tournament_in_database()
 
@@ -60,20 +64,24 @@ class Controller:
         while list_of_players < 8:
             list_of_players += 1
             choice = View.display_select_players()
+            print("*****ici choice",choice)
+            print("*****ici players",players)
             try:
                 if choice <= len(players):
-                    #print("choix ", choice)
+                    print("choix ", choice-1)
                     joueur_choisi= players[choice-1]
-                    #print("/////joueur choisi :",joueur_choisi['id'])
-                    p =Player.search_player_by_id(joueur_choisi['id'])
+                    print("/////joueur choisi :",joueur_choisi.id)
+                    #Player.search_player_by_id(joueur_choisi.id)
                     #print("p.id", p.id)
-                    choices.append(p.id)
+                    
+                    choices.append(joueur_choisi)
                 else:
                     print("veuillez choisir un numero dans la liste")
             except ValueError:
                 print(choice, "n'est pas dans la liste des joueurs. Veuillez saisir un chiffre correspondant au joueur dans la liste.")
             """else:
                 print("veuillez choisir un numero dans la liste")"""
+        print("returned choices", choices)
         return choices
 
     def sort_players_by_rank(self):
@@ -340,9 +348,13 @@ class Controller:
                 self.main_menu()
 
     def find_players_by_rank_with_tournament_id(id):
-        Tournament.search_tournament_by_id(id)
-        tournament_players = Tournament.find_players_in_tournament(id)
-        sorted_by_rank = sorted(tournament_players, key=lambda player: player.rank)
+        tournament = Tournament.search_tournament_by_id(id)
+        """for player in tournament.players:
+            print(player)"""
+
+        #tournament_players = Tournament.find_players_in_tournament(id)
+        #print("//////tournament_players",tournament_players)
+        sorted_by_rank = sorted(tournament.players, key=lambda player: player.rank)
         View.display_players_by_rank_with_tournament_id(sorted_by_rank)
     
     def find_all_players_in_all_tournaments(self):
@@ -363,8 +375,6 @@ class Controller:
         if response == "O" or response == "o":
             self.start_a_round()
             self.go_in_round()
-        else:
-            pass
 
     def get_round_points(self):
         "Return the player points by round."

@@ -212,17 +212,32 @@ class View:
         option = input("Veuillez saisir votre choix :")
         return option
 
+    """def display_players_by_alphabetical_order():
+        #Display a report of players by alphabetical order.
+        players_doc = Player.list_of_players_by_alphabetical_order()
+        i = 0
+        list_of_players_ids = []
+        for player in players_doc:
+            i+=1
+            print(i, player['name'], player['firstname'])
+            list_of_players_ids.append(player['id'])
+        return list_of_players_ids"""
+
     def display_list_of_players_by_alphabetical_order():
         """Display a report of players by alphabetical order."""
         players_doc = Player.list_of_players_by_alphabetical_order()
         i = 0
         print("\nListe de tous les joueurs par ordre alphabétique :\n")
+        list_of_players = []
         for player in players_doc:
             p = Player()
             p.name = player['name']
             p.firstname = player['firstname']
+            p.id = player['id']
             i+=1
             print(i, p.name, p.firstname)
+            list_of_players.append(p)
+        return list_of_players
 
     def display_list_of_players_by_rank():
         """Display a report of players by rank."""
@@ -240,7 +255,7 @@ class View:
     
     def display_players_by_rank_with_tournament_id(sorted_by_rank):
         for player in sorted_by_rank:
-            print(player.name, player.firstname,"---> " "classement : ",player.rank)
+            print("Rang ",player.rank," : ", player.name, player.firstname)
     
     def display_all_tournaments():
         """"Display the tournaments from database by adding a number(i) to allow an easy selection"""
