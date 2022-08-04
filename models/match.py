@@ -6,8 +6,9 @@ class Match:
     def __init__(self, pair_of_players=[], player_result=0):
         self.pair_of_players = pair_of_players
         self.player_result = player_result
-        
-    #Getters
+
+    # Getters
+
     @property
     def pair_of_players(self):
         return self._pair_of_players
@@ -16,7 +17,8 @@ class Match:
     def player_result(self):
         return self._player_result
 
-    #Setters
+    # Setters
+
     @pair_of_players.setter
     def pair_of_players(self, pair_of_players):
         self._pair_of_players = pair_of_players
@@ -25,12 +27,11 @@ class Match:
     def player_result(self, player_result):
         self._player_result = player_result
 
-
-    #retourne au moins la paire de joueurs et non pas match.object
+    # retourne au moins la paire de joueurs et non pas match.object
     def __str__(self):
+
         return f"{self.pair_of_players} {self.player_result}"
 
-    #retourne le match si il est dans une liste
+    # retourne le match si il est dans une liste
     def __repr__(self):
         return self.__str__()
-    

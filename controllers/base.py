@@ -8,8 +8,8 @@ from models.round import Round
 from views.base import View
 from rich.console import Console
 import uuid
-from controllers.constants import ADD_NEW_PLAYERS, SELECT_EXISTING_PLAYERS
-# import controllers.constants as CONSTANTE :
+# from controllers.constants import ADD_NEW_PLAYERS, SELECT_EXISTING_PLAYERS
+import controllers.constants as CONSTANTE
 # (dans ce cas la ecrire CONSTANTE.ADD_NEW_PLAYER dans la fonction par exemple)
 
 
@@ -40,21 +40,20 @@ class Controller:
         View.display_create_a_tournament(self.tournament)
         self.tournament.id = uuid.uuid4().hex
         option = View.display_add_players_or_not()
-        if option == ADD_NEW_PLAYERS:
+        if option == CONSTANTE.ADD_NEW_PLAYERS:
             self.make_a_tournament_team()
             View.display_tournament_well_recorded()
-        elif option == SELECT_EXISTING_PLAYERS:
+        elif option == CONSTANTE.SELECT_EXISTING_PLAYERS:
             players = View.display_list_of_players_by_alphabetical_order()
             self.tournament.players = self.select_players(players)
             # insert in database
         self.tournament.insert_tournament_in_database()
 
     def select_players(self, players):
-        # View.list_of_players_by_alphabetical_order()
+        """Select existing players to add in a new tournament."""
         choices = []
         list_of_players = 0
         while list_of_players < 8:
-            list_of_players += 1
             choice = View.display_select_players()
             print("*****ici choice", choice)
             print("*****ici players", players)
@@ -63,9 +62,13 @@ class Controller:
                     print("choix ", choice - 1)
                     joueur_choisi = players[choice - 1]
                     print("/////joueur choisi :", joueur_choisi.id)
-                    # Attention on ne peut pas ajouter deux fois le meme id
-                    # (condition if in ..)
-                    choices.append(joueur_choisi)
+                    # We can not add 2 times the same player id
+                    if joueur_choisi not in choices:
+                        list_of_players += 1
+                        choices.append(joueur_choisi)
+                    else:
+                        print("Ce joueur a déjà été selectionné, "
+                              "veuillez en choisir un autre")
                 else:
                     print("veuillez choisir un numero dans la liste")
             except ValueError:
@@ -73,8 +76,6 @@ class Controller:
                     choice, "n'est pas dans la liste des joueurs."
                     "Veuillez saisir un chiffre correspondant au "
                     "joueur dans la liste.")
-            """else:
-                print("veuillez choisir un numero dans la liste")"""
         print("returned choices", choices)
         return choices
 
@@ -107,10 +108,6 @@ class Controller:
         print("**********", self.list_of_teams)
         for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
-        # self.match.pair_of_players.append(self.list_of_teams[0])
-        """self.match.pair_of_players.append(self.list_of_teams[1])
-        self.match.pair_of_players.append(self.list_of_teams[2])
-        self.match.pair_of_players.append(self.list_of_teams[3])"""
         View.display_all_teams_in_first_round(list_of_teams=self.list_of_teams)
         return self.list_of_teams
 
@@ -134,7 +131,7 @@ class Controller:
             a = players.pop(0)
             b = players.pop(0)
             # for lists of teams in rounds and for team in list of teams, check
-            # if they have already play together
+            # if they have already played together
             for competitors in players_in_rounds:
                 for competitor in competitors:
                     # if they have play together, put back b in list and take
@@ -246,27 +243,26 @@ class Controller:
     def main_menu(self):
         while True:
             option = View.display_main_menu()
-            if option == "1":
+            if option == CONSTANTE.TOURNAMENT:
                 self.tournament_submenu()
                 break
-            elif option == "2":
+            elif option == CONSTANTE.PLAYERS:
                 self.players_submenu()
                 break
-            elif option == "3":
+            elif option == CONSTANTE.REPORTS:
                 self.rapports_submenu()
                 break
 
     def tournament_submenu(self):
         while True:
             option = View.display_tournament_submenu()
-            if option == "1":
+            if option == CONSTANTE.CREATE_NEW_TOURNAMENT:
                 self.start_a_tournament()
                 option
-            elif option == "2":
+            elif option == CONSTANTE.CHOOSE_EXISTING_TOURNAMENT:
                 self.continue_to_play_tournament_by_id()
-                # self.start_a_round()
                 option
-            elif option == "3":
+            elif option == CONSTANTE.MAIN_MENU:
                 self.main_menu()
                 option
 
@@ -281,6 +277,7 @@ class Controller:
             self.main_menu()
         else:
             choice = View.display_select_tournament()
+            # check if choice is in len of tournament doc
             if choice <= len(tournaments_doc):
                 print("choix ", choice)
                 chosen_tournament_doc = tournaments_doc[choice - 1]
@@ -298,13 +295,13 @@ class Controller:
         id = self.choose_an_existing_tournament()
         self.tournament = Tournament.search_tournament_by_id(id)
         nb_of_rounds = Tournament.search_length_field_round(id)
-        # si le tournoi n'a pas 4 rounds: continuer
+        # continue to play if tournament doesn't contains 4 rounds
         print("************")
         if nb_of_rounds != 4:
             self.go_in_round()
             Tournament.update_rounds_in_tournament_database(
                 self.tournament.id, self.tournament.rounds)
-        # sinon montrer les résultats du tournoi mais ne pas le rejouer
+        # else show results of tournament (don't replay)
         else:
             print(
                 "le tournoi est déjà terminé, voici les résultats :")
@@ -313,7 +310,7 @@ class Controller:
     def players_submenu(self):
         while True:
             option = View.display_joueurs_submenu()
-            if option == "1":
+            if option == CONSTANTE.ADD_A_NEW_PLAYER:
                 Player.add_a_player()
                 response = View.display_player_added()
                 if response == "O" or response == "o":
@@ -321,24 +318,23 @@ class Controller:
                     response = View.display_player_added()
                 else:
                     option
-            elif option == "2":
+            elif option == CONSTANTE.SEE_THE_LIST_OF_PLAYERS:
                 View.display_list_of_players_by_alphabetical_order()
                 option
-            elif option == "3":
+            elif option == CONSTANTE.MAIN_MENU:
                 self.main_menu()
                 break
 
     def rapports_submenu(self):
         while True:
             option = View.display_rapports_submenu()
-            if option == "1":  # list of all players by alphabetical order
+            if option == CONSTANTE.LIST_OF_ALL_PLAYERS_BY_ALPHABETICAL_ORDER:
                 View.display_list_of_players_by_alphabetical_order()
                 option
-            elif option == "2":  # list of all players by rank
+            elif option == CONSTANTE.LIST_OF_ALL_PLAYERS_BY_RANK:
                 View.display_list_of_players_by_rank()
                 option
-            # list of tournament players by alphabetical order
-            elif option == "3":
+            elif option == CONSTANTE.TOURNAMENT_PLAYERS_BY_ALPHABETICAL_ORDER:
                 id = Controller.choose_an_existing_tournament(self)
                 tournament_players = Tournament.find_players_in_tournament(id)
                 View.display_title_list_of_players_by_alphabetic_order()
@@ -347,28 +343,28 @@ class Controller:
                 View.display_tournament_players_by_alphabetical_order(
                     sorted_by_name)
                 option
-            elif option == "4":  # list of tournament players by rank
+            elif option == CONSTANTE.LIST_OF_TOURNAMENT_PLAYERS_BY_RANK:
                 View.display_all_tournaments()
                 id = Controller.choose_an_existing_tournament(self)
                 Controller.find_players_by_rank_with_tournament_id(id)
                 option
-            elif option == "5":  # list of all players from all tournaments
+            elif option == CONSTANTE.LIST_OF_ALL_PLAYERS_FROM_ALL_TOURNAMENTS:
                 tournament_ids = self.find_all_players_in_all_tournaments()
                 View.display_all_players_in_all_tournaments(tournament_ids)
                 option
-            elif option == "6":  # list of all rounds in a tournament
+            elif option == CONSTANTE.LIST_OF_ALL_ROUNDS_IN_A_TOURNAMENT:
                 View.display_all_tournaments()
                 id = Controller.choose_an_existing_tournament(self)
                 tournament = Tournament.search_tournament_by_id(id)
                 View.display_tournament_rounds_in_report(tournament)
                 option
-            elif option == "7":  # list of all matchs in a tournament
+            elif option == CONSTANTE.LIST_OF_ALL_MATCHS_IN_A_TOURNAMENT:
                 View.display_all_tournaments()
                 id = Controller.choose_an_existing_tournament(self)
                 tournament = Tournament.search_tournament_by_id(id)
                 View.display_tournament_matchs_in_report(tournament)
                 option
-            elif option == "8":
+            elif option == CONSTANTE.RETURN_TO_THE_MAIN_MENU:
                 self.main_menu()
 
     def find_players_by_rank_with_tournament_id(id):
@@ -386,9 +382,6 @@ class Controller:
         for tournament in tournaments:
             tournaments_ids.append(tournament['id'])
         return tournaments_ids
-        """for id in tournaments_ids:
-            all_players = Tournament.find_players_in_tournament(id)
-            print(all_players)"""
 
     def start_a_tournament(self):
         """Starting processus of tournament, create a tournament with players...
@@ -443,6 +436,7 @@ class Controller:
         View.display_score_after_match(tournament=self.tournament)
 
     def remove_points_of_player(self):
+        """Remove the tournament points of players"""
         for player in self.tournament.players:
             player.points = []
 
