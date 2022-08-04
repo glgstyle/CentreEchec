@@ -55,13 +55,13 @@ class Controller:
         list_of_players = 0
         while list_of_players < 8:
             choice = View.display_select_players()
-            print("*****ici choice", choice)
-            print("*****ici players", players)
+            #print("*****ici choice", choice)
+            #print("*****ici players", players)
             try:
                 if choice <= len(players):
-                    print("choix ", choice - 1)
+                    #print("choix ", choice - 1)
                     joueur_choisi = players[choice - 1]
-                    print("/////joueur choisi :", joueur_choisi.id)
+                    #print("/////joueur choisi :", joueur_choisi.id)
                     # We can not add 2 times the same player id
                     if joueur_choisi not in choices:
                         list_of_players += 1
@@ -76,7 +76,7 @@ class Controller:
                     choice, "n'est pas dans la liste des joueurs."
                     "Veuillez saisir un chiffre correspondant au "
                     "joueur dans la liste.")
-        print("returned choices", choices)
+        #print("returned choices", choices)
         return choices
 
     def sort_players_by_rank(self):
@@ -90,7 +90,7 @@ class Controller:
         """Divide sorted players in two half, the best player of upper half play
         against the best player of lower half etc..Return the list of teams."""
         sorted_players_by_rank = self.sort_players_by_rank()
-        print(sorted_players_by_rank)
+        #print(sorted_players_by_rank)
         half = len(sorted_players_by_rank) / 2
         half = int(half)
         upper_half = sorted_players_by_rank[0:half]
@@ -105,7 +105,7 @@ class Controller:
             (second_team),
             (third_team),
             (fourth_team)]
-        print("**********", self.list_of_teams)
+        #print("**********", self.list_of_teams)
         for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
         View.display_all_teams_in_first_round(list_of_teams=self.list_of_teams)
@@ -175,7 +175,7 @@ class Controller:
         and their results in match."""
         self.match.player_result = self.input_results()
         self.match_record()
-        print("******self.match.pair_of_players", self.match.pair_of_players)
+        #print("******self.match.pair_of_players", self.match.pair_of_players)
 
     def name_a_round(self):
         """Copy the number of turns in tournament to get an iteration of round,
@@ -187,8 +187,8 @@ class Controller:
 
     def go_in_round(self):
         result = Tournament.search_length_field_round(self.tournament.id)
-        print("result is :", result)
-        print("result + 1 is : ", result + 1)
+        #print("result is :", result)
+        #print("result + 1 is : ", result + 1)
         self.start_a_round(result + 1)
 
     def start_a_round(self, current_round_number=1):
@@ -204,7 +204,7 @@ class Controller:
             round.name = list_name_round[0]
             View.display_round_name(round.name)
             round.players = self.make_players_pairs()
-            print("*******round.players", round.players[0])
+            #print("*******round.players", round.players[0])
             console.input(
                 "\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
             round.start_time = View.start_time()
@@ -255,6 +255,7 @@ class Controller:
 
     def tournament_submenu(self):
         while True:
+            View.display_title_of_tournament_submenu()
             option = View.display_tournament_submenu()
             if option == CONSTANTE.CREATE_NEW_TOURNAMENT:
                 self.start_a_tournament()
@@ -296,7 +297,7 @@ class Controller:
         self.tournament = Tournament.search_tournament_by_id(id)
         nb_of_rounds = Tournament.search_length_field_round(id)
         # continue to play if tournament doesn't contains 4 rounds
-        print("************")
+        #print("************")
         if nb_of_rounds != 4:
             self.go_in_round()
             Tournament.update_rounds_in_tournament_database(
@@ -308,6 +309,7 @@ class Controller:
             View.display_infos_rounds(self.tournament.rounds)
 
     def players_submenu(self):
+        View.display_title_of_players_submenu()
         while True:
             option = View.display_joueurs_submenu()
             if option == CONSTANTE.ADD_A_NEW_PLAYER:
@@ -326,6 +328,7 @@ class Controller:
                 break
 
     def rapports_submenu(self):
+        View.display_title_report_submenu()
         while True:
             option = View.display_rapports_submenu()
             if option == CONSTANTE.LIST_OF_ALL_PLAYERS_BY_ALPHABETICAL_ORDER:

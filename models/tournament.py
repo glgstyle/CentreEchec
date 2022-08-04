@@ -114,7 +114,7 @@ class Tournament:
                 'time_control': self.time_control,
                 'players': [], 'rounds': []}
         # insert the players id in tournament
-        print("Ici self.players", self.players)
+        #print("ici self.players", self.players)
         for p in self.players:
             data["players"].append(p.id)
         serialization = SerializationMiddleware(JSONStorage)
@@ -144,7 +144,7 @@ class Tournament:
                 matchData = []
                 # each player has an array with his id and his points
                 for player in team:
-                    print(player)
+                    #print(player)
                     matchData.append([player.id, player.points[int(i)-1]])
                 roundData['matchs'].append(matchData)
             all_rounds.append(roundData)
@@ -227,9 +227,9 @@ class Tournament:
 # Attention on ne peut pas ajouter deux fois le meme id
 # (condition if in ..)-->OK
 # dans view.display_info_rounds -> aller chercher les noms plutot que les id
-# utiliser le rapport flake8 pour corriger les erreurs
+# utiliser le rapport flake8 pour corriger les erreurs -->OK
 # retirer les prints et remettre bien ce qui va dans la vue
-# ajouter un entête pour les sous-menu(par exemple tournoi, rapport etc..)
+# ajouter un entête pour les sous-menu(par exemple tournoi, rapport etc..)-->OK
 # changer les numéros d'options de menu par des constantes provenant de
 # constants.py --> OK
 # refaire une boucle pour les matchs dans search tournament by id?

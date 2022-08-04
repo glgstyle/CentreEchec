@@ -166,8 +166,13 @@ class View:
             print("le round dans rounds", round)
             competitors = []
             # aller chercher les noms plutot que les id !!!!!
-            for p in round.matchs:
-                competitors.append(f"{p[0]} - contre - {p[1]}")
+            for match in round.matchs:
+                for id in match:
+                    #print("le p de competiteur-->",p.name)
+                    player = Player.search_player_by_id(id)
+                competitors.append(
+                    f"{player.name[0]} - contre - {player.name[1]}")
+                #competitors.append(f"{p[0]} - contre - {p[1]}")
             table.add_row(f"{round.name}", f"{round.start_time}",
                           f"{round.end_time}", f"{competitors}")
         console.print(table)
@@ -183,7 +188,7 @@ class View:
           style="purple")
         p("/ ___|___ _ __ | |_ _ __ ___  | ____|___| |__   ___  ___ ___ ",
           style="purple")
-        p("| |   / _ \  _ \| __|  __/ _ \ |  _| / __| '_ \ / _ \/ __/ __|",
+        p(repr("| |   / _ \  _ \\| __|  __/ _ \ |  _| / __|  _ \ / _ \\/ __/ __|"),
           style="purple")
         p("| |__|  __/ | | | |_| | |  __/ | |__| (__| | | |  __/ (__\__ \"",
           style="purple")
@@ -200,6 +205,19 @@ class View:
         option = input("Veuillez saisir votre choix :")
         return option
 
+    def display_title_of_tournament_submenu():
+        p = console.print
+        p(" _____                            _",
+          style="purple")
+        p("|_   _|__  _   _ _ __ _ __   ___ (_)___",
+          style="purple")
+        p("  | |/ _ \| | | |  __|  _ \ / _ \| / __|",
+          style="purple")
+        p('  | | (_) | |_| | |  | | | | (_) | \__ \'',
+          style="purple")
+        p("  |_|\___/ \__,_|_|  |_| |_|\___/|_|___/",
+          style="purple")
+
     def display_tournament_submenu():
         print("----------------------------")
         print("Sélectionnez une option")
@@ -210,6 +228,19 @@ class View:
         option = input("Veuillez saisir votre choix :")
         return option
 
+    def display_title_of_players_submenu():
+        p = console.print
+        p("     _  ",
+          style="purple")
+        p("    | | ___  _   _  ___ _   _ _ __ ___ ",
+          style="purple")
+        p(" _  | |/ _ \| | | |/ _ \ | | |  __/ __|",
+          style="purple")
+        p('| |_| | (_) | |_| |  __/ |_| | |  \__ \'',
+          style="purple")
+        p(" \___/ \___/ \__,_|\___|\__,_|_|  |___/",
+          style="purple")
+
     def display_joueurs_submenu():
         print("----------------------------")
         print("Sélectionnez une option")
@@ -219,6 +250,21 @@ class View:
         print("----------------------------")
         option = input("Veuillez saisir votre choix :")
         return option
+
+    def display_title_report_submenu():
+        p = console.print
+        p("____                              _       ",
+          style="purple")
+        p("|  _ \ __ _ _ __  _ __   ___  _ __| |_ ___ ",
+          style="purple")
+        p("| |_) / _  |  _ \|  _ \ / _ \|  __| __/ __|",
+          style="purple")
+        p('|  _ < (_| | |_) | |_) | (_) | |  | |_\__ \'',
+          style="purple")
+        p("|_| \_\__,_| .__/| .__/ \___/|_|   \__|___/",
+          style="purple")
+        p("           |_|   |_|                    ",
+          style="purple")
 
     def display_rapports_submenu():
         print("----------------------------")
