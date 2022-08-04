@@ -141,6 +141,7 @@ class Tournament:
             roundData['end_date'] = round.end_time
             roundData['matchs'] = []
             for team in match.pair_of_players:
+                #print(team)
                 matchData = []
                 # each player has an array with his id and his points
                 for player in team:
@@ -174,11 +175,14 @@ class Tournament:
                 round.name = r['name']
                 round.start_time = r['start_date']
                 round.end_time = r['end_date']
-                round.matchs = r['matchs']
+                round.matchs = r["matchs"]
                 # refaire une boucle pour les matchs
-                """for match in round.matchs:
+                """for m in r['matchs']:
                     match = Match()
-                    print(match)"""
+                    round.matchs.append(match)
+                    match.pair_of_players = m['matchs'][0]
+                    match.player_result = m['matchs'][1]"""
+                    #print(match)
                 tournament.rounds.append(round)
             return tournament
         else:
@@ -233,3 +237,6 @@ class Tournament:
 # changer les numéros d'options de menu par des constantes provenant de
 # constants.py --> OK
 # refaire une boucle pour les matchs dans search tournament by id?
+# commenter au dessus des constantes pour savoir a quoi ca correspond
+# trouver pourquoi autant de players sont ajoutés dans la bdd du tournoi -->OK
+

@@ -7,12 +7,7 @@
             "date_of_birth": "{TinyDate}:1985-12-23T00:00:00",
             "sexe": "m",
             "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
+            "points": [],
             "rank": 8
         },
         "2": {
@@ -22,12 +17,7 @@
             "date_of_birth": "{TinyDate}:1996-04-25T00:00:00",
             "sexe": "f",
             "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
+            "points": [],
             "rank": 7
         },
         "3": {
@@ -36,14 +26,9 @@
             "firstname": "melanie",
             "date_of_birth": "{TinyDate}:1976-05-06T00:00:00",
             "sexe": "f",
-            "score": 50.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                44.0
-            ],
-            "rank": 1
+            "score": 10.0,
+            "points": [],
+            "rank": 5
         },
         "4": {
             "id": "be688ec1c7c04c09a5f0cd2915fdfab7",
@@ -52,13 +37,8 @@
             "date_of_birth": "{TinyDate}:1988-09-17T00:00:00",
             "sexe": "m",
             "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 2
+            "points": [],
+            "rank": 1
         },
         "5": {
             "id": "479cb64774c14ca499c9c4877f9aba46",
@@ -67,13 +47,8 @@
             "date_of_birth": "{TinyDate}:2019-11-18T00:00:00",
             "sexe": "m",
             "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 3
+            "points": [],
+            "rank": 2
         },
         "6": {
             "id": "821729187b89475895f214cd0a51fddb",
@@ -82,13 +57,8 @@
             "date_of_birth": "{TinyDate}:2021-04-21T00:00:00",
             "sexe": "f",
             "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 4
+            "points": [],
+            "rank": 3
         },
         "7": {
             "id": "2be5b21f9eac49b1bc24eed10a76de98",
@@ -97,12 +67,7 @@
             "date_of_birth": "{TinyDate}:1985-07-15T00:00:00",
             "sexe": "f",
             "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
+            "points": [],
             "rank": 6
         },
         "8": {
@@ -112,13 +77,8 @@
             "date_of_birth": "{TinyDate}:1979-07-23T00:00:00",
             "sexe": "f",
             "score": 10.0,
-            "points": [
-                1.0,
-                2.0,
-                3.0,
-                4.0
-            ],
-            "rank": 5
+            "points": [],
+            "rank": 4
         }
     }
 }

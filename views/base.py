@@ -163,18 +163,19 @@ class View:
         table.add_column("Heure de fin", style="magenta")
         table.add_column("Adversaires", style="blue")
         for round in rounds:
-            print("le round dans rounds", round)
-            competitors = []
+            #print("le round dans rounds", round)
+            round.competitors = []
             # aller chercher les noms plutot que les id !!!!!
             for match in round.matchs:
-                for id in match:
-                    #print("le p de competiteur-->",p.name)
-                    player = Player.search_player_by_id(id)
-                competitors.append(
-                    f"{player.name[0]} - contre - {player.name[1]}")
+                #print("///////match :", match)
+                player1 = Player.search_player_by_id(match[0][0])
+                player2 = Player.search_player_by_id(match[1][0])   
+                myPlayers = player1.name, player1.firstname, "contre ", player2.name, player2.firstname
+                #print(myPlayers)
+                round.competitors.append(myPlayers)
                 #competitors.append(f"{p[0]} - contre - {p[1]}")
             table.add_row(f"{round.name}", f"{round.start_time}",
-                          f"{round.end_time}", f"{competitors}")
+                          f"{round.end_time}", f"{round.competitors}")
         console.print(table)
 
     def display_value_error(points):
@@ -188,7 +189,7 @@ class View:
           style="purple")
         p("/ ___|___ _ __ | |_ _ __ ___  | ____|___| |__   ___  ___ ___ ",
           style="purple")
-        p(repr("| |   / _ \  _ \\| __|  __/ _ \ |  _| / __|  _ \ / _ \\/ __/ __|"),
+        p("| |   / _ \  _ \\| __|  __/ _ \ |  _| / __|  _ \ / _ \\/ __/ __|",
           style="purple")
         p("| |__|  __/ | | | |_| | |  __/ | |__| (__| | | |  __/ (__\__ \"",
           style="purple")

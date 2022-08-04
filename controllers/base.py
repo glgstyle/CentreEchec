@@ -106,6 +106,7 @@ class Controller:
             (third_team),
             (fourth_team)]
         #print("**********", self.list_of_teams)
+        self.match.pair_of_players.clear()
         for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
         View.display_all_teams_in_first_round(list_of_teams=self.list_of_teams)
@@ -145,6 +146,7 @@ class Controller:
                             c = players.pop()
                             players.insert(0, c)
             self.list_of_teams.append([a, b])
+        self.match.pair_of_players.clear()
         for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
         View.display_all_teams_after_first_round(self.list_of_teams)
@@ -232,8 +234,8 @@ class Controller:
                     id=self.tournament.id, rounds=self.tournament.rounds)
         self.update_player_rank()
         View.display_infos_rounds(self.tournament.rounds)
-        # self.remove_points_of_player()
-        # Player.remove_player_points_in_database()
+        #self.remove_points_of_player()
+        Player.remove_player_points_in_database()
 
     def program_start(self):
         """Show the title program, open the mainmenu with options to select."""
