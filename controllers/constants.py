@@ -1,17 +1,22 @@
+# 2 options when creating a tournament
 ADD_NEW_PLAYERS = "1"
 SELECT_EXISTING_PLAYERS = "2"
 
+# 3 options in main menu
 TOURNAMENT = "1"
 PLAYERS = "2"
 REPORTS = "3"
 
+# 3 options in tournament menu
 CREATE_NEW_TOURNAMENT = "1"
 CHOOSE_EXISTING_TOURNAMENT = "2"
 MAIN_MENU = "3"
 
+# 2 options in players menu
 ADD_A_NEW_PLAYER = "1"
 SEE_THE_LIST_OF_PLAYERS = "2"
 
+#8 options in report menu
 LIST_OF_ALL_PLAYERS_BY_ALPHABETICAL_ORDER = "1"
 LIST_OF_ALL_PLAYERS_BY_RANK = "2"
 TOURNAMENT_PLAYERS_BY_ALPHABETICAL_ORDER = "3"
