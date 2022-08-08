@@ -167,11 +167,12 @@ class View:
             round.competitors = []
             # aller chercher les noms plutot que les id !!!!!
             for match in round.matchs:
-                #print("///////match :", match)
+                #round.competitors.clear()
+                print("///////match :", match)
                 player1 = Player.search_player_by_id(match[0][0])
                 player2 = Player.search_player_by_id(match[1][0])   
                 myPlayers = player1.name, player1.firstname, "contre ", player2.name, player2.firstname
-                #print(myPlayers)
+                print(myPlayers)
                 round.competitors.append(myPlayers)
                 #competitors.append(f"{p[0]} - contre - {p[1]}")
             table.add_row(f"{round.name}", f"{round.start_time}",

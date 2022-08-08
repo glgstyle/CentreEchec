@@ -106,10 +106,11 @@ class Controller:
             (third_team),
             (fourth_team)]
         #print("**********", self.list_of_teams)
-        self.match.pair_of_players.clear()
+        #self.match.pair_of_players.clear()
         for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
-        View.display_all_teams_in_first_round(list_of_teams=self.list_of_teams)
+            #print("////team dans make pair",team)
+        View.display_all_teams_in_first_round(self.list_of_teams)
         return self.list_of_teams
 
     def find_all_players_in_rounds(self):
@@ -122,6 +123,9 @@ class Controller:
     def make_players_pairs_by_score_or_rank(self):
         """Make players pairs by score or rank after the first round
         by checking if they have already played together."""
+        """print("///list of teams avant clear",self.list_of_teams)
+        self.list_of_teams.clear()
+        print("///list of teams après clear",self.list_of_teams)"""
         sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
         players_in_rounds = self.find_all_players_in_rounds()
         players = sorted_by_score_or_rank
@@ -146,9 +150,10 @@ class Controller:
                             c = players.pop()
                             players.insert(0, c)
             self.list_of_teams.append([a, b])
-        self.match.pair_of_players.clear()
+        #self.match.pair_of_players.clear()
         for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
+            #print("//team dans make pair by rank", team)
         View.display_all_teams_after_first_round(self.list_of_teams)
         return self.list_of_teams
 

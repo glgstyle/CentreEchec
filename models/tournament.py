@@ -141,7 +141,7 @@ class Tournament:
             roundData['end_date'] = round.end_time
             roundData['matchs'] = []
             for team in match.pair_of_players:
-                #print(team)
+                print("team in match.pair_of players", team)
                 matchData = []
                 # each player has an array with his id and his points
                 for player in team:
@@ -176,13 +176,14 @@ class Tournament:
                 round.start_time = r['start_date']
                 round.end_time = r['end_date']
                 round.matchs = r["matchs"]
+                #round.matchs = []
                 # refaire une boucle pour les matchs
                 """for m in r['matchs']:
                     match = Match()
                     round.matchs.append(match)
                     match.pair_of_players = m['matchs'][0]
                     match.player_result = m['matchs'][1]"""
-                    #print(match)
+                    print(match)
                 tournament.rounds.append(round)
             return tournament
         else:
@@ -228,15 +229,10 @@ class Tournament:
 
 
 # Embellir l'affichage
-# Attention on ne peut pas ajouter deux fois le meme id
-# (condition if in ..)-->OK
 # dans view.display_info_rounds -> aller chercher les noms plutot que les id
-# utiliser le rapport flake8 pour corriger les erreurs -->OK
+# utiliser le rapport flake8 pour corriger les erreurs 
 # retirer les prints et remettre bien ce qui va dans la vue
-# ajouter un entête pour les sous-menu(par exemple tournoi, rapport etc..)-->OK
-# changer les numéros d'options de menu par des constantes provenant de
-# constants.py --> OK
 # refaire une boucle pour les matchs dans search tournament by id?
-# commenter au dessus des constantes pour savoir a quoi ca correspond
+# commenter au dessus des constantes pour savoir a quoi ca correspond -->OK
 # trouver pourquoi autant de players sont ajoutés dans la bdd du tournoi -->OK
 
