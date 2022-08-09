@@ -268,7 +268,7 @@ class View:
         p("           |_|   |_|                    ",
           style="purple")
 
-    def display_rapports_submenu():
+    def display_reports_submenu():
         print("----------------------------")
         print("Sélectionnez une option")
         print("1 - Liste de tous les joueurs par ordre alphabétique")
