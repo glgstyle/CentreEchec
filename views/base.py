@@ -169,8 +169,8 @@ class View:
             for match in round.matchs:
                 #round.competitors.clear()
                 print("///////match :", match)
-                player1 = Player.search_player_by_id(match[0][0])
-                player2 = Player.search_player_by_id(match[1][0])   
+                player1 = match.pair_of_players[0]
+                player2 = match.pair_of_players[1]   
                 myPlayers = player1.name, player1.firstname, "contre ", player2.name, player2.firstname
                 print(myPlayers)
                 round.competitors.append(myPlayers)

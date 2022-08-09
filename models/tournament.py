@@ -130,7 +130,7 @@ class Tournament:
                     storage=serialization, indent=4)
         tournament_table = db.table('tournament')
         q = Query()
-        match = Match()
+        #match = Match()
         all_rounds = []
         i = 0
         for round in rounds:
@@ -140,13 +140,10 @@ class Tournament:
             roundData['start_date'] = round.start_time
             roundData['end_date'] = round.end_time
             roundData['matchs'] = []
-            for team in match.pair_of_players:
-                print("team in match.pair_of players", team)
-                matchData = []
-                # each player has an array with his id and his points
-                for player in team:
-                    #print(player)
-                    matchData.append([player.id, player.points[int(i)-1]])
+            for mat in round.matchs:
+                matchData = [] 
+                matchData.append([mat.pair_of_players[0].id, mat.player_result[0] ])
+                matchData.append([mat.pair_of_players[1].id, mat.player_result[1]])
                 roundData['matchs'].append(matchData)
             all_rounds.append(roundData)
         tournament_table.upsert({'rounds': all_rounds}, q.id == id)
@@ -175,15 +172,16 @@ class Tournament:
                 round.name = r['name']
                 round.start_time = r['start_date']
                 round.end_time = r['end_date']
-                round.matchs = r["matchs"]
+                round.matchs = []
                 #round.matchs = []
                 # refaire une boucle pour les matchs
-                """for m in r['matchs']:
+                for m in r['matchs']:
+                    print("match in docu", m)
                     match = Match()
+                    match.pair_of_players=[ Player.search_player_by_id(m[0][0]), Player.search_player_by_id(m[1][0])]
+                    match.player_result=[ m[0][1], m[1][1]]
                     round.matchs.append(match)
-                    match.pair_of_players = m['matchs'][0]
-                    match.player_result = m['matchs'][1]"""
-                    print(match)
+                     
                 tournament.rounds.append(round)
             return tournament
         else:
@@ -227,7 +225,6 @@ class Tournament:
         tournament = Tournament.search_tournament_by_id(id)
         return tournament.players
 
-
 # Embellir l'affichage
 # dans view.display_info_rounds -> aller chercher les noms plutot que les id
 # utiliser le rapport flake8 pour corriger les erreurs 
@@ -235,4 +232,10 @@ class Tournament:
 # refaire une boucle pour les matchs dans search tournament by id?
 # commenter au dessus des constantes pour savoir a quoi ca correspond -->OK
 # trouver pourquoi autant de players sont ajoutés dans la bdd du tournoi -->OK
-
+# dans player_submenu autoriser o (uppercase)
+# Checker pourquoi l'ordre des pool n'est pas respecter (division en 2 parties)
+# Contrainte des points acceptés vérifier mais probablement 0, 0.5, ou 1
+# Ne pas mettre à jour le rang pendant le tournoi
+#attention aux joueurs qui ont déjà joué enssembles(ne devrat pas arriver...)
+# Dans l'ajout des scores après chaque round : écrire score match 1, les players, score matchs 2....
+# voir dans les menus les breaks, option et else
