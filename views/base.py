@@ -298,18 +298,24 @@ class View:
     def display_list_of_players_by_alphabetical_order():
         """Display a report of players by alphabetical order."""
         players_doc = Player.list_of_players_by_alphabetical_order()
+        print("***len player:_doc,", len(players_doc))
         i = 0
-        print("\nListe de tous les joueurs par ordre alphabétique :\n")
-        list_of_players = []
-        for player in players_doc:
-            p = Player()
-            p.name = player['name']
-            p.firstname = player['firstname']
-            p.id = player['id']
-            i += 1
-            print(i, p.name, p.firstname)
-            list_of_players.append(p)
-        return list_of_players
+        if len(players_doc) != 0 :
+            print("\nListe de tous les joueurs par ordre alphabétique :\n")
+            list_of_players = []
+            for player in players_doc:
+                p = Player()
+                p.name = player['name']
+                p.firstname = player['firstname']
+                p.id = player['id']
+                i += 1
+                print(i, p.name, p.firstname)
+                list_of_players.append(p)
+            return list_of_players
+        else :
+            print("Il n' a pas de joueurs dans la base de données. Veuillez en ajouter.")
+            return None
+        
 
     def display_list_of_players_by_rank():
         """Display a report of players by rank."""

@@ -54,7 +54,10 @@ class Controller:
         choices = []
         list_of_players = 0
         while list_of_players < 8:
-            choice = View.display_select_players()
+            if players != None : 
+                choice = View.display_select_players()
+            else :
+                self.players_submenu()
             #print("*****ici choice", choice)
             #print("*****ici players", players)
             try:
@@ -110,8 +113,8 @@ class Controller:
         for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
             #print("////team dans make pair",team)
-        View.display_all_teams_in_first_round(self.list_of_teams)
-        return self.list_of_teams
+        View.display_all_teams_in_first_round(self.match.pair_of_players)
+        return self.match.pair_of_players
 
     def find_all_players_in_rounds(self):
         """Look for all teams of players by round and list them together..."""
@@ -154,8 +157,8 @@ class Controller:
         for team in self.list_of_teams:
             self.match.pair_of_players.append(team)
             #print("//team dans make pair by rank", team)
-        View.display_all_teams_after_first_round(self.list_of_teams)
-        return self.list_of_teams
+        View.display_all_teams_after_first_round(self.match.pair_of_players)
+        return self.match.pair_of_players
 
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal,
