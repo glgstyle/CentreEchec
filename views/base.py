@@ -377,7 +377,7 @@ class View:
     def display_tournament_players_by_alphabetical_order(sorted_by_name):
         """Display the players in tournament by alphabetical order."""
         for player in sorted_by_name:
-            print(player)
+            print(player.name, player.firstname)
 
     def display_should_we_start_the_game():
         """"Display the input to choose if we start the game or not?
@@ -390,7 +390,9 @@ class View:
            tournaments ids."""
         for id in tournaments_ids:
             all_players = Tournament.find_players_in_tournament(id)
-            print(all_players)
+            for player in all_players:
+                print(player.name, player.firstname)
+            #print(all_players)
 
     def display_tournament_rounds_in_report(tournament):
         """Display a report of all rounds informations in tournament 

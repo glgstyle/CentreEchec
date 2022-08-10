@@ -12,7 +12,8 @@ class Player:
 
     def __init__(self, id="", name="", firstname="", date_of_birth="",
                  sexe="", points=[], score=0, rank=0):
-        '''A player has a name, a firstname, a date of birth and a sexe.'''
+        '''A player has a name, a firstname, a date of birth, a sexe,
+        a score, points and a rank.'''
         self.id = id
         self.name = name
         self.firstname = firstname
@@ -88,15 +89,17 @@ class Player:
     def rank(self, rank):
         self._rank = rank
 
-    # retourne au moins le firstname et non pas player.object
+    # return the firstname and name instead of player.object
     def __str__(self):
         return f"{self.firstname} {self.name}"
 
-    # retourne le player si il est dans une liste
+    # return the player if it's in a list
     def __repr__(self):
         return self.__str__()
 
     def add_a_player():
+        """Take all informations to add a player , insert it
+           in database and return it."""
         player = Player()
         # As long as the name is incorrect request the name again,
         # then insert it in the player list
@@ -191,7 +194,7 @@ class Player:
         players_table.update({'points': points}, q.id == id)
 
     def update_player_score_in_database(id, score):
-        """update the score after each match."""
+        """Update the score after each match."""
         serialization = SerializationMiddleware(JSONStorage)
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players')
@@ -234,6 +237,3 @@ class Player:
         # sort players by name in database
         players_doc = sorted(players_table.all(), key=lambda k: k['name'])
         return players_doc
-
-    def report_by_rank():
-        """Display a report of players by rank"""

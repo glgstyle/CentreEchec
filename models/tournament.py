@@ -124,6 +124,7 @@ class Tournament:
         tournament_table.insert(data)
 
     def update_rounds_in_tournament_database(id, rounds):
+        """Update the round in database with rounds informations."""
         serialization = SerializationMiddleware(JSONStorage)
         db = TinyDB('Database/tournamentDb.json',
                     storage=serialization, indent=4)
@@ -184,22 +185,6 @@ class Tournament:
         else:
             return None
 
-    def search_field_round(id):
-        """Search field in tournament."""
-        db = TinyDB('Database/tournamentDb.json')
-        tournament_table = db.table('tournament')
-        q = Query()
-        find = tournament_table.search((q.id == id))
-        if len(find) == 1:
-            tournament = Tournament()
-            tournament.rounds = find[0]['rounds']
-            for round in tournament.rounds:
-                round = Round()
-                print("round in tournament.rounds", round)
-                print(round['name'])
-                round.name = round['name']
-        return tournament.rounds
-
     def search_length_field_round(id):
         """Search field in tounrament."""
         db = TinyDB('Database/tournamentDb.json')
@@ -209,21 +194,12 @@ class Tournament:
         result = len(find["rounds"])
         return result
 
-    def getFieldData(fieldName, id):
-        """Get the datas from a field in tiny database with tournament id."""
-        db = TinyDB('Database/tournamentDb.json')
-        tournament_table = db.table('tournament')
-        results = tournament_table.search(where('id') == id)
-        result = [r[fieldName] for r in results]
-        return result
-
     def find_players_in_tournament(id):
         """Search all the players with the tournament id."""
         tournament = Tournament.search_tournament_by_id(id)
         return tournament.players
 
 # Embellir l'affichage
-# dans view.display_info_rounds -> aller chercher les noms plutot que les id
 # utiliser le rapport flake8 pour corriger les erreurs 
 # Modifier TinyDate pour s'afficher en format j/m/a
 
@@ -239,3 +215,4 @@ class Tournament:
 # retirer les prints et remettre bien ce qui va dans la vue-->OK
 # Le classement doit etre un chiffre positif-->OK
 # Checker pourquoi l'ordre des pool n'est pas respecté (division en 2 parties)-->OK
+# dans view.display_info_rounds -> aller chercher les noms plutot que les id-->OK
