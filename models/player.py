@@ -101,7 +101,7 @@ class Player:
         # As long as the name is incorrect request the name again,
         # then insert it in the player list
         while True:
-            player.name = input("Veuillez entrer le nom du joueur : ")
+            player.name = input("Veuillez entrer le nom du joueur : ").upper()
             try:
                 if player.name == "":
                     raise TypeError
@@ -112,7 +112,7 @@ class Player:
         # As long as the firstname is incorrect request the firstname
         # again, then insert it in the player list
         while True:
-            player.firstname = input("Veuillez entrer le prénom du joueur : ")
+            player.firstname = input("Veuillez entrer le prénom du joueur : ").capitalize()
             try:
                 if player.firstname == "":
                     raise TypeError
