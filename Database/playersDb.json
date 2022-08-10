@@ -1,0 +1,44 @@
+{
+    "serialized_players": {
+        "1": {
+            "id": "ea51f098035844f2bfb0f3ce50ac4352",
+            "name": "FR",
+            "firstname": "Fr",
+            "date_of_birth": "{TinyDate}:2001-02-12T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "1"
+        },
+        "2": {
+            "id": "4b3ee7ea47d04f4c9b5b642882c7778c",
+            "name": "FF",
+            "firstname": "Ff",
+            "date_of_birth": "{TinyDate}:2001-07-12T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "5"
+        },
+        "3": {
+            "id": "886f85584a404a68be0250b4df799338",
+            "name": "RD",
+            "firstname": "Dd",
+            "date_of_birth": "{TinyDate}:2001-02-12T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "5"
+        },
+        "4": {
+            "id": "b943aa3576944a55be5be88ea6fe2b5c",
+            "name": "FR",
+            "firstname": "Fr",
+            "date_of_birth": "{TinyDate}:2011-02-12T00:00:00",
+            "sexe": "f",
+            "score": 0,
+            "points": [],
+            "rank": "5"
+        }
+    }
+}

@@ -39,7 +39,7 @@ class View:
         console.print(f"\t{bottom_left}{horizontal*(len(text)+4)}"
                       f"{bottom_right}", style="success")
         # input informations of tournament
-        tournament.name = input("Veuillez créer un nom pour ce tournoi : ")
+        tournament.name = input("Veuillez donner un nom pour ce tournoi : ")
         tournament.date = input("Veuillez saisir la date "
                                 "du tournoi(jj/mm/aaaa) :")
         # as long as the date format is incorrect request the date again,

@@ -202,8 +202,7 @@ class Tournament:
 # Embellir l'affichage
 # utiliser le rapport flake8 pour corriger les erreurs 
 # Modifier TinyDate pour s'afficher en format j/m/a
-# attention ne pas pouvoir rentrer abc dans un rang juste un digit 
-# veuillez donner un nom pour le tournoi au lieu de créer un nom
+
 # l'ajout de player o/n ne pas pouvoir mettre autre que o ou non
 # control du temps attention forcément blitz ou bullet ou rapid rien d'autre
 #checker dans le score du match si le premier player a eu 1 le deuxième ne peut pas avoir eu 1 0.5 et 1 impossible sur le meme match
@@ -226,3 +225,5 @@ class Tournament:
 # Checker pourquoi l'ordre des pool n'est pas respecté (division en 2 parties)-->OK
 # dans view.display_info_rounds -> aller chercher les noms plutot que les id-->OK
 # Créer le fichier database à vide au lancement du fichier--> retiré de gitignore
+# attention ne pas pouvoir rentrer abc dans un rang juste un digit -->ok
+# veuillez donner un nom pour le tournoi au lieu de créer un nom-->ok

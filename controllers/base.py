@@ -284,6 +284,11 @@ class Controller:
                 if response.upper() == "O":
                     Player.add_a_player()
                     response = View.display_player_added()
+                if response.upper() == "N":
+                    View.display_main_menu()
+                else :
+                    print(response, "n'est pas une entrée valide, veuillez recommencer.")
+                    View.display_player_added()
             elif option == CONSTANTE.SEE_THE_LIST_OF_PLAYERS:
                 View.display_list_of_players_by_alphabetical_order()
             elif option == CONSTANTE.MAIN_MENU:
