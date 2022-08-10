@@ -225,7 +225,6 @@ class Tournament:
 # Embellir l'affichage
 # dans view.display_info_rounds -> aller chercher les noms plutot que les id
 # utiliser le rapport flake8 pour corriger les erreurs 
-# Checker pourquoi l'ordre des pool n'est pas respecté (division en 2 parties)
 # Modifier TinyDate pour s'afficher en format j/m/a
 
 # A controller :
@@ -238,4 +237,5 @@ class Tournament:
 # Dans l'ajout des scores après chaque round : écrire score match 1, les players, score matchs 2.... --> OK
 # Contrainte des points acceptés vérifier mais probablement 0, 0.5, ou 1 --> OK
 # retirer les prints et remettre bien ce qui va dans la vue-->OK
-# Le classement doit etre un chiffre positif
+# Le classement doit etre un chiffre positif-->OK
+# Checker pourquoi l'ordre des pool n'est pas respecté (division en 2 parties)-->OK

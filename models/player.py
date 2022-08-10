@@ -150,6 +150,7 @@ class Player:
             player.rank = input("Veuillez saisir le classement du joueur :")
             try:
                 player.rank == int(player.rank)
+                # the rank must be positive
                 if player.rank <= 0:
                     raise ValueError
                 else :

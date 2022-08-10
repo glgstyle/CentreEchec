@@ -69,6 +69,7 @@ class View:
                   f"par défaut : {tournament.numbers_of_turns} ")
 
     def display_add_players_or_not():
+        """Display the player menu."""
         print("----------------------------")
         print("Sélectionnez une option")
         print("1 - Ajouter de nouveaux joueurs")
@@ -80,13 +81,14 @@ class View:
 
     def display_team(team):
         """Return the competitor list converted in string in shuffle
-           order(already done in function make_players_pairs)"""
+           order(already done in function make_players_pairs)."""
         str = ""
         for player in team:
             str = str + f"{player.name} {player.firstname}" + "\n"
         return str
 
     def display_all_teams_in_first_round(list_of_teams):
+        """Display the pairs of players in first round."""
         print("les binômes sont les suivants :\n")
         # display the teams in table
         table = Table()
@@ -100,6 +102,7 @@ class View:
         console.print(table)
 
     def display_all_teams_after_first_round(teams):
+        """Display the pairs of players after the first round."""
         print("Les bibômes sont les suivants :\n")
         # display the teams in a table
         table = Table()
@@ -149,6 +152,7 @@ class View:
         console.print(table)
 
     def display_round_name(round):
+        """Display the name of round when a round start."""
         console = Console()
         i = round
         console.print("\n" + i + "\n", style="blue", justify="left")
@@ -163,26 +167,25 @@ class View:
         table.add_column("Heure de fin", style="magenta")
         table.add_column("Adversaires", style="blue")
         for round in rounds:
-            #print("le round dans rounds", round)
             round.competitors = []
-            # aller chercher les noms plutot que les id !!!!!
+            # show player names
             for match in round.matchs:
-                #print("///////match :", match)
                 player1 = match.pair_of_players[0]
                 player2 = match.pair_of_players[1]   
                 myPlayers = player1.firstname + " " + player1.name + " " +  "contre" + " " + player2.firstname + " " + player2.name 
                 round.competitors.append(myPlayers)
-                #competitors.append(f"{p[0]} - contre - {p[1]}")
             table.add_row(f"{round.name}", f"{round.start_time}",
                           f"{round.end_time}", f"{round.competitors}\n")
         console.print(table)
 
     def display_value_error(points):
+        """Display the value error about points."""
         print(f"({points}) n'est pas un score valide veuillez"
               "rentrer un chiffre ou un nombre ")
 
     # mainMenu
     def menuTitle():
+        """Display the title "Centre echecs" when starts the program."""
         p = console.print
         p(" ____           _              _____     _                   ",
           style="purple")
@@ -196,6 +199,7 @@ class View:
           style="purple")
 
     def display_main_menu():
+        """Display the Main menu options."""
         print("----------------------------")
         print("Sélectionnez une option")
         print("1 - Tournois")
@@ -206,6 +210,8 @@ class View:
         return option
 
     def display_title_of_tournament_submenu():
+        """Display the title "tournament" in tournament
+           submenu."""
         p = console.print
         p(" _____                            _",
           style="purple")
@@ -219,6 +225,7 @@ class View:
           style="purple")
 
     def display_tournament_submenu():
+        """Display the tournament submenu options."""
         print("----------------------------")
         print("Sélectionnez une option")
         print("1 - Créer un nouveau tournoi")
@@ -229,6 +236,8 @@ class View:
         return option
 
     def display_title_of_players_submenu():
+        """Display the title "players" in players
+           submenu."""
         p = console.print
         p("     _  ",
           style="purple")
@@ -242,6 +251,7 @@ class View:
           style="purple")
 
     def display_joueurs_submenu():
+        """Display the players submenu options."""
         print("----------------------------")
         print("Sélectionnez une option")
         print("1 - Ajouter un nouveau joueur")
@@ -252,6 +262,8 @@ class View:
         return option
 
     def display_title_report_submenu():
+        """Display the title "report" in report
+           submenu."""
         p = console.print
         p("____                              _       ",
           style="purple")
@@ -267,6 +279,7 @@ class View:
           style="purple")
 
     def display_reports_submenu():
+        """Display the report submenu options."""
         print("----------------------------")
         print("Sélectionnez une option")
         print("1 - Liste de tous les joueurs par ordre alphabétique")
@@ -281,17 +294,6 @@ class View:
         print("----------------------------")
         option = input("Veuillez saisir votre choix :")
         return option
-
-    """def display_players_by_alphabetical_order():
-        #Display a report of players by alphabetical order.
-        players_doc = Player.list_of_players_by_alphabetical_order()
-        i = 0
-        list_of_players_ids = []
-        for player in players_doc:
-            i+=1
-            print(i, player['name'], player['firstname'])
-            list_of_players_ids.append(player['id'])
-        return list_of_players_ids"""
 
     def display_list_of_players_by_alphabetical_order():
         """Display a report of players by alphabetical order."""
@@ -312,8 +314,7 @@ class View:
             return list_of_players
         else :
             print("Il n' a pas de joueurs dans la base de données. Veuillez en ajouter.")
-            return None
-        
+            return None    
 
     def display_list_of_players_by_rank():
         """Display a report of players by rank."""
@@ -329,7 +330,8 @@ class View:
             p.firstname = player['firstname']
             print("Rang ", p.rank, ": ", p.name, p.firstname)
 
-    def display_players_by_rank_with_tournament_id(sorted_by_rank):
+    def display_players_by_rank_in_tournament(sorted_by_rank):
+        """Display the players sorted by rank in a tournament."""
         for player in sorted_by_rank:
             print("Rang ", player.rank, " : ", player.name, player.firstname)
 
@@ -346,40 +348,53 @@ class View:
         return tournaments
 
     def display_select_players():
+        """Display the input to select a player in list."""
         selection = int(input("Sélectionnez les joueurs dans la liste :"))
         return selection
 
     def display_select_tournament():
+        """Display the input to select a tournament in list."""
         result = int(input("Sélectionnez le tournoi dans la liste :"))
         return result
 
     def display_tournament_well_recorded():
+        """Display a confirmation for tournament well recorded."""
         console = Console()
         console.print("Le tournoi à bien été enregistré !", style="purple")
 
     def display_player_added():
+        """Display a confirmation for player well added,
+           return the answer about adding one more player."""
         console = Console()
         console.print("Le joueur à bien été ajouté", style="purple")
         answer = input("Souhaitez-vous en ajouter un autre (O/N) ?")
         return answer
 
     def display_title_list_of_players_by_alphabetic_order():
+        """Display the title list of players by alphabetical order."""
         print("\nListe des joueurs du tournoi par ordre alphabétique :\n")
 
     def display_tournament_players_by_alphabetical_order(sorted_by_name):
+        """Display the players in tournament by alphabetical order."""
         for player in sorted_by_name:
             print(player)
 
     def display_should_we_start_the_game():
+        """"Display the input to choose if we start the game or not?
+            return the answer."""
         answer = input("Souhaitez vous commencer le tournoi (O/N) ?")
         return answer
 
     def display_all_players_in_all_tournaments(tournaments_ids):
+        """Display all players in all tournaments from the list of 
+           tournaments ids."""
         for id in tournaments_ids:
             all_players = Tournament.find_players_in_tournament(id)
             print(all_players)
 
     def display_tournament_rounds_in_report(tournament):
+        """Display a report of all rounds informations in tournament 
+           from a selected tournament."""
         for round in tournament.rounds:
             print(round.name)
             print(round.start_time)
@@ -388,6 +403,8 @@ class View:
                 print(match)
 
     def display_tournament_matchs_in_report(tournament):
+        """Display a report of all matchs from a selected
+           tournament."""
         for round in tournament.rounds:
             for match in round.matchs:
                 print(match)

@@ -331,7 +331,7 @@ class Controller:
         sorted_by_rank = sorted(
             tournament.players,
             key=lambda player: player.rank)
-        View.display_players_by_rank_with_tournament_id(sorted_by_rank)
+        View.display_players_by_rank_in_tournament(sorted_by_rank)
 
     def find_all_players_in_all_tournaments(self):
         """Allow to find all players from all tournaments."""
