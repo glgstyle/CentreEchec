@@ -62,15 +62,11 @@ class Controller:
                         list_of_players += 1
                         choices.append(joueur_choisi)
                     else:
-                        print("Ce joueur a déjà été selectionné, "
-                              "veuillez en choisir un autre")
+                        View.display_player_already_selected()
                 else:
-                    print("veuillez choisir un numero dans la liste")
+                    View.display_select_a_valid_number()
             except ValueError:
-                print(
-                    choice, "n'est pas dans la liste des joueurs."
-                    "Veuillez saisir un chiffre correspondant au "
-                    "joueur dans la liste.")
+                View.display_player_not_in_list(choice)
         return choices
 
     def sort_players_by_rank(self):
@@ -84,8 +80,6 @@ class Controller:
         """Divide sorted players in two half, the best player of upper half play
         against the best player of lower half etc..Return the list of teams."""
         sorted_players_by_rank = self.sort_players_by_rank()
-        #print("sorted_players_by_rank", sorted_players_by_rank)
-        #print("sorted by rank",sorted_players_by_rank)
         half = len(sorted_players_by_rank) / 2
         half = int(half)
         upper_half = sorted_players_by_rank[0:half]
@@ -161,7 +155,7 @@ class Controller:
         round.matchs=[]
         i=1
         for pair in round.pairs_of_players:
-            print("Score du match ", i) 
+            View.display_match_score_to_input(match_number=i)
             i=i+1
             match =Match()
             match.pair_of_players=pair
@@ -186,7 +180,6 @@ class Controller:
     def start_a_round(self, current_round_number=1):
         """Start to give a name to the round then until there is no more round,
          start a new match."""
-        #print("start_a_round",current_round_number)
         console = Console()
         list_name_round = self.name_a_round()
         # for each round, create pairs of players, append start, end time and
@@ -204,7 +197,6 @@ class Controller:
         round.start_time = View.start_time()
         round.end_time = View.is_the_match_finished()
         self.results_of_match(round)
-        print("resultar matche ", round.matchs)
         self.update_the_score()
         self.tournament.rounds.append(round)
         Tournament.update_rounds_in_tournament_database(
@@ -230,7 +222,7 @@ class Controller:
             elif option == CONSTANTE.REPORTS:
                 self.reports_submenu()
             else:
-                print("choix inconnu")
+                View.display_unknown_choice()
 
     def tournament_submenu(self):
         """Tournament menu propose different option about tournaments."""
@@ -248,27 +240,24 @@ class Controller:
     def choose_an_existing_tournament(self):
         """Display existing tournaments, allow to select one
             and return the tournament_doc id."""
-        try:
-            tournaments_doc = View.display_all_tournaments()
-            if not tournaments_doc:
-                raise UnboundLocalError
-        except UnboundLocalError:
-            print("Il n'y a pas de tournois dans la base de données.")
-            self.main_menu()
-        else:
-            choice = View.display_select_tournament()
-            # check if choice is in len of tournament doc
-            if choice <= len(tournaments_doc):
-                print("choix ", choice)
-                chosen_tournament_doc = tournaments_doc[choice - 1]
-                print(
-                    "Le tournoi choisi est le tournoi ",
-                    chosen_tournament_doc['name'],
-                    " qui s'est joué le ",
-                    chosen_tournament_doc['date'])
+        while True:    
+            try:
+                tournaments_doc = View.display_all_tournaments()
+                if not tournaments_doc:
+                    raise UnboundLocalError
+            except UnboundLocalError:
+                View.display_no_tournament_in_database()
+                self.main_menu()
             else:
-                print("veuillez choisir un numero dans la liste")
-        return chosen_tournament_doc['id']
+                choice = View.display_select_tournament()
+                try: 
+                    chosen_tournament_doc = tournaments_doc[choice - 1]
+                    # check if choice is in len of tournament doc
+                    if choice <= len(tournaments_doc):
+                        View.display_selected_tournament_doc(chosen_tournament_doc)
+                        return chosen_tournament_doc['id']
+                except IndexError:
+                    View.display_select_a_valid_number()
 
     def continue_to_play_tournament_by_id(self, id):
         """Continue to play an existing tournament by giving an id."""
@@ -281,8 +270,7 @@ class Controller:
                 self.tournament.id, self.tournament.rounds)
         # else show results of tournament (don't replay)
         else:
-            print(
-                "le tournoi est déjà terminé, voici les résultats :")
+            View.display_tournament_is_finished()
             View.display_infos_rounds(self.tournament.rounds)
 
     def players_submenu(self):
@@ -377,8 +365,7 @@ class Controller:
                     try:
                         points = float(points)
                         if points != 0.0 and points != 0.5 and points != 1.0:
-                            print("Le point attribué ne correspond pas."
-                                  "Veuillez entre 0, 0.5 ou 1.")
+                            View.display_invalid_point()
                         else:
                             # Copy the existing player points and add the new
                             # points

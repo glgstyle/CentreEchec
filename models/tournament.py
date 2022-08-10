@@ -229,8 +229,9 @@ class Tournament:
 # utiliser le rapport flake8 pour corriger les erreurs 
 # retirer les prints et remettre bien ce qui va dans la vue
 # Checker pourquoi l'ordre des pool n'est pas respecté (division en 2 parties)
-#attention aux joueurs qui ont déjà joué enssembles(ne devrat pas arriver...)
-#Le classement doit etre un chiffre positif
+# attention aux joueurs qui ont déjà joué enssembles(ne devrat pas arriver...)
+# Le classement doit etre un chiffre positif
+# Modifier TinyDate pour s'afficher en format j/m/a
 
 # Résolu:
 # dans player_submenu autoriser o (uppercase) -->OK Mais au bout de deux fois s'arrete quand même

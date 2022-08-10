@@ -391,3 +391,48 @@ class View:
         for round in tournament.rounds:
             for match in round.matchs:
                 print(match)
+
+    def display_match_score_to_input(match_number):
+        """Show the match number when input the pairs_of_players score."""
+        print("Score du match ", match_number) 
+    
+    def display_unknown_choice():
+        """Display this choice is unknnown."""
+        print("Ce choix est inconnu.")
+    
+    def display_no_tournament_in_database():
+        """Display there is no tournament in database."""
+        print("Il n'y a pas de tournois dans la base de données.")
+    
+    def display_selected_tournament_doc(chosen_tournament_doc):
+        """Display the date and name of tournament doc selected."""
+        console.print("Le tournoi choisi est le tournoi ",
+               chosen_tournament_doc['name'],
+               " qui s'est joué le ",
+               chosen_tournament_doc['date'],style="purple")
+
+    def display_select_a_valid_number():
+        """Display the number selected is not in the list."""
+        console.print("\nVeuillez choisir un numero dans la liste\n",
+                       style="red")
+    
+    def display_tournament_is_finished():
+        """Display the tournament is finished."""
+        print("le tournoi est déjà terminé, voici les résultats :")
+    
+    def display_invalid_point():
+        """Display the point awarded is not allowed."""
+        console.print("Le point attribué ne correspond pas."
+              "Veuillez entre 0, 0.5 ou 1.", style="red")
+            
+    def display_player_already_selected():
+        """Display the player has been already selected."""
+        print("Ce joueur a déjà été selectionné, "
+              "veuillez en choisir un autre")
+
+    def display_player_not_in_list(choiced_player):
+        """Display the player selected is not in the list."""
+        print(choiced_player, "n'est pas dans la liste des joueurs."
+              "Veuillez saisir un chiffre correspondant au "
+              "joueur dans la liste.")
+
