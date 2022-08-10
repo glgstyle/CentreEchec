@@ -6,12 +6,12 @@ class Round:
        a end time, some players and their results"""
 
     def __init__(self, name="", start_time="", end_time="",
-                 players="", results=""):
+                 pairs_of_players="", results=""):
         self.matchs = []
         self.name = name
         self.start_time = start_time
         self.end_time = end_time
-        self.players = players
+        self.pairs_of_players = pairs_of_players
         self.results = results
 
     # Getters
@@ -29,8 +29,8 @@ class Round:
         return self._end_time
 
     @property
-    def players(self):
-        return self._players
+    def pairs_of_players(self):
+        return self._pairs_of_players
 
     @property
     def results(self):
@@ -50,9 +50,9 @@ class Round:
     def end_time(self, end_time):
         self._end_time = end_time
 
-    @players.setter
-    def players(self, players):
-        self._players = players
+    @pairs_of_players.setter
+    def pairs_of_players(self, pairs_of_players):
+        self._pairs_of_players = pairs_of_players
 
     @results.setter
     def results(self, results):

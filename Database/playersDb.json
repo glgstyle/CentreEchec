@@ -1,0 +1,84 @@
+{
+    "serialized_players": {
+        "1": {
+            "id": "ab3301d5a96a48329520e759ec3952af",
+            "name": "poet",
+            "firstname": "gaylord",
+            "date_of_birth": "{TinyDate}:1985-12-23T00:00:00",
+            "sexe": "m",
+            "score": 2.0,
+            "points": [],
+            "rank": 5
+        },
+        "2": {
+            "id": "7817583891c341218d6e43b1735b1186",
+            "name": "lein",
+            "firstname": "karine",
+            "date_of_birth": "{TinyDate}:1996-04-25T00:00:00",
+            "sexe": "f",
+            "score": 1.0,
+            "points": [],
+            "rank": 8
+        },
+        "3": {
+            "id": "72f955754f4d47ae86b83a124da9dd3b",
+            "name": "jouik",
+            "firstname": "melanie",
+            "date_of_birth": "{TinyDate}:1976-05-06T00:00:00",
+            "sexe": "f",
+            "score": 1.0,
+            "points": [],
+            "rank": 7
+        },
+        "4": {
+            "id": "76a69ff1b17f44e8848123bff0610143",
+            "name": "boutraingain",
+            "firstname": "alexandre ",
+            "date_of_birth": "{TinyDate}:1988-09-17T00:00:00",
+            "sexe": "m",
+            "score": 3.0,
+            "points": [],
+            "rank": 1
+        },
+        "5": {
+            "id": "5c892220fe6941db8ea4baab1795ee5d",
+            "name": "boutraingain",
+            "firstname": "william",
+            "date_of_birth": "{TinyDate}:2019-11-18T00:00:00",
+            "sexe": "m",
+            "score": 2.0,
+            "points": [],
+            "rank": 4
+        },
+        "6": {
+            "id": "5987f4a5a18249c1b9c1271b5f68472f",
+            "name": "boutraingain",
+            "firstname": "azylis",
+            "date_of_birth": "{TinyDate}:2021-04-21T00:00:00",
+            "sexe": "f",
+            "score": 1.0,
+            "points": [],
+            "rank": 6
+        },
+        "7": {
+            "id": "96865169f5a844baac98158b28778d6e",
+            "name": "le guenno",
+            "firstname": "gwenaelle",
+            "date_of_birth": "{TinyDate}:1985-07-15T00:00:00",
+            "sexe": "f",
+            "score": 2.0,
+            "points": [],
+            "rank": 3
+        },
+        "8": {
+            "id": "548d53aa83494e5a920616090473bc27",
+            "name": "carvalho",
+            "firstname": "jessica",
+            "date_of_birth": "{TinyDate}:1979-07-23T00:00:00",
+            "sexe": "f",
+            "score": 3.0,
+            "points": [],
+            "rank": 2
+        }
+    }
+}

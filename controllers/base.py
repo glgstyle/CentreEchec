@@ -84,7 +84,8 @@ class Controller:
         """Divide sorted players in two half, the best player of upper half play
         against the best player of lower half etc..Return the list of teams."""
         sorted_players_by_rank = self.sort_players_by_rank()
-        # print(sorted_players_by_rank)
+        #print("sorted_players_by_rank", sorted_players_by_rank)
+        #print("sorted by rank",sorted_players_by_rank)
         half = len(sorted_players_by_rank) / 2
         half = int(half)
         upper_half = sorted_players_by_rank[0:half]
@@ -105,18 +106,11 @@ class Controller:
         View.display_all_teams_in_first_round(self.match.pair_of_players)
         return self.match.pair_of_players
 
-    def find_all_players_in_rounds(self):
-        """Look for all teams of players by round and list them together..."""
-        players_in_rounds = []
-        for round in self.tournament.rounds:
-            players_in_rounds.append(round.players)
-        return players_in_rounds
-
     def make_players_pairs_by_score_or_rank(self):
         """Make players pairs by score or rank after the first round
         by checking if they have already played together."""
         sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
-        players_in_rounds = self.find_all_players_in_rounds()
+        competitors = self.sort_players_by_score_then_rank()
         players = sorted_by_score_or_rank
         self.list_of_teams = []
         # while there is players, remove the first and the second player of the
@@ -124,20 +118,16 @@ class Controller:
         while(len(players) > 0):
             a = players.pop(0)
             b = players.pop(0)
-            # for lists of teams in rounds and for team in list of teams, check
-            # if they have already played together
-            for competitors in players_in_rounds:
-                for competitor in competitors:
-                    # if they have play together, put back b in list and take
-                    # the first of the list as b, then rearrange the list as it
-                    # was initially(put c in first index)
-                    if(competitor[0] == a and competitor[1] == b
-                       or competitor[0] == b and competitor[1] == a):
-                        players.append(b)
-                        b = players.pop(0)
-                        if len(players) > 0:
-                            c = players.pop()
-                            players.insert(0, c)
+            # if they have play together, put back b in list and take
+            # the first of the list as b, then rearrange the list as it
+            # was initially(put c in first index)
+            if(competitors[0] == a and competitors[1] == b
+                or competitors[0] == b and competitors[1] == a):
+                players.append(b)
+                b = players.pop(0)
+                if len(players) > 0:
+                    c = players.pop()
+                    players.insert(0, c)
             self.list_of_teams.append([a, b])
         self.match.pair_of_players.clear()
         for team in self.list_of_teams:
@@ -170,8 +160,8 @@ class Controller:
         and their results in match."""
         round.matchs=[]
         i=1
-        for pair in round.paires:
-            print("match ", i) 
+        for pair in round.pairs_of_players:
+            print("Score du match ", i) 
             i=i+1
             match =Match()
             match.pair_of_players=pair
@@ -196,7 +186,7 @@ class Controller:
     def start_a_round(self, current_round_number=1):
         """Start to give a name to the round then until there is no more round,
          start a new match."""
-        print("start_a_round",current_round_number)
+        #print("start_a_round",current_round_number)
         console = Console()
         list_name_round = self.name_a_round()
         # for each round, create pairs of players, append start, end time and
@@ -206,9 +196,9 @@ class Controller:
         round.name = list_name_round[current_round_number-1]
         View.display_round_name(round.name)
         if current_round_number == 1:
-            round.paires = self.make_players_pairs()
+            round.pairs_of_players = self.make_players_pairs()
         else:
-            round.paires = self.make_players_pairs_by_score_or_rank()
+            round.pairs_of_players = self.make_players_pairs_by_score_or_rank()
         console.input(
             "\n[bold red]Appuyez sur entrée pour démarrer le match[/]")
         round.start_time = View.start_time()
@@ -386,11 +376,15 @@ class Controller:
                                    f"{player.firstname} {player.name} : ")
                     try:
                         points = float(points)
-                        # Copy the existing player points and add the new
-                        # points
-                        player.points = [*player.points, points]
-                        result.append(points)
-                        break
+                        if points != 0.0 and points != 0.5 and points != 1.0:
+                            print("Le point attribué ne correspond pas."
+                                  "Veuillez entre 0, 0.5 ou 1.")
+                        else:
+                            # Copy the existing player points and add the new
+                            # points
+                            player.points = [*player.points, points]
+                            result.append(points)
+                            break
                     except ValueError:
                         View.display_value_error(points)
                 Player.update_player_points_in_database(

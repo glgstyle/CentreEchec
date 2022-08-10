@@ -176,12 +176,11 @@ class Tournament:
                 #round.matchs = []
                 # refaire une boucle pour les matchs
                 for m in r['matchs']:
-                    print("match in docu", m)
+                    #print("match in docu", m)
                     match = Match()
                     match.pair_of_players=[ Player.search_player_by_id(m[0][0]), Player.search_player_by_id(m[1][0])]
                     match.player_result=[ m[0][1], m[1][1]]
                     round.matchs.append(match)
-                     
                 tournament.rounds.append(round)
             return tournament
         else:
@@ -229,13 +228,13 @@ class Tournament:
 # dans view.display_info_rounds -> aller chercher les noms plutot que les id
 # utiliser le rapport flake8 pour corriger les erreurs 
 # retirer les prints et remettre bien ce qui va dans la vue
-# refaire une boucle pour les matchs dans search tournament by id?
-# commenter au dessus des constantes pour savoir a quoi ca correspond -->OK
-# trouver pourquoi autant de players sont ajoutés dans la bdd du tournoi -->OK
-# dans player_submenu autoriser o (uppercase)
-# Checker pourquoi l'ordre des pool n'est pas respecter (division en 2 parties)
-# Contrainte des points acceptés vérifier mais probablement 0, 0.5, ou 1
-# Ne pas mettre à jour le rang pendant le tournoi
+# Checker pourquoi l'ordre des pool n'est pas respecté (division en 2 parties)
 #attention aux joueurs qui ont déjà joué enssembles(ne devrat pas arriver...)
-# Dans l'ajout des scores après chaque round : écrire score match 1, les players, score matchs 2....
-# voir dans les menus les breaks, option et else
+#Le classement doit etre un chiffre positif
+
+# Résolu:
+# dans player_submenu autoriser o (uppercase) -->OK Mais au bout de deux fois s'arrete quand même
+# voir dans les menus les breaks, option et else -->OK
+# Ne pas mettre à jour le rang pendant le tournoi -->OK
+# Dans l'ajout des scores après chaque round : écrire score match 1, les players, score matchs 2.... --> OK
+# Contrainte des points acceptés vérifier mais probablement 0, 0.5, ou 1 --> OK

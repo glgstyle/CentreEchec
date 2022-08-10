@@ -167,16 +167,14 @@ class View:
             round.competitors = []
             # aller chercher les noms plutot que les id !!!!!
             for match in round.matchs:
-                #round.competitors.clear()
-                print("///////match :", match)
+                #print("///////match :", match)
                 player1 = match.pair_of_players[0]
                 player2 = match.pair_of_players[1]   
-                myPlayers = player1.name, player1.firstname, "contre ", player2.name, player2.firstname
-                print(myPlayers)
+                myPlayers = player1.firstname + " " + player1.name + " " +  "contre" + " " + player2.firstname + " " + player2.name 
                 round.competitors.append(myPlayers)
                 #competitors.append(f"{p[0]} - contre - {p[1]}")
             table.add_row(f"{round.name}", f"{round.start_time}",
-                          f"{round.end_time}", f"{round.competitors}")
+                          f"{round.end_time}", f"{round.competitors}\n")
         console.print(table)
 
     def display_value_error(points):
