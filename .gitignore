@@ -3,7 +3,5 @@
 \venv
 \.venv
 \__pycache__
-Database/
-flake-report/
 \Database\playersDb.json
 \Database/tournamentDb.json

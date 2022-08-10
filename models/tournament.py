@@ -130,7 +130,6 @@ class Tournament:
                     storage=serialization, indent=4)
         tournament_table = db.table('tournament')
         q = Query()
-        #match = Match()
         all_rounds = []
         i = 0
         for round in rounds:
@@ -164,6 +163,8 @@ class Tournament:
             tournament.comment = result[0]['comment']
             tournament.numbers_of_turns = result[0]['number_of_turns']
             tournament.time_control = result[0]['time_control']
+            tournament.players = []
+            #tournament.rounds = []
             for p in result[0]['players']:
                 player = Player.search_player_by_id(p)
                 tournament.players.append(player)
@@ -173,7 +174,6 @@ class Tournament:
                 round.start_time = r['start_date']
                 round.end_time = r['end_date']
                 round.matchs = []
-                #round.matchs = []
                 # refaire une boucle pour les matchs
                 for m in r['matchs']:
                     match = Match()
@@ -202,9 +202,18 @@ class Tournament:
 # Embellir l'affichage
 # utiliser le rapport flake8 pour corriger les erreurs 
 # Modifier TinyDate pour s'afficher en format j/m/a
+# attention ne pas pouvoir rentrer abc dans un rang juste un digit 
+# veuillez donner un nom pour le tournoi au lieu de créer un nom
+# l'ajout de player o/n ne pas pouvoir mettre autre que o ou non
+# control du temps attention forcément blitz ou bullet ou rapid rien d'autre
+#checker dans le score du match si le premier player a eu 1 le deuxième ne peut pas avoir eu 1 0.5 et 1 impossible sur le meme match
+# mauvaise combinaison de pair 
+# rajouter les points dans le récapitulatif des rounds du torunoi
+# quand on revient sur le tournoi attention round-1 et round 1 en double vider la variable reprise en double
+# problème deux fois le meme tournoi s'affiche dans le rapport 6
 
 # A controller :
-# attention aux joueurs qui ont déjà joué enssembles(ne devrat pas arriver...)-->OK (à vérifier par Mamadou)
+# attention aux joueurs qui ont déjà joué enssembles(ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
 
 # Résolu:
 # dans player_submenu autoriser o (uppercase) -->OK Mais au bout de deux fois s'arrete quand même
@@ -216,3 +225,4 @@ class Tournament:
 # Le classement doit etre un chiffre positif-->OK
 # Checker pourquoi l'ordre des pool n'est pas respecté (division en 2 parties)-->OK
 # dans view.display_info_rounds -> aller chercher les noms plutot que les id-->OK
+# Créer le fichier database à vide au lancement du fichier--> retiré de gitignore

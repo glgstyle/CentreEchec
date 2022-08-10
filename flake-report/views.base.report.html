@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: views\base.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-2"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="views.base.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               views\base.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="W605">
+               <span class="count sev-2">
+                  35
+               </span>
+               <strong>W605:</strong> invalid escape sequence '\ '
+               
+                  (and 2 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>Invalid escape sequence '\ ' (in 3 places):</p>
+               
+               <a href="views.base.source.html#l191">
+                  <tt><i>191</i>         <span class="n">p</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="s2">&quot;| |   / _ \  _ </span><span class="se">\\</span><span class="s2">| __|  __/ _ \ |  _| / __|  _ \ / _ </span><span class="se">\\</span><span class="s2">/ __/ __|&quot;</span><span class="p">),</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\_':</p>
+               
+               <a href="views.base.source.html#l193">
+                  <tt><i>193</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;| |__|  __/ | | | |_| | |  __/ | |__| (__| | | |  __/ (__\__ </span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\_' (in 7 places):</p>
+               
+               <a href="views.base.source.html#l195">
+                  <tt><i>195</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;\____\___|_| |_|\__|_|  \___| |_____\___|_| |_|\___|\___|___/&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\ ':</p>
+               
+               <a href="views.base.source.html#l214">
+                  <tt><i>214</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;  | |/ _ \| | | |  __|  _ \ / _ \| / __|&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\|' (in 2 places):</p>
+               
+               <a href="views.base.source.html#l214">
+                  <tt><i>214</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;  | |/ _ \| | | |  __|  _ \ / _ \| / __|&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\_':</p>
+               
+               <a href="views.base.source.html#l216">
+                  <tt><i>216</i>         <span class="n">p</span><span class="p">(</span><span class="s1">&#39;  | | (_) | |_| | |  | | | | (_) | \__ </span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\_' (in 3 places):</p>
+               
+               <a href="views.base.source.html#l218">
+                  <tt><i>218</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;  |_|\___/ \__,_|_|  |_| |_|\___/|_|___/&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\ ':</p>
+               
+               <a href="views.base.source.html#l237">
+                  <tt><i>237</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot; _  | |/ _ \| | | |/ _ \ | | |  __/ __|&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\|':</p>
+               
+               <a href="views.base.source.html#l237">
+                  <tt><i>237</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot; _  | |/ _ \| | | |/ _ \ | | |  __/ __|&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\_':</p>
+               
+               <a href="views.base.source.html#l239">
+                  <tt><i>239</i>         <span class="n">p</span><span class="p">(</span><span class="s1">&#39;| |_| | (_) | |_| |  __/ |_| | |  \__ </span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\_' (in 5 places):</p>
+               
+               <a href="views.base.source.html#l241">
+                  <tt><i>241</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot; \___/ \___/ \__,_|\___|\__,_|_|  |___/&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\ ':</p>
+               
+               <a href="views.base.source.html#l258">
+                  <tt><i>258</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;|  _ \ __ _ _ __  _ __   ___  _ __| |_ ___ &quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\ ':</p>
+               
+               <a href="views.base.source.html#l260">
+                  <tt><i>260</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;| |_) / _  |  _ \|  _ \ / _ \|  __| __/ __|&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\|' (in 2 places):</p>
+               
+               <a href="views.base.source.html#l260">
+                  <tt><i>260</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;| |_) / _  |  _ \|  _ \ / _ \|  __| __/ __|&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\_':</p>
+               
+               <a href="views.base.source.html#l262">
+                  <tt><i>262</i>         <span class="n">p</span><span class="p">(</span><span class="s1">&#39;|  _ &lt; (_| | |_) | |_) | (_) | |  | |_\__ </span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Invalid escape sequence '\_' (in 4 places):</p>
+               
+               <a href="views.base.source.html#l264">
+                  <tt><i>264</i>         <span class="n">p</span><span class="p">(</span><span class="s2">&quot;|_| \_\__,_| .__/| .__/ \___/|_|   \__|___/&quot;</span><span class="p">,</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E265">
+               <span class="count sev-2">
+                  2
+               </span>
+               <strong>E265:</strong> block comment should start with '# '
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="views.base.source.html#l171">
+                  <tt><i>171</i>                     <span class="c1">#print(&quot;le p de competiteur--&gt;&quot;,p.name)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="views.base.source.html#l175">
+                  <tt><i>175</i>                 <span class="c1">#competitors.append(f&quot;{p[0]} - contre - {p[1]}&quot;)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E501">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E501:</strong> line too long (83 > 79 characters)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="views.base.source.html#l191">
+                  <tt><i>191</i>         <span class="n">p</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="s2">&quot;| |   / _ \  _ </span><span class="se">\\</span><span class="s2">| __|  __/ _ \ |  _| / __|  _ \ / _ </span><span class="se">\\</span><span class="s2">/ __/ __|&quot;</span><span class="p">),</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>
