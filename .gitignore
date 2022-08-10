@@ -3,5 +3,7 @@
 \venv
 \.venv
 \__pycache__
-\Database
+Database/
 flake-report/
+\Database\playersDb.json
+\Database/tournamentDb.json

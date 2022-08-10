@@ -109,7 +109,6 @@ class Player:
                 print("Veuillez rentrer un nom valide")
             else:
                 break
-
         # As long as the firstname is incorrect request the firstname
         # again, then insert it in the player list
         while True:
@@ -140,7 +139,6 @@ class Player:
             upper_sexe = player.sexe.upper()
             try:  # ni F et ni M c'est pour ca que c'est and et non pas or
                 if not upper_sexe == "F" and not upper_sexe == "M":
-                    print(f"voici ce qui n'est pas bon : {upper_sexe}")
                     raise NameError
             except NameError:
                 print(f"{upper_sexe} n'est pas pas une valeur valide, "
@@ -152,7 +150,10 @@ class Player:
             player.rank = input("Veuillez saisir le classement du joueur :")
             try:
                 player.rank == int(player.rank)
-                break
+                if player.rank <= 0:
+                    raise ValueError
+                else :
+                    break
             except ValueError:
                 print(f"{player.rank} n'est pas un classement valide")
         player.id = uuid.uuid4().hex

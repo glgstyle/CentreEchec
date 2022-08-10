@@ -114,7 +114,6 @@ class Tournament:
                 'time_control': self.time_control,
                 'players': [], 'rounds': []}
         # insert the players id in tournament
-        #print("ici self.players", self.players)
         for p in self.players:
             data["players"].append(p.id)
         serialization = SerializationMiddleware(JSONStorage)
@@ -176,7 +175,6 @@ class Tournament:
                 #round.matchs = []
                 # refaire une boucle pour les matchs
                 for m in r['matchs']:
-                    #print("match in docu", m)
                     match = Match()
                     match.pair_of_players=[ Player.search_player_by_id(m[0][0]), Player.search_player_by_id(m[1][0])]
                     match.player_result=[ m[0][1], m[1][1]]
@@ -227,11 +225,11 @@ class Tournament:
 # Embellir l'affichage
 # dans view.display_info_rounds -> aller chercher les noms plutot que les id
 # utiliser le rapport flake8 pour corriger les erreurs 
-# retirer les prints et remettre bien ce qui va dans la vue
 # Checker pourquoi l'ordre des pool n'est pas respecté (division en 2 parties)
-# attention aux joueurs qui ont déjà joué enssembles(ne devrat pas arriver...)
-# Le classement doit etre un chiffre positif
 # Modifier TinyDate pour s'afficher en format j/m/a
+
+# A controller :
+# attention aux joueurs qui ont déjà joué enssembles(ne devrat pas arriver...)-->OK (à vérifier par Mamadou)
 
 # Résolu:
 # dans player_submenu autoriser o (uppercase) -->OK Mais au bout de deux fois s'arrete quand même
@@ -239,3 +237,5 @@ class Tournament:
 # Ne pas mettre à jour le rang pendant le tournoi -->OK
 # Dans l'ajout des scores après chaque round : écrire score match 1, les players, score matchs 2.... --> OK
 # Contrainte des points acceptés vérifier mais probablement 0, 0.5, ou 1 --> OK
+# retirer les prints et remettre bien ce qui va dans la vue-->OK
+# Le classement doit etre un chiffre positif
