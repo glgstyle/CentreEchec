@@ -3,5 +3,5 @@
 \venv
 \.venv
 \__pycache__
-\Database\playersDb.json
+\Database/playersDb.json
 \Database/tournamentDb.json

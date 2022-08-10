@@ -1,6 +1,7 @@
 '''The player.'''
 
 from datetime import datetime
+from unittest.util import strclass
 from tinydb import JSONStorage, TinyDB, Query
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
@@ -54,7 +55,7 @@ class Player:
 
     @property
     def rank(self):
-        return int(self._rank)
+        return self._rank
 
     # Setters
     @id.setter
@@ -152,9 +153,8 @@ class Player:
         while True:
             player.rank = input("Veuillez saisir le classement du joueur :")
             try:
-                player.rank == int(player.rank)
-                # the rank must be positive
-                if player.rank <= 0:
+                # the rank must be a number and must be positive
+                if player.rank.isdigit() == False or int(player.rank) <= 0 :
                     raise ValueError
                 else :
                     break
