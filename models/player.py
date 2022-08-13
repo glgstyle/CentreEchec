@@ -235,3 +235,4 @@ class Player:
         # sort players by name in database
         players_doc = sorted(players_table.all(), key=lambda k: k['name'])
         return players_doc
+    

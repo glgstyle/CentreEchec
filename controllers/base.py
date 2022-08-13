@@ -35,15 +35,40 @@ class Controller:
         """Set up a new tournament."""
         View.display_create_a_tournament(self.tournament)
         self.tournament.id = uuid.uuid4().hex
-        option = View.display_add_players_or_not()
-        if option == CONSTANTE.ADD_NEW_PLAYERS:
-            self.make_a_tournament_team()
-            View.display_tournament_well_recorded()
-        elif option == CONSTANTE.SELECT_EXISTING_PLAYERS:
-            players = View.display_list_of_players_by_alphabetical_order()
-            self.tournament.players = self.select_players(players)
-            # insert in database
-        self.tournament.insert_tournament_in_database()
+        while True:
+            option = View.display_add_players_or_not()
+            try:
+                if option == CONSTANTE.ADD_NEW_PLAYERS:
+                    self.make_a_tournament_team()
+                    # insert in database
+                    self.tournament.insert_tournament_in_database()
+                    View.display_tournament_well_recorded()
+                    break
+                elif option == CONSTANTE.SELECT_EXISTING_PLAYERS:
+                    players = View.display_list_of_players_by_alphabetical_order()
+                    self.tournament.players = self.select_players(players)
+                    # insert in database
+                    self.tournament.insert_tournament_in_database()
+                    break
+                else: 
+                    raise ValueError        
+            except ValueError:
+                View.display_create_a_tournament_option_error()
+
+    def select_a_player(self, players):
+        """Select a player from a list."""
+        if players != None : 
+            choice = View.display_select_player()
+        else :
+            self.players_submenu()
+        try:
+            if choice <= len(players):
+                joueur_choisi = players[choice - 1]
+            else:
+                View.display_select_a_valid_number()
+        except ValueError:
+                View.display_player_not_in_list(choice)
+        return joueur_choisi
 
     def select_players(self, players):
         """Select existing players to add in a new tournament."""
@@ -51,7 +76,7 @@ class Controller:
         list_of_players = 0
         while list_of_players < 8:
             if players != None : 
-                choice = View.display_select_players()
+                choice = View.display_select_player()
             else :
                 self.players_submenu()
             try:
@@ -154,22 +179,27 @@ class Controller:
         and their results in match."""
         round.matchs=[]
         i=1
+        print(round.pairs_of_players)
         for pair in round.pairs_of_players:
             View.display_match_score_to_input(match_number=i)
             i=i+1
             match =Match()
             match.pair_of_players=pair
+            #print("///pair",pair)
             while True:
                 match.player_result = self.input_results(pair)
                 try:
-                    if match.player_result[0] == 0 and match.player_result[1] == 0:
+                    if match.player_result[0] + match.player_result[1] != 1:
                         raise ValueError
-                    elif match.player_result[0] == 0.5 and match.player_result[1] != 0.5:
-                        raise ValueError
-                    elif match.player_result[0] == 1 and match.player_result[1] != 0:
-                        raise ValueError
+                        """if match.player_result[0] == 0 and match.player_result[1] == 0:
+                            raise ValueError
+                        elif match.player_result[0] == 0.5 and match.player_result[1] != 0.5:
+                            raise ValueError
+                        elif match.player_result[0] == 1 and match.player_result[1] != 0:
+                            raise ValueError"""
                     else :
                         round.matchs.append(match)
+                        break
                 except ValueError:
                     View.display_score_value_error()
 
@@ -298,11 +328,19 @@ class Controller:
                 if response.upper() == "N":
                     View.display_main_menu()
                 else :
-                    print(response, "n'est pas une entrée valide, veuillez recommencer.")
+                    View.display_invalid_input(response)
                     View.display_player_added()
+            elif option == CONSTANTE.ADD_A_TEAM_OF_PLAYERS:
+                self.make_a_tournament_team()
+                View.display_team_of_players_added()
+            elif option == CONSTANTE.MODIFY_PLAYER_RANK:
+                players = View.display_list_of_players_by_alphabetical_order()
+                player = self.select_a_player(players)
+                rank = View.display_input_the_new_rank(player)
+                Player.update_rank_in_database(player.id, rank)
             elif option == CONSTANTE.SEE_THE_LIST_OF_PLAYERS:
                 View.display_list_of_players_by_alphabetical_order()
-            elif option == CONSTANTE.MAIN_MENU:
+            elif option == CONSTANTE.RETURN:
                 self.main_menu()
 
     def reports_submenu(self):
@@ -416,5 +454,5 @@ class Controller:
         for player in sorted_by_score:
             rank += 1
             player.rank = rank
-            Player.update_rank_in_database(player.id, player.rank)
+            #Player.update_rank_in_database(player.id, player.rank)
         return self.tournament.players

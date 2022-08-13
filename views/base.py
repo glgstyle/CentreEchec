@@ -1,5 +1,6 @@
 '''Base view'''
 
+
 from tokenize import Name
 from models.player import Player
 from datetime import datetime
@@ -54,10 +55,24 @@ class View:
                 print("La date n'est pas au bon format, Veuillez recommencer")
                 tournament.date = input("Veuillez saisir la date du "
                                         "tournoi(jj/mm/aaaa) :")
-        tournament.place = input("Veuillez saisir le lieu du tournoi :")
+        # check if tournament.place is a number or is empty
+        while True:
+            tournament.place = input("Veuillez saisir le lieu du tournoi :")
+            try:
+                if tournament.place == "":
+                    raise ValueError
+                elif tournament.place.isdigit():
+                    raise TypeError
+                else :
+                    break
+            except ValueError:
+                print("Le lieu doit etre renseigné.")
+            except TypeError:
+                print("Le lieu ne peut pas être un chiffre ou un nombre")
+
         tournament.comment = input("Saisissez un commentaire ici si vous le "
                                    "souhaitez sinon appuyez sur entrée : ")
-        
+        # check if time_control is bullet, blitz or rapid (can't be something else)
         while True:
             tournament.time_control = input("Veuillez saisir le controle du temps "
                                             "(bullet, blitz ou rapid) : ").capitalize()
@@ -268,8 +283,10 @@ class View:
         print("----------------------------")
         print("Sélectionnez une option")
         print("1 - Ajouter un nouveau joueur")
-        print("2 - Voir la liste des joueurs")
-        print("3 - >> Retour")
+        print("2 - Ajouter une équipe de joueurs")
+        print("3 - Modifier le rang d'un joueur")
+        print("4 - Voir la liste des joueurs")
+        print("5 - >> Retour")
         print("----------------------------")
         option = input("Veuillez saisir votre choix :")
         return option
@@ -309,9 +326,11 @@ class View:
         return option
 
     def display_list_of_players_by_alphabetical_order():
-        """Display a report of players by alphabetical order."""
+        """Display a report of players by alphabetical order,
+           return the list or print error if no players found."""
         players_doc = Player.list_of_players_by_alphabetical_order()
-        print("***len player:_doc,", len(players_doc))
+        #print("***len player:_doc,", len(players_doc))
+        # check if there is players in database or not
         i = 0
         if len(players_doc) != 0 :
             print("\nListe de tous les joueurs par ordre alphabétique :\n")
@@ -356,13 +375,17 @@ class View:
         tournaments = sorted(tournament.all(), key=lambda k: k['date'])
         i = 1
         for t in tournaments:
-
-            print(i, t['date'], t['name'], "\n")
+            # to convert the datetime isoformat
+            dt = datetime.fromisoformat(t['date'].split(":")[1])
+            # give the format we want to the date
+            dt = dt.strftime("%d/%m/%Y")
+            print(i, dt, t['name'], "\n") 
             i += 1
         return tournaments
 
-    def display_select_players():
-        """Display the input to select a player in list."""
+    def display_select_player():
+        """Display the input to select a player in list,
+            return the selected player."""
         selection = int(input("Sélectionnez les joueurs dans la liste :"))
         return selection
 
@@ -383,6 +406,11 @@ class View:
         console.print("Le joueur à bien été ajouté", style="purple")
         answer = input("Souhaitez-vous en ajouter un autre (O/N) ?")
         return answer
+    
+    def display_team_of_players_added():
+        """Display a confirmation for team of players well added."""
+        console = Console()
+        console.print("Les joueurs ont bien été ajoutés", style="purple")
 
     def display_title_list_of_players_by_alphabetic_order():
         """Display the title list of players by alphabetical order."""
@@ -472,3 +500,13 @@ class View:
     def display_score_value_error():
         print("Le score indiqué ne correspond pas aux règles, "
                           "pour rappel: 0 -> 1, 0.5 -> 0.5, 1 -> 0 ." )
+    
+    def display_create_a_tournament_option_error():
+        console.print("Veuillez saisir une option (1 ou 2).", style="red")
+
+    def display_invalid_input(response):
+        print(response, "n'est pas une entrée valide, veuillez recommencer.")
+    
+    def display_input_the_new_rank(player):
+        rank = console.input(f"[purple]Veuillez entrer le nouveau rang de {player} :")
+        return rank

@@ -158,7 +158,7 @@ class Tournament:
             tournament = Tournament()
             tournament.id = result[0]['id']
             tournament.name = result[0]['name']
-            tournament.date = result[0]['date']
+            tournament.date = str(result[0]['date']).split(":")[1]
             tournament.place = result[0]['place']
             tournament.comment = result[0]['comment']
             tournament.numbers_of_turns = result[0]['number_of_turns']
@@ -201,13 +201,11 @@ class Tournament:
 
 # Embellir l'affichage
 # utiliser le rapport flake8 pour corriger les erreurs 
-# Modifier TinyDate pour s'afficher en format j/m/a
+# Modifier TinyDate pour s'afficher en format j/m/a vérifier toutes les dates!!!!
 
-# mauvaise combinaison de pair 
-# quand on revient sur le tournoi attention round-1 et round 1 en double vider la variable reprise en double
-# problème deux fois le meme tournoi s'affiche dans le rapport 6
-# le lieu du tournoi ne peut pas etre un chiffre
-# créer une fonction pour modifier le rang du joueur dans le menu joueur(il ne doit etre modifié automatiquement)
+# mauvaise combinaison de pair
+# essayer de créer une table pour ajouter dans la row"competitors" dans display info round
+# faire le fichier README (qu'est ce qu on fait --> la marche à suivre voir le projet précédent inclure l'explication de flake8(comment générer un rapport..une doc simplifiée))
 
 # A controller :
 # attention aux joueurs qui ont déjà joué enssembles(ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
@@ -229,3 +227,8 @@ class Tournament:
 # l'ajout de player o/n ne pas pouvoir mettre autre que o ou non
 # checker dans le score du match si le premier player a eu 1 le deuxième ne peut pas avoir eu 1 0.5 et 1 impossible sur le meme match
 # rajouter les points dans le récapitulatif des rounds du tournoi
+# quand on revient sur le tournoi attention round-1 et round 1 en double vider la variable reprise en double
+# problème deux fois le meme tournoi s'affiche dans le rapport 6
+# le lieu du tournoi ne peut pas etre un chiffre
+# enregistrer le tournoi en bdd qund well player added
+# créer une fonction pour modifier le rang du joueur dans le menu joueur(il ne doit etre modifié automatiquement)
