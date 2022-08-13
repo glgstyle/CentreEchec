@@ -350,17 +350,25 @@ class View:
 
     def display_list_of_players_by_rank():
         """Display a report of players by rank."""
-        db = TinyDB('Database/playersDb.json')
-        players_table = db.table('serialized_players')
-        # sort players by rank in database
-        players = sorted(players_table.all(), key=lambda k: k['rank'])
-        print("\nListe de tous les joueurs par classement :\n")
-        for player in players:
-            p = Player()
-            p.rank = player['rank']
-            p.name = player['name']
-            p.firstname = player['firstname']
-            print("Rang ", p.rank, ": ", p.name, p.firstname)
+        players_doc = Player.list_of_players_by_rank()
+        # check if there is players in database or not
+        i = 0
+        if len(players_doc) != 0 :
+            print("\nListe de tous les joueurs par classement :\n")
+            list_of_players = []
+            for player in players_doc:
+                p = Player()
+                p.rank = player['rank']
+                p.id = player['id']
+                p.name = player['name']
+                p.firstname = player['firstname']
+                i += 1
+                print(i, " ", "Rang", p.rank, ": ", p.name, p.firstname)
+                list_of_players.append(p)
+            return list_of_players
+        else :
+            print("Il n' a pas de joueurs dans la base de données. Veuillez en ajouter.")
+            return None   
 
     def display_players_by_rank_in_tournament(sorted_by_rank):
         """Display the players sorted by rank in a tournament."""
@@ -386,7 +394,7 @@ class View:
     def display_select_player():
         """Display the input to select a player in list,
             return the selected player."""
-        selection = int(input("Sélectionnez les joueurs dans la liste :"))
+        selection = int(input("Sélectionnez le (ou les) joueur(s) dans la liste :"))
         return selection
 
     def display_select_tournament():
@@ -510,3 +518,6 @@ class View:
     def display_input_the_new_rank(player):
         rank = console.input(f"[purple]Veuillez entrer le nouveau rang de {player} :")
         return rank
+    
+    def display_rank_well_updated(player, rank):
+        console.print(f"Le nouveau rang de {player} après mise à jour est de : {rank}")

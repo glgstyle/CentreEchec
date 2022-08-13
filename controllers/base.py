@@ -179,7 +179,7 @@ class Controller:
         and their results in match."""
         round.matchs=[]
         i=1
-        print(round.pairs_of_players)
+        #print(round.pairs_of_players)
         for pair in round.pairs_of_players:
             View.display_match_score_to_input(match_number=i)
             i=i+1
@@ -191,12 +191,6 @@ class Controller:
                 try:
                     if match.player_result[0] + match.player_result[1] != 1:
                         raise ValueError
-                        """if match.player_result[0] == 0 and match.player_result[1] == 0:
-                            raise ValueError
-                        elif match.player_result[0] == 0.5 and match.player_result[1] != 0.5:
-                            raise ValueError
-                        elif match.player_result[0] == 1 and match.player_result[1] != 0:
-                            raise ValueError"""
                     else :
                         round.matchs.append(match)
                         break
@@ -334,10 +328,11 @@ class Controller:
                 self.make_a_tournament_team()
                 View.display_team_of_players_added()
             elif option == CONSTANTE.MODIFY_PLAYER_RANK:
-                players = View.display_list_of_players_by_alphabetical_order()
+                players = View.display_list_of_players_by_rank()
                 player = self.select_a_player(players)
                 rank = View.display_input_the_new_rank(player)
                 Player.update_rank_in_database(player.id, rank)
+                View.display_rank_well_updated(player, rank)
             elif option == CONSTANTE.SEE_THE_LIST_OF_PLAYERS:
                 View.display_list_of_players_by_alphabetical_order()
             elif option == CONSTANTE.RETURN:

@@ -236,3 +236,10 @@ class Player:
         players_doc = sorted(players_table.all(), key=lambda k: k['name'])
         return players_doc
     
+    def list_of_players_by_rank():
+        """Return a list_doc of players by rank."""
+        db = TinyDB('Database/playersDb.json')
+        players_table = db.table('serialized_players')
+        # sort players by rank in database
+        players_doc = sorted(players_table.all(), key=lambda k: k['rank'])
+        return players_doc
