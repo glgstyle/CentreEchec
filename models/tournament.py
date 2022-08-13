@@ -164,7 +164,7 @@ class Tournament:
             tournament.numbers_of_turns = result[0]['number_of_turns']
             tournament.time_control = result[0]['time_control']
             tournament.players = []
-            #tournament.rounds = []
+            tournament.rounds = []
             for p in result[0]['players']:
                 player = Player.search_player_by_id(p)
                 tournament.players.append(player)
@@ -203,18 +203,17 @@ class Tournament:
 # utiliser le rapport flake8 pour corriger les erreurs 
 # Modifier TinyDate pour s'afficher en format j/m/a
 
-# l'ajout de player o/n ne pas pouvoir mettre autre que o ou non
-# control du temps attention forcément blitz ou bullet ou rapid rien d'autre
-#checker dans le score du match si le premier player a eu 1 le deuxième ne peut pas avoir eu 1 0.5 et 1 impossible sur le meme match
 # mauvaise combinaison de pair 
-# rajouter les points dans le récapitulatif des rounds du torunoi
 # quand on revient sur le tournoi attention round-1 et round 1 en double vider la variable reprise en double
 # problème deux fois le meme tournoi s'affiche dans le rapport 6
+# le lieu du tournoi ne peut pas etre un chiffre
+# créer une fonction pour modifier le rang du joueur dans le menu joueur(il ne doit etre modifié automatiquement)
 
 # A controller :
 # attention aux joueurs qui ont déjà joué enssembles(ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
 
 # Résolu:
+# control du temps attention forcément blitz ou bullet ou rapid rien d'autre-->ok
 # dans player_submenu autoriser o (uppercase) -->OK Mais au bout de deux fois s'arrete quand même
 # voir dans les menus les breaks, option et else -->OK
 # Ne pas mettre à jour le rang pendant le tournoi -->OK
@@ -227,3 +226,6 @@ class Tournament:
 # Créer le fichier database à vide au lancement du fichier--> retiré de gitignore
 # attention ne pas pouvoir rentrer abc dans un rang juste un digit -->ok
 # veuillez donner un nom pour le tournoi au lieu de créer un nom-->ok
+# l'ajout de player o/n ne pas pouvoir mettre autre que o ou non
+# checker dans le score du match si le premier player a eu 1 le deuxième ne peut pas avoir eu 1 0.5 et 1 impossible sur le meme match
+# rajouter les points dans le récapitulatif des rounds du tournoi

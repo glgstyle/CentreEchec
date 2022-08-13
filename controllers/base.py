@@ -159,8 +159,19 @@ class Controller:
             i=i+1
             match =Match()
             match.pair_of_players=pair
-            match.player_result = self.input_results(pair)
-            round.matchs.append(match)
+            while True:
+                match.player_result = self.input_results(pair)
+                try:
+                    if match.player_result[0] == 0 and match.player_result[1] == 0:
+                        raise ValueError
+                    elif match.player_result[0] == 0.5 and match.player_result[1] != 0.5:
+                        raise ValueError
+                    elif match.player_result[0] == 1 and match.player_result[1] != 0:
+                        raise ValueError
+                    else :
+                        round.matchs.append(match)
+                except ValueError:
+                    View.display_score_value_error()
 
     def name_a_round(self):
         """Copy the number of turns in tournament to get an iteration of round,
@@ -240,7 +251,7 @@ class Controller:
     def choose_an_existing_tournament(self):
         """Display existing tournaments, allow to select one
             and return the tournament_doc id."""
-        while True:    
+        while True:   
             try:
                 tournaments_doc = View.display_all_tournaments()
                 if not tournaments_doc:
@@ -318,12 +329,12 @@ class Controller:
                 tournament_ids = self.find_all_players_in_all_tournaments()
                 View.display_all_players_in_all_tournaments(tournament_ids)
             elif option == CONSTANTE.LIST_OF_ALL_ROUNDS_IN_A_TOURNAMENT:
-                View.display_all_tournaments()
+                #View.display_all_tournaments()
                 id = Controller.choose_an_existing_tournament(self)
                 tournament = Tournament.search_tournament_by_id(id)
                 View.display_tournament_rounds_in_report(tournament)
             elif option == CONSTANTE.LIST_OF_ALL_MATCHS_IN_A_TOURNAMENT:
-                View.display_all_tournaments()
+                #View.display_all_tournaments()
                 id = Controller.choose_an_existing_tournament(self)
                 tournament = Tournament.search_tournament_by_id(id)
                 View.display_tournament_matchs_in_report(tournament)

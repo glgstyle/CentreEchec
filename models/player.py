@@ -151,13 +151,11 @@ class Player:
                 break
         # Ckeck if rank is a int
         while True:
-            player.rank = input("Veuillez saisir le classement du joueur :")
             try:
                 # the rank must be a number and must be positive
-                if player.rank.isdigit() == False or int(player.rank) <= 0 :
-                    raise ValueError
-                else :
-                    break
+                player.rank = int(input("Veuillez saisir le classement du joueur :"))
+                #print("player.rank ******",player.rank)
+                break
             except ValueError:
                 print(f"{player.rank} n'est pas un classement valide")
         player.id = uuid.uuid4().hex

@@ -1,5 +1,6 @@
 '''Base view'''
 
+from tokenize import Name
 from models.player import Player
 from datetime import datetime
 from rich.console import Console
@@ -56,8 +57,18 @@ class View:
         tournament.place = input("Veuillez saisir le lieu du tournoi :")
         tournament.comment = input("Saisissez un commentaire ici si vous le "
                                    "souhaitez sinon appuyez sur entrée : ")
-        tournament.time_control = input("Veuillez saisir le controle du temps "
-                                        "(bullet, blitz ou rapid) : ")
+        
+        while True:
+            tournament.time_control = input("Veuillez saisir le controle du temps "
+                                            "(bullet, blitz ou rapid) : ").capitalize()
+            try:
+                if tournament.time_control == "Blitz" or tournament.time_control == "Bullet" or tournament.time_control == "Rapid":
+                    break
+                else :
+                    raise NameError
+            except NameError:
+                print(tournament.time_control, "n'est pas reconnu, "
+                      "les valeurs acceptées sont bullet, blitz ou rapid")
         try:
             tournament.numbers_of_turns = int(input("Saisissez le nombre "
                                                     "de tours (appuyez sur "
@@ -66,7 +77,7 @@ class View:
         except ValueError:
             tournament.numbers_of_turns = 4
             print("Le nombre de tours est incorrect, utilisation de la valeur "
-                  f"par défaut : {tournament.numbers_of_turns} ")
+                    f"par défaut : {tournament.numbers_of_turns} ")
 
     def display_add_players_or_not():
         """Display the player menu."""
@@ -171,8 +182,10 @@ class View:
             # show player names
             for match in round.matchs:
                 player1 = match.pair_of_players[0]
-                player2 = match.pair_of_players[1]   
-                myPlayers = player1.firstname + " " + player1.name + " " +  "contre" + " " + player2.firstname + " " + player2.name 
+                player2 = match.pair_of_players[1]  
+                score1 = match.player_result[0] 
+                score2 = match.player_result[1] 
+                myPlayers = player1.firstname + " " + player1.name + " " + str(score1) + " " +  "contre" + " " + player2.firstname + " " + player2.name + " " + str(score2)
                 round.competitors.append(myPlayers)
             table.add_row(f"{round.name}", f"{round.start_time}",
                           f"{round.end_time}", f"{round.competitors}\n")
@@ -180,7 +193,7 @@ class View:
 
     def display_value_error(points):
         """Display the value error about points."""
-        print(f"({points}) n'est pas un score valide veuillez"
+        print(f"({points}) n'est pas un score valide veuillez "
               "rentrer un chiffre ou un nombre ")
 
     # mainMenu
@@ -342,8 +355,9 @@ class View:
         tournament = db.table('tournament')
         tournaments = sorted(tournament.all(), key=lambda k: k['date'])
         i = 1
-        for tournament in tournaments:
-            print(i, tournament['date'], tournament['name'], "\n")
+        for t in tournaments:
+
+            print(i, t['date'], t['name'], "\n")
             i += 1
         return tournaments
 
@@ -455,3 +469,6 @@ class View:
               "Veuillez saisir un chiffre correspondant au "
               "joueur dans la liste.")
 
+    def display_score_value_error():
+        print("Le score indiqué ne correspond pas aux règles, "
+                          "pour rappel: 0 -> 1, 0.5 -> 0.5, 1 -> 0 ." )
