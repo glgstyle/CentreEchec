@@ -362,12 +362,10 @@ class Controller:
                 tournament_ids = self.find_all_players_in_all_tournaments()
                 View.display_all_players_in_all_tournaments(tournament_ids)
             elif option == CONSTANTE.LIST_OF_ALL_ROUNDS_IN_A_TOURNAMENT:
-                #View.display_all_tournaments()
                 id = Controller.choose_an_existing_tournament(self)
                 tournament = Tournament.search_tournament_by_id(id)
                 View.display_tournament_rounds_in_report(tournament)
             elif option == CONSTANTE.LIST_OF_ALL_MATCHS_IN_A_TOURNAMENT:
-                #View.display_all_tournaments()
                 id = Controller.choose_an_existing_tournament(self)
                 tournament = Tournament.search_tournament_by_id(id)
                 View.display_tournament_matchs_in_report(tournament)

@@ -201,14 +201,14 @@ class Tournament:
 
 # Embellir l'affichage
 # utiliser le rapport flake8 pour corriger les erreurs 
-# Modifier TinyDate pour s'afficher en format j/m/a vérifier toutes les dates!!!!
 
 # mauvaise combinaison de pair
-# essayer de créer une table pour ajouter dans la row"competitors" dans display info round
-# faire le fichier README (qu'est ce qu on fait --> la marche à suivre voir le projet précédent inclure l'explication de flake8(comment générer un rapport..une doc simplifiée))
-# problème rapport 3, 4, 5, 6, 7
 
 # A controller :
 # attention aux joueurs qui ont déjà joué enssembles(ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
 
 # Résolu:
+# faire le fichier README (qu'est ce qu on fait --> la marche à suivre voir le projet précédent inclure l'explication de flake8(comment générer un rapport..une doc simplifiée))
+# problème rapport 3, 4, 5, 6, 7
+# Modifier TinyDate pour s'afficher en format j/m/a vérifier toutes les dates!!!!
+# essayer de créer une table pour ajouter dans la row"competitors" dans display info round

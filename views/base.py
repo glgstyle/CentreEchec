@@ -193,17 +193,21 @@ class View:
         table.add_column("Heure de fin", style="magenta")
         table.add_column("Adversaires", style="blue")
         for round in rounds:
-            round.competitors = []
+            #round.competitors = []
             # show player names
+            table.add_row(f"{round.name}", f"{round.start_time}",
+                          f"{round.end_time}")
             for match in round.matchs:
                 player1 = match.pair_of_players[0]
                 player2 = match.pair_of_players[1]  
                 score1 = match.player_result[0] 
                 score2 = match.player_result[1] 
                 myPlayers = player1.firstname + " " + player1.name + " " + str(score1) + " " +  "contre" + " " + player2.firstname + " " + player2.name + " " + str(score2)
-                round.competitors.append(myPlayers)
-            table.add_row(f"{round.name}", f"{round.start_time}",
-                          f"{round.end_time}", f"{round.competitors}\n")
+                table.add_row("","","",myPlayers)
+                #round.competitors.append(myPlayers)
+            table.add_row("")
+            
+            
         console.print(table)
 
     def display_value_error(points):
@@ -448,7 +452,7 @@ class View:
         """Display a report of all rounds informations in tournament 
            from a selected tournament."""
         for round in tournament.rounds:
-            print(round.name)
+            print("\n",round.name)
             print(round.start_time)
             print(round.end_time)
             for match in round.matchs:
@@ -475,10 +479,14 @@ class View:
     
     def display_selected_tournament_doc(chosen_tournament_doc):
         """Display the date and name of tournament doc selected."""
+        # to convert the datetime isoformat
+        tournament_date = datetime.fromisoformat(chosen_tournament_doc['date'].split(":")[1])
+        # give the format we want to the date
+        tournament_date = tournament_date.strftime("%d/%m/%Y")
         console.print("Le tournoi choisi est le tournoi ",
                chosen_tournament_doc['name'],
                " qui s'est joué le ",
-               chosen_tournament_doc['date'],style="purple")
+               tournament_date ,style="purple")
 
     def display_select_a_valid_number():
         """Display the number selected is not in the list."""
