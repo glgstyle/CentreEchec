@@ -48,7 +48,7 @@ CentreEchec est un programme qui permet de gérer des tournois d'échecs hebdoma
 Le plugin flake8 est utilisé pour générer des rapports HTML sur les violations de flake8 (normes PEP8)
 - Pour générer un rapport avec flake 8, éxecutez la commande suivante :
 
-   ```flake8 --format = html --htmldir = flake-rapport```
+   ```flake8 --format=html --htmldir=flake-report```
 
 - Dans le rapport, une page index répertorie toutes les violations à corriger
 

@@ -1,7 +1,6 @@
 '''The player.'''
 
 from datetime import datetime
-from unittest.util import strclass
 from tinydb import JSONStorage, TinyDB, Query
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
@@ -116,7 +115,8 @@ class Player:
         # As long as the firstname is incorrect request the firstname
         # again, then insert it in the player list
         while True:
-            player.firstname = input("Veuillez entrer le prénom du joueur : ").capitalize()
+            player.firstname = input("Veuillez entrer le prénom du"
+                                     " joueur : ").capitalize()
             try:
                 if player.firstname == "":
                     raise TypeError
@@ -153,8 +153,8 @@ class Player:
         while True:
             try:
                 # the rank must be a number and must be positive
-                player.rank = int(input("Veuillez saisir le classement du joueur :"))
-                #print("player.rank ******",player.rank)
+                player.rank = int(input("Veuillez saisir le classement"
+                                        " du joueur :"))
                 break
             except ValueError:
                 print(f"{player.rank} n'est pas un classement valide")
@@ -235,7 +235,7 @@ class Player:
         # sort players by name in database
         players_doc = sorted(players_table.all(), key=lambda k: k['name'])
         return players_doc
-    
+
     def list_of_players_by_rank():
         """Return a list_doc of players by rank."""
         db = TinyDB('Database/playersDb.json')

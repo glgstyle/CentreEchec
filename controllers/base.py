@@ -45,21 +45,22 @@ class Controller:
                     View.display_tournament_well_recorded()
                     break
                 elif option == CONSTANTE.SELECT_EXISTING_PLAYERS:
-                    players = View.display_list_of_players_by_alphabetical_order()
+                    players = (View.
+                               display_list_of_players_by_alphabetical_order())
                     self.tournament.players = self.select_players(players)
                     # insert in database
                     self.tournament.insert_tournament_in_database()
                     break
-                else: 
-                    raise ValueError        
+                else:
+                    raise ValueError
             except ValueError:
                 View.display_create_a_tournament_option_error()
 
     def select_a_player(self, players):
         """Select a player from a list."""
-        if players != None : 
+        if players is not None:
             choice = View.display_select_player()
-        else :
+        else:
             self.players_submenu()
         try:
             if choice <= len(players):
@@ -67,7 +68,7 @@ class Controller:
             else:
                 View.display_select_a_valid_number()
         except ValueError:
-                View.display_player_not_in_list(choice)
+            View.display_player_not_in_list(choice)
         return joueur_choisi
 
     def select_players(self, players):
@@ -75,9 +76,9 @@ class Controller:
         choices = []
         list_of_players = 0
         while list_of_players < 8:
-            if players != None : 
+            if players is not None:
                 choice = View.display_select_player()
-            else :
+            else:
                 self.players_submenu()
             try:
                 if choice <= len(players):
@@ -125,28 +126,57 @@ class Controller:
         View.display_all_teams_in_first_round(self.match.pair_of_players)
         return self.match.pair_of_players
 
+    def search_pairs_in_matchs(self):
+        tournament_pairs = []
+        for round in self.tournament.rounds:
+            # print("round.matchs", round.matchs)
+            for match in round.matchs:
+                # print("match",match.pair_of_players)
+                tournament_pairs.append(match.pair_of_players)
+        print(tournament_pairs)
+        return tournament_pairs
+
     def make_players_pairs_by_score_or_rank(self):
         """Make players pairs by score or rank after the first round
         by checking if they have already played together."""
         sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
         competitors = self.sort_players_by_score_then_rank()
+        match_pairs = self.search_pairs_in_matchs()
+        print("competitors", competitors)
         players = sorted_by_score_or_rank
         self.list_of_teams = []
         # while there is players, remove the first and the second player of the
         # list
         while(len(players) > 0):
             a = players.pop(0)
+            print("a", a)
             b = players.pop(0)
-            # if they have play together, put back b in list and take
+            print("b", b)
+            the_pair = [a, b]
+            reversed_pair = [b, a]
+            # if they have played together, put back b in list and take
             # the first of the list as b, then rearrange the list as it
             # was initially(put c in first index)
-            if(competitors[0] == a and competitors[1] == b
+            """if(competitors[0] == a and competitors[1] == b
                 or competitors[0] == b and competitors[1] == a):
                 players.append(b)
                 b = players.pop(0)
                 if len(players) > 0:
                     c = players.pop()
+                    players.insert(0, c)"""
+            """for i in match_pairs:
+                print(i)
+                if i == the_pair or i == reversed_pair:
+                    print(i, "exists")"""
+            if(the_pair in match_pairs or reversed_pair in match_pairs):
+                players.append(b)
+                b = players.pop(0)
+                if len(players) > 0:
+                    c = players.pop()
                     players.insert(0, c)
+                print(True)
+            else:
+                print("la paire", [a, b])
             self.list_of_teams.append([a, b])
         self.match.pair_of_players.clear()
         for team in self.list_of_teams:
@@ -177,21 +207,21 @@ class Controller:
     def results_of_match(self, round):
         """Input the players results in the list, insert the pair of players
         and their results in match."""
-        round.matchs=[]
-        i=1
-        #print(round.pairs_of_players)
+        round.matchs = []
+        i = 1
+        # print(round.pairs_of_players)
         for pair in round.pairs_of_players:
             View.display_match_score_to_input(match_number=i)
-            i=i+1
-            match =Match()
-            match.pair_of_players=pair
-            #print("///pair",pair)
+            i = i + 1
+            match = Match()
+            match.pair_of_players = pair
+            # print("///pair",pair)
             while True:
                 match.player_result = self.input_results(pair)
                 try:
                     if match.player_result[0] + match.player_result[1] != 1:
                         raise ValueError
-                    else :
+                    else:
                         round.matchs.append(match)
                         break
                 except ValueError:
@@ -210,7 +240,7 @@ class Controller:
         i = result+1
         while i <= self.tournament.numbers_of_turns:
             self.start_a_round(i)
-            i=i+1
+            i = i + 1
 
     def start_a_round(self, current_round_number=1):
         """Start to give a name to the round then until there is no more round,
@@ -275,7 +305,7 @@ class Controller:
     def choose_an_existing_tournament(self):
         """Display existing tournaments, allow to select one
             and return the tournament_doc id."""
-        while True:   
+        while True:
             try:
                 tournaments_doc = View.display_all_tournaments()
                 if not tournaments_doc:
@@ -285,11 +315,12 @@ class Controller:
                 self.main_menu()
             else:
                 choice = View.display_select_tournament()
-                try: 
+                try:
                     chosen_tournament_doc = tournaments_doc[choice - 1]
                     # check if choice is in len of tournament doc
                     if choice <= len(tournaments_doc):
-                        View.display_selected_tournament_doc(chosen_tournament_doc)
+                        View.display_selected_tournament_doc
+                        (chosen_tournament_doc)
                         return chosen_tournament_doc['id']
                 except IndexError:
                     View.display_select_a_valid_number()
@@ -321,7 +352,7 @@ class Controller:
                     response = View.display_player_added()
                 if response.upper() == "N":
                     View.display_main_menu()
-                else :
+                else:
                     View.display_invalid_input(response)
                     View.display_player_added()
             elif option == CONSTANTE.ADD_A_TEAM_OF_PLAYERS:
@@ -402,28 +433,28 @@ class Controller:
     def input_results(self, pair):
         """Input the result of the match, return the player infos with the score
         inserted."""
-        result=[]
+        result = []
         for player in pair:
-                # As long as the score is incorrect request the score again,
-                # then insert it in the player list
-                while True:
-                    points = input("Veuillez entrer le score de "
-                                   f"{player.firstname} {player.name} : ")
-                    try:
-                        points = float(points)
-                        if points != 0.0 and points != 0.5 and points != 1.0:
-                            View.display_invalid_point()
-                        else:
-                            # Copy the existing player points and add the new
-                            # points
-                            player.points = [*player.points, points]
-                            result.append(points)
-                            break
-                    except ValueError:
-                        View.display_value_error(points)
-                Player.update_player_points_in_database(
-                    player.id, player.points)
-        return result 
+            # As long as the score is incorrect request the score again,
+            # then insert it in the player list
+            while True:
+                points = input("Veuillez entrer le score de "
+                               f"{player.firstname} {player.name} : ")
+                try:
+                    points = float(points)
+                    if points != 0.0 and points != 0.5 and points != 1.0:
+                        View.display_invalid_point()
+                    else:
+                        # Copy the existing player points and add the new
+                        # points
+                        player.points = [*player.points, points]
+                        result.append(points)
+                        break
+                except ValueError:
+                    View.display_value_error(points)
+            Player.update_player_points_in_database(
+                player.id, player.points)
+        return result
 
     def update_the_score(self):
         """Calculate players score by doing the sum of player points."""
@@ -447,5 +478,5 @@ class Controller:
         for player in sorted_by_score:
             rank += 1
             player.rank = rank
-            #Player.update_rank_in_database(player.id, player.rank)
+            # Player.update_rank_in_database(player.id, player.rank)
         return self.tournament.players

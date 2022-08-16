@@ -1,6 +1,6 @@
 ''''Define the tournament.'''
 
-from tinydb import JSONStorage, TinyDB, Query, where
+from tinydb import JSONStorage, TinyDB, Query
 from tinydb_serialization import SerializationMiddleware
 from tinydb_serialization.serializers import DateTimeSerializer
 from models.player import Player
@@ -140,9 +140,11 @@ class Tournament:
             roundData['end_date'] = round.end_time
             roundData['matchs'] = []
             for mat in round.matchs:
-                matchData = [] 
-                matchData.append([mat.pair_of_players[0].id, mat.player_result[0] ])
-                matchData.append([mat.pair_of_players[1].id, mat.player_result[1]])
+                matchData = []
+                matchData.append([mat.pair_of_players[0].id,
+                                  mat.player_result[0]])
+                matchData.append([mat.pair_of_players[1].id,
+                                  mat.player_result[1]])
                 roundData['matchs'].append(matchData)
             all_rounds.append(roundData)
         tournament_table.upsert({'rounds': all_rounds}, q.id == id)
@@ -177,8 +179,11 @@ class Tournament:
                 # refaire une boucle pour les matchs
                 for m in r['matchs']:
                     match = Match()
-                    match.pair_of_players=[ Player.search_player_by_id(m[0][0]), Player.search_player_by_id(m[1][0])]
-                    match.player_result=[ m[0][1], m[1][1]]
+                    match.pair_of_players = [Player.search_player_by_id
+                                             (m[0][0]),
+                                             Player.
+                                             search_player_by_id(m[1][0])]
+                    match.player_result = [m[0][1], m[1][1]]
                     round.matchs.append(match)
                 tournament.rounds.append(round)
             return tournament
@@ -200,15 +205,21 @@ class Tournament:
         return tournament.players
 
 # Embellir l'affichage
-# utiliser le rapport flake8 pour corriger les erreurs 
+# utiliser le rapport flake8 pour corriger les erreurs
 
+# problème flake8 avec les titres des menus(escape sequence'\')
 # mauvaise combinaison de pair
 
 # A controller :
-# attention aux joueurs qui ont déjà joué enssembles(ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
+# attention aux joueurs qui ont déjà joué enssembles
+# (ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
 
 # Résolu:
-# faire le fichier README (qu'est ce qu on fait --> la marche à suivre voir le projet précédent inclure l'explication de flake8(comment générer un rapport..une doc simplifiée))
+# faire le fichier README (qu'est ce qu on fait --> la marche
+# à suivre voir le projet précédent inclure l'explication de
+# flake8(comment générer un rapport..une doc simplifiée))
 # problème rapport 3, 4, 5, 6, 7
-# Modifier TinyDate pour s'afficher en format j/m/a vérifier toutes les dates!!!!
-# essayer de créer une table pour ajouter dans la row"competitors" dans display info round
+# Modifier TinyDate pour s'afficher en format j/m/a vérifier
+# toutes les dates!!!!
+# essayer de créer une table pour ajouter dans la row"competitors"
+#  dans display info round
