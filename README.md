@@ -1,12 +1,14 @@
 
 
-# <h1 style="text-align: center;">CentreEchec</h1>
+# <h1 style="width:100%; text-align: center;">CentreEchec</h1>
 </br>
-<img src="https://user.oc-static.com/upload/2020/09/22/16007793690358_chess%20club-01.png" 
-        alt="le logo de du club d'échecs" 
-        width="250" 
-        height="200" 
-        style="display: block; margin: 0 auto; background-color: white" />
+<div style="width:100%; display:flex; content-align:center; items-align:center">
+    <img src="https://user.oc-static.com/upload/2020/09/22/16007793690358_chess%20club-01.png" 
+            alt="le logo de du club d'échecs" 
+            width="250" 
+            height="200" 
+            style="display: block; margin: 0 auto; background-color: white" />
+</div>
 
 
 CentreEchec est un programme qui permet de gérer des tournois d'échecs hebdomadaires. 
@@ -143,9 +145,9 @@ sinon un récapitulatif s'affiche
 
 1. Sélectionnez l'option 3
 2. La liste des joueurs s'affiche
-3. Sélectionnez le joueur concerné (pas son rang)<br/>
+3. Sélectionnez le joueur concerné (pas son rang)
+4. Saisir le nouveau rang<br/>
 <br/>
-4. Saisir le nouveau rang
 
 ## Voir la liste des joueurs
 

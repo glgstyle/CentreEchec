@@ -209,17 +209,18 @@ class Tournament:
 
 # problème flake8 avec les titres des menus(escape sequence'\')
 # mauvaise combinaison de pair
+# Revoir les trous dansle readme(mise en page)
 
 # A controller :
 # attention aux joueurs qui ont déjà joué enssembles
 # (ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
 
 # Résolu:
-# faire le fichier README (qu'est ce qu on fait --> la marche
-# à suivre voir le projet précédent inclure l'explication de
-# flake8(comment générer un rapport..une doc simplifiée))
+# faire le fichier README 
 # problème rapport 3, 4, 5, 6, 7
+
 # Modifier TinyDate pour s'afficher en format j/m/a vérifier
 # toutes les dates!!!!
+
 # essayer de créer une table pour ajouter dans la row"competitors"
 #  dans display info round
