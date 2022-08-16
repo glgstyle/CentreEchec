@@ -1,14 +1,13 @@
 
 
-# <h1 style="width:100%; text-align: center;">CentreEchec</h1>
+# <h1 align="center">CentreEchec</h1>
 </br>
-<div style="width:100%; display:flex; content-align:center; items-align:center">
+<p align="center">
     <img src="https://user.oc-static.com/upload/2020/09/22/16007793690358_chess%20club-01.png" 
             alt="le logo de du club d'échecs" 
             width="250" 
-            height="200" 
-            style="display: block; margin: 0 auto; background-color: white" />
-</div>
+            height="200"/>
+</p>
 
 
 CentreEchec est un programme qui permet de gérer des tournois d'échecs hebdomadaires. 
@@ -68,7 +67,7 @@ Le plugin flake8 est utilisé pour générer des rapports HTML sur les violation
 4. Saisir le lieu du tournoi
 5. Saisir le commentaire
 6. Saisir le controle du temps
-7. Saisir le nombre de tours<br/>
+7. Saisir le nombre de tours
 <br/>
 
 #### <u>Si ajout de nouveaux joueurs dans le tournoi :</u>
@@ -80,14 +79,14 @@ Le plugin flake8 est utilisé pour générer des rapports HTML sur les violation
 5. Saisir le sexe du joueur(F/M)
 6. Saisir le classement du joueur
 7. Répétez les opérations 1 à 10 jusqu'à l'obtention du nombre de joueurs
-8. Le tournoi et les joueurs se sont enregistrés en base de données<br/>
+8. Le tournoi et les joueurs se sont enregistrés en base de données
 <br/>
 
 #### <u>Si sélection de joueurs depuis la base de données :</u>
 
 1. Sélectionnez l'option 2
 2. La liste des joueurs existants s'affiche
-3. Sélectionnez les joueur<br/>
+3. Sélectionnez les joueur
 <br/>
 
 ## Commencer le tournoi 
@@ -102,7 +101,7 @@ Le plugin flake8 est utilisé pour générer des rapports HTML sur les violation
 9. Saisir le score de chaque joueur dans chacun des matchs
 10. Une mise à jour des scores des joueurs s'affiche
 11. Un tableau récapitulatif du round s'affiche également
-12. Répétez les opérations 3 à 9 jusqu'à la fin du tournoi<br/>
+12. Répétez les opérations 3 à 9 jusqu'à la fin du tournoi
 <br/>
 
 ## Reprendre un tournoi 
@@ -112,6 +111,7 @@ Le plugin flake8 est utilisé pour générer des rapports HTML sur les violation
 3. Sélectionnez le tournoi souhaité
 4. Si le tournoi n'est pas terminé il reprend au round arrêté,
 sinon un récapitulatif s'affiche
+<br/>
 
 ## <u>Menu Joueurs</u>
 
@@ -127,7 +127,7 @@ sinon un récapitulatif s'affiche
 4. Saisir la date de naissance du joueur
 5. Saisir le sexe du joueur(F/M)
 6. Saisir le classement du joueur
-7. Si vous souhaitez ajouter un autre joueur, sélectionnez O sinon N<br/>
+7. Si vous souhaitez ajouter un autre joueur, sélectionnez O sinon N
 <br/>
 
 ## Ajouter une équipe de joueurs
@@ -138,7 +138,7 @@ sinon un récapitulatif s'affiche
 4. Saisir la date de naissance du joueur
 5. Saisir le sexe du joueur(F/M)
 6. Saisir le classement du joueur
-7. Répetez les opérations 2 à 6 jusqu'à ce que l'équipe soit complète<br/>
+7. Répetez les opérations 2 à 6 jusqu'à ce que l'équipe soit complète
 <br/>
 
 ## Modifier le rang d'un joueur
@@ -146,13 +146,13 @@ sinon un récapitulatif s'affiche
 1. Sélectionnez l'option 3
 2. La liste des joueurs s'affiche
 3. Sélectionnez le joueur concerné (pas son rang)
-4. Saisir le nouveau rang<br/>
+4. Saisir le nouveau rang
 <br/>
 
 ## Voir la liste des joueurs
 
 1. Sélectionnez l'option 4
-2. La liste des joueurs s'affiche<br/>
+2. La liste des joueurs s'affiche
 <br/>
 
 ## <u>Menu Rapports</u>
@@ -164,45 +164,45 @@ sinon un récapitulatif s'affiche
 ## Lister tous les joueurs par ordre alphabétique
 
 1. Sélectionnez l'option 1
-2. La liste des joueurs s'affiche<br/>
+2. La liste des joueurs s'affiche
 <br/>
 
 ## Lister tous les joueurs par classement
 
 1. Sélectionnez l'option 2
-2. La liste des joueurs s'affiche<br/>
+2. La liste des joueurs s'affiche
 <br/>
 
 ## Lister tous les joueurs d'un tournoi par ordre alphabétique
 
 1. Sélectionnez l'option 3
 2. Sélectionnez le numéro du tournoi concerné
-3. La liste des joueurs s'affiche<br/>
+3. La liste des joueurs s'affiche
 <br/>
 
 ## Lister tous les joueurs d'un tournoi par classement
 
 1. Sélectionnez l'option 4
 2. Sélectionnez le numéro du tournoi concerné
-3. La liste des joueurs s'affiche<br/>
+3. La liste des joueurs s'affiche
 <br/>
 
 ## Lister tous les joueurs de tous les tournois
 
 1. Sélectionnez l'option 5
-2. La liste des joueurs s'affiche<br/>
+2. La liste des joueurs s'affiche
 <br/>
 
 ## Lister tous les tours d'un tournoi
 
 1. Sélectionnez l'option 6
 2. Sélectionnez le numéro du tournoi concerné
-3. La liste des rounds s'affiche<br/>
+3. La liste des rounds s'affiche
 <br/>
 
 ## Lister tous les matchs d'un tournoi
 
 1. Sélectionnez l'option 7
 2. Sélectionnez le numéro du tournoi concerné
-3. La liste des rounds s'affiche<br/>
+3. La liste des rounds s'affiche
 <br/>

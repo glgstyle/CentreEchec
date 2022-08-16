@@ -145,7 +145,9 @@ class Tournament:
                                   mat.player_result[0]])
                 matchData.append([mat.pair_of_players[1].id,
                                   mat.player_result[1]])
+                # matchData = tuple(matchData)
                 roundData['matchs'].append(matchData)
+            # print("////////////",roundData['matchs'])
             all_rounds.append(roundData)
         tournament_table.upsert({'rounds': all_rounds}, q.id == id)
 
@@ -207,16 +209,16 @@ class Tournament:
 # Embellir l'affichage
 # utiliser le rapport flake8 pour corriger les erreurs
 
-# problème flake8 avec les titres des menus(escape sequence'\')
 # mauvaise combinaison de pair
-# Revoir les trous dansle readme(mise en page)
+# Revoir les trous dans le readme(mise en page)
+# modifier le stockage des matchs en tuple
 
 # A controller :
 # attention aux joueurs qui ont déjà joué enssembles
 # (ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
 
 # Résolu:
-# faire le fichier README 
+# faire le fichier README
 # problème rapport 3, 4, 5, 6, 7
 
 # Modifier TinyDate pour s'afficher en format j/m/a vérifier
@@ -224,3 +226,4 @@ class Tournament:
 
 # essayer de créer une table pour ajouter dans la row"competitors"
 #  dans display info round
+# problème flake8 avec les titres des menus(escape sequence'\')
