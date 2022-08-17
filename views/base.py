@@ -74,7 +74,7 @@ class View:
         # check if time_control is bullet, blitz or rapid (can't be something
         # else)
         while True:
-            tournament.time_control = input("Veuillez saisir le controle du"
+            tournament.time_control = input("Veuillez saisir le controle du "
                                             "temps (bullet, blitz ou rapid) "
                                             ": ").capitalize()
             try:

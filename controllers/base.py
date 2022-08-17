@@ -7,7 +7,7 @@ from models.match import Match
 from models.round import Round
 from views.base import View
 from rich.console import Console
-import uuid
+
 # from controllers.constants import ADD_NEW_PLAYERS, SELECT_EXISTING_PLAYERS
 import controllers.constants as CONSTANTE
 # (dans ce cas la ecrire CONSTANTE.ADD_NEW_PLAYER dans la fonction par exemple)
@@ -34,7 +34,7 @@ class Controller:
     def create_a_tournament(self):
         """Set up a new tournament."""
         View.display_create_a_tournament(self.tournament)
-        self.tournament.id = uuid.uuid4().hex
+        #self.tournament.id = uuid.uuid4().hex
         while True:
             option = View.display_add_players_or_not()
             try:
@@ -214,7 +214,7 @@ class Controller:
             View.display_match_score_to_input(match_number=i)
             i = i + 1
             match = Match()
-            match.pair_of_players = pair
+            match.pair_of_players = list(pair)
             # print("///pair",pair)
             while True:
                 match.player_result = self.input_results(pair)
@@ -223,9 +223,13 @@ class Controller:
                         raise ValueError
                     else:
                         round.matchs.append(match)
+                        #print(round.matchs)
                         break
                 except ValueError:
                     View.display_score_value_error()
+            #lst_tuple = [x for x in zip(*[iter(round.matchs)])]
+            #print(lst_tuple)
+        #round.matchs = lst_tuple
 
     def name_a_round(self):
         """Copy the number of turns in tournament to get an iteration of round,
