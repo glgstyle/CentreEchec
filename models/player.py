@@ -159,6 +159,7 @@ class Player:
             except ValueError:
                 print(f"{player.rank} n'est pas un classement valide")
         player.id = uuid.uuid4().hex
+        print("//////player")
         Player.insert_player_in_database(player)
         return player
 
@@ -177,11 +178,14 @@ class Player:
         serialization.register_serializer(DateTimeSerializer(), 'TinyDate')
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players')
-        players_table.insert({'id': self.id, 'name': self.name,
+        data = {'id': self.id, 'name': self.name,
                               'firstname': self.firstname,
                               'date_of_birth': self.date_of_birth,
                               'sexe': self.sexe, 'score': self.score,
-                              'points': self.points, 'rank': self.rank})
+                              'points': self.points, 'rank': self.rank}
+        print("////data",data)
+        players_table.insert(data)
+        print("dans insert database")
 
     def update_player_points_in_database(id, points):
         """Insert the player points after each match in database."""
