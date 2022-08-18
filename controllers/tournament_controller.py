@@ -14,7 +14,7 @@ import controllers.constants as CONSTANTE
 
 
 class TournamentController:
-    def __init__(self,base_controller):
+    def __init__(self, base_controller):
         '''Has a list of Players and a view.'''
         # models
         self.base_controller = base_controller
@@ -36,11 +36,11 @@ class TournamentController:
                 self.continue_to_play_tournament_by_id(id)
             elif option == CONSTANTE.MAIN_MENU:
                 self.base_controller.main_menu()
-    
+
     def create_a_tournament(self):
         """Set up a new tournament."""
         View.display_create_a_tournament(self.tournament)
-        #self.tournament.id = uuid.uuid4().hex
+        # self.tournament.id = uuid.uuid4().hex
         while True:
             option = View.display_add_players_or_not()
             try:
@@ -111,6 +111,18 @@ class TournamentController:
             for i in range(0, self.tournament.numbers_of_turns):
                 self.start_a_round((i+1))
 
+    def sort_players_by_score_then_rank(self):
+        """Sorted the list of players by score first and if score is equal,
+         sort them by rank."""
+        # remove what there is after the eigth player in the list otherwise
+        # ther is a duplicate list with 16 players
+        del self.tournament.players[8:]
+        # -x.score is the reverse order because we need the most important
+        # score first and t1he first of rank, second after etc....
+        sorted_by_score_then_rank = sorted(
+            self.tournament.players, key=lambda x: (-x.score, x.rank))
+        return sorted_by_score_then_rank
+
     def name_a_round(self):
         """Copy the number of turns in tournament to get an iteration of round,
          then return the name of rounds."""
@@ -146,8 +158,8 @@ class TournamentController:
     def make_players_pairs_by_score_or_rank(self):
         """Make players pairs by score or rank after the first round
         by checking if they have already played together."""
-        sorted_by_score_or_rank = self.base_controller.sort_players_by_score_then_rank()
-        competitors = self.base_controller.sort_players_by_score_then_rank()
+        sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
+        competitors = self.sort_players_by_score_then_rank()
         match_pairs = self.search_pairs_in_matchs()
         print("competitors", competitors)
         players = sorted_by_score_or_rank
@@ -175,6 +187,7 @@ class TournamentController:
                 print(i)
                 if i == the_pair or i == reversed_pair:
                     print(i, "exists")"""
+
             if(the_pair in match_pairs or reversed_pair in match_pairs):
                 players.append(b)
                 b = players.pop(0)
@@ -185,8 +198,10 @@ class TournamentController:
             else:
                 print("la paire", [a, b])
             self.list_of_teams.append([a, b])
+        print("///self.match.pair_of_players", self.match.pair_of_players)
         self.match.pair_of_players.clear()
         for team in self.list_of_teams:
+            print("self.list_of_teams", self.list_of_teams)
             self.match.pair_of_players.append(team)
         View.display_all_teams_after_first_round(self.match.pair_of_players)
         return self.match.pair_of_players
@@ -261,11 +276,11 @@ class TournamentController:
             Player.update_player_points_in_database(
                 player.id, player.points)
         return result
-    
+
     def match_record(self):
         """Record the players in a match and return them."""
         players_in_match = []
-        sorted_by_score_or_rank = self.base_controller.sort_players_by_score_then_rank()
+        sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
         for player in sorted_by_score_or_rank:
             players_in_match.append(player)
         return players_in_match
@@ -289,13 +304,13 @@ class TournamentController:
                         raise ValueError
                     else:
                         round.matchs.append(match)
-                        #print(round.matchs)
+                        # print(round.matchs)
                         break
                 except ValueError:
                     View.display_score_value_error()
-            #lst_tuple = [x for x in zip(*[iter(round.matchs)])]
-            #print(lst_tuple)
-        #round.matchs = lst_tuple
+            # lst_tuple = [x for x in zip(*[iter(round.matchs)])]
+            # print(lst_tuple)
+        # round.matchs = lst_tuple
 
     def update_the_score(self):
         """Calculate players score by doing the sum of player points."""
@@ -308,10 +323,10 @@ class TournamentController:
                 Player.update_player_score_in_database(player.id, player.score)
         # display the player with his score
         View.display_score_after_match(tournament=self.tournament)
-    
+
     def update_player_rank(self):
         """Update the rank of player at the end of tournament."""
-        sorted_by_score = self.base_controller.sort_players_by_score_then_rank()
+        sorted_by_score = self.sort_players_by_score_then_rank()
         self.tournament.players = sorted_by_score
         rank = 0
         # for each player in the sorted list by score give a rank from first +1

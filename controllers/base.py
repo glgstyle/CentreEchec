@@ -9,7 +9,6 @@ from models.tournament import Tournament
 from models.match import Match
 from models.round import Round
 from views.base import View
-from rich.console import Console
 
 # from controllers.constants import ADD_NEW_PLAYERS, SELECT_EXISTING_PLAYERS
 import controllers.constants as CONSTANTE
@@ -79,22 +78,9 @@ class Controller:
                 except IndexError:
                     View.display_select_a_valid_number()
 
-    def sort_players_by_score_then_rank(self):
-        """Sorted the list of players by score first and if score is equal,
-         sort them by rank."""
-        # remove what there is after the eigth player in the list otherwise
-        # ther is a duplicate list with 16 players
-        del self.tournament.players[8:]
-        # -x.score is the reverse order because we need the most important
-        # score first and t1he first of rank, second after etc....
-        sorted_by_score_then_rank = sorted(
-            self.tournament.players, key=lambda x: (-x.score, x.rank))
-        return sorted_by_score_then_rank
-
     def sort_players_by_rank(self):
         """Sort the list of players by rank, return the sorted list."""
         sorted_by_rank = sorted(
             self.tournament.players,
             key=lambda player: player.rank)
         return sorted_by_rank
-

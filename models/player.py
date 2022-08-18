@@ -10,7 +10,8 @@ import uuid
 class Player:
     '''Player.'''
 
-    def __init__(self, id=uuid.uuid4().hex, name="", firstname="", date_of_birth="",
+    def __init__(self, id=uuid.uuid4().hex, name="",
+                 firstname="", date_of_birth="",
                  sexe="", points=[], score=0, rank=0):
         '''A player has a name, a firstname, a date of birth, a sexe,
         a score, points and a rank.'''
@@ -177,10 +178,10 @@ class Player:
         db = TinyDB('Database/playersDb.json', storage=serialization, indent=4)
         players_table = db.table('serialized_players')
         data = {'id': self.id, 'name': self.name,
-                              'firstname': self.firstname,
-                              'date_of_birth': self.date_of_birth,
-                              'sexe': self.sexe, 'score': self.score,
-                              'points': self.points, 'rank': self.rank}
+                'firstname': self.firstname,
+                'date_of_birth': self.date_of_birth,
+                'sexe': self.sexe, 'score': self.score,
+                'points': self.points, 'rank': self.rank}
         players_table.insert(data)
         print("dans insert database")
 

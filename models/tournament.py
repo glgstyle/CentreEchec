@@ -8,11 +8,14 @@ from models.match import Match
 from models.round import Round
 import uuid
 
+
 class Tournament:
     """A tournament"""
 
-    def __init__(self, id=uuid.uuid4().hex, name="", date="", place="", comment="",
-                 numbers_of_turns=4, rounds=[], time_control="", players=[]):
+    def __init__(self, id=uuid.uuid4().hex, name="",
+                 date="", place="", comment="",
+                 numbers_of_turns=4, rounds=[],
+                 time_control="", players=[]):
         """Has a name, a date, a place, a number of turns, turns,
            a pool of players,  time control, comments"""
         self.id = id
@@ -145,9 +148,9 @@ class Tournament:
                                   mat.player_result[0]])
                 matchData.append([mat.pair_of_players[1].id,
                                   mat.player_result[1]])
-                #matchData = tuple(matchData)
+                # matchData = tuple(matchData)
                 roundData['matchs'].append(matchData)
-            #print("////////////",roundData['matchs'])
+            # print("////////////",roundData['matchs'])
             all_rounds.append(roundData)
         tournament_table.upsert({'rounds': all_rounds}, q.id == id)
 
@@ -211,7 +214,6 @@ class Tournament:
 
 # mauvaise combinaison de pair
 # modifier le stockage des matchs en tuple
-# segmenter report player et tournament controller juste dans base il reste program start et main menu(si possible)
 # retirer self.match et self.round et voir si incidence ou non
 
 # A controller :
@@ -229,3 +231,5 @@ class Tournament:
 #  dans display info round
 # problème flake8 avec les titres des menus(escape sequence'\')
 # Revoir les trous dans le readme(mise en page)
+# segmenter report player et tournament controller juste
+# dans base il reste program start et main menu(si possible)

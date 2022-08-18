@@ -1,0 +1,110 @@
+{
+    "tournament": {
+        "1": {
+            "id": "e813176ee24441988e5bc72815e87be2",
+            "name": "blabla",
+            "date": "{TinyDate}:2001-02-14T00:00:00",
+            "place": "ici",
+            "comment": "",
+            "number_of_turns": 4,
+            "time_control": "Bullet",
+            "players": [],
+            "rounds": [
+                {
+                    "name": "round_1",
+                    "start_date": "18/08/2022 11:03:43",
+                    "end_date": "18/08/2022 11:03:43",
+                    "matchs": [
+                        [
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                0.0
+                            ],
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                1.0
+                            ]
+                        ],
+                        [
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                0.0
+                            ],
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                1.0
+                            ]
+                        ],
+                        [
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                0.0
+                            ],
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                1.0
+                            ]
+                        ],
+                        [
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                0.0
+                            ],
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                1.0
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "round_2",
+                    "start_date": "18/08/2022 11:03:47",
+                    "end_date": "18/08/2022 11:03:47",
+                    "matchs": [
+                        [
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                1.0
+                            ],
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                0.0
+                            ]
+                        ],
+                        [
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                1.0
+                            ],
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                0.0
+                            ]
+                        ],
+                        [
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                1.0
+                            ],
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                0.0
+                            ]
+                        ],
+                        [
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                1.0
+                            ],
+                            [
+                                "d35abdd73c3740c79045da70d7bc1c6e",
+                                0.0
+                            ]
+                        ]
+                    ]
+                }
+            ]
+        }
+    }
+}

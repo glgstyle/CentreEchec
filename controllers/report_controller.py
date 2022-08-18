@@ -10,7 +10,7 @@ import controllers.constants as CONSTANTE
 
 
 class ReportController:
-    def __init__(self,base_controller):
+    def __init__(self, base_controller):
         '''Has a list of Players and a view.'''
         # models
         self.base_controller = base_controller
@@ -59,7 +59,7 @@ class ReportController:
             tournament.players,
             key=lambda player: player.rank)
         View.display_players_by_rank_in_tournament(sorted_by_rank)
-    
+
     def find_all_players_in_all_tournaments(self):
         """Allow to find all players from all tournaments."""
         tournaments = View.display_all_tournaments()
@@ -67,4 +67,3 @@ class ReportController:
         for tournament in tournaments:
             tournaments_ids.append(tournament['id'])
         return tournaments_ids
-    
