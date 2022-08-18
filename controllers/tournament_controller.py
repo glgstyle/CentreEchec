@@ -45,7 +45,7 @@ class TournamentController:
             option = View.display_add_players_or_not()
             try:
                 if option == CONSTANTE.ADD_NEW_PLAYERS:
-                    self.base_controller.make_a_tournament_team()
+                    self.base_controller.make_a_tournament_team(self.tournament)
                     # insert in database
                     self.tournament.insert_tournament_in_database()
                     View.display_tournament_well_recorded()
@@ -134,7 +134,7 @@ class TournamentController:
     def make_players_pairs(self):
         """Divide sorted players in two half, the best player of upper half play
         against the best player of lower half etc..Return the list of teams."""
-        sorted_players_by_rank = self.base_controller.sort_players_by_rank()
+        sorted_players_by_rank = self.base_controller.sort_players_by_rank(self.tournament)
         half = len(sorted_players_by_rank) / 2
         half = int(half)
         upper_half = sorted_players_by_rank[0:half]

@@ -1,10 +1,10 @@
 '''Entry point'''
 
-from controllers.base import Controller
+from controllers.base import BaseController
 
 
 def main():
-    controller = Controller()
+    controller = BaseController()
     controller.program_start()
 
 

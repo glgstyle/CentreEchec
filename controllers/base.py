@@ -15,18 +15,13 @@ import controllers.constants as CONSTANTE
 # (dans ce cas la ecrire CONSTANTE.ADD_NEW_PLAYER dans la fonction par exemple)
 
 
-class Controller:
+class BaseController:
     def __init__(self):
         '''Has a list of Players and a view.'''
         # models
         self.player_controller = PlayerController(self)
         self.tournament_controller = TournamentController(self)
         self.report_controller = ReportController(self)
-        self.tournament = Tournament()
-        self.tournament.players = []
-        self.match = Match()
-        self.round = Round()
-        self.tournament.rounds = []
 
     def program_start(self):
         """Show the title program, open the mainmenu with options to select."""
@@ -47,13 +42,13 @@ class Controller:
             else:
                 View.display_unknown_choice()
 
-    def make_a_tournament_team(self):
+    def make_a_tournament_team(self, tournament):
         """Add players until players list = 8."""
         pool = 0
         while pool < 8:
             pool = pool + 1
             player = Player.add_a_player()
-            self.tournament.players.append(player)
+            tournament.players.append(player)
 
     def choose_an_existing_tournament(self):
         """Display existing tournaments, allow to select one
@@ -78,9 +73,9 @@ class Controller:
                 except IndexError:
                     View.display_select_a_valid_number()
 
-    def sort_players_by_rank(self):
+    def sort_players_by_rank(self, tournament):
         """Sort the list of players by rank, return the sorted list."""
         sorted_by_rank = sorted(
-            self.tournament.players,
+            tournament.players,
             key=lambda player: player.rank)
         return sorted_by_rank

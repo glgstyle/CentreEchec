@@ -10,12 +10,12 @@ import uuid
 class Player:
     '''Player.'''
 
-    def __init__(self, id=uuid.uuid4().hex, name="",
+    def __init__(self, name="",
                  firstname="", date_of_birth="",
                  sexe="", points=[], score=0, rank=0):
         '''A player has a name, a firstname, a date of birth, a sexe,
         a score, points and a rank.'''
-        self.id = id
+        self.id = uuid.uuid4().hex
         self.name = name
         self.firstname = firstname
         self.date_of_birth = date_of_birth

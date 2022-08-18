@@ -19,9 +19,6 @@ class PlayerController:
         self.base_controller = base_controller
         self.tournament = Tournament()
         self.tournament.players = []
-        self.match = Match()
-        self.round = Round()
-        self.tournament.rounds = []
 
     def players_submenu(self):
         """Players menu propose to add or display players."""
