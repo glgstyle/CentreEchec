@@ -10,7 +10,7 @@ import uuid
 class Player:
     '''Player.'''
 
-    def __init__(self, id="", name="", firstname="", date_of_birth="",
+    def __init__(self, id=uuid.uuid4().hex, name="", firstname="", date_of_birth="",
                  sexe="", points=[], score=0, rank=0):
         '''A player has a name, a firstname, a date of birth, a sexe,
         a score, points and a rank.'''
@@ -158,8 +158,6 @@ class Player:
                 break
             except ValueError:
                 print(f"{player.rank} n'est pas un classement valide")
-        player.id = uuid.uuid4().hex
-        print("//////player")
         Player.insert_player_in_database(player)
         return player
 
@@ -183,7 +181,6 @@ class Player:
                               'date_of_birth': self.date_of_birth,
                               'sexe': self.sexe, 'score': self.score,
                               'points': self.points, 'rank': self.rank}
-        print("////data",data)
         players_table.insert(data)
         print("dans insert database")
 

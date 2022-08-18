@@ -535,4 +535,4 @@ class View:
 
     def display_rank_well_updated(player, rank):
         console.print(f"Le nouveau rang de {player} après mise à jour est"
-                      " de : {rank}")
+                      f" de : {rank}")
