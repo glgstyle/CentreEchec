@@ -214,7 +214,6 @@ class Tournament:
 
 # mauvaise combinaison de pair
 # modifier le stockage des matchs en tuple
-# retirer self.match et self.round et voir si incidence ou non
 
 # A controller :
 # attention aux joueurs qui ont déjà joué enssembles
@@ -233,3 +232,4 @@ class Tournament:
 # Revoir les trous dans le readme(mise en page)
 # segmenter report player et tournament controller juste
 # dans base il reste program start et main menu(si possible)
+# retirer self.match et self.round et voir si incidence ou non

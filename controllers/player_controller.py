@@ -3,8 +3,6 @@
 
 from models.player import Player
 from models.tournament import Tournament
-from models.match import Match
-from models.round import Round
 from views.base import View
 
 # from controllers.constants import ADD_NEW_PLAYERS, SELECT_EXISTING_PLAYERS

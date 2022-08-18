@@ -116,7 +116,7 @@ class TournamentController:
          sort them by rank."""
         # remove what there is after the eigth player in the list otherwise
         # ther is a duplicate list with 16 players
-        del self.tournament.players[8:]
+        #del self.tournament.players[8:]
         # -x.score is the reverse order because we need the most important
         # score first and t1he first of rank, second after etc....
         sorted_by_score_then_rank = sorted(
@@ -144,26 +144,22 @@ class TournamentController:
         third_team = upper_half[2], lower_half[2]
         fourth_team = upper_half[3], lower_half[3]
         # the list of pairs of players
-        self.list_of_teams = [
+        list_of_teams = [
             (first_team),
             (second_team),
             (third_team),
             (fourth_team)]
-        self.match.pair_of_players.clear()
-        for team in self.list_of_teams:
-            self.match.pair_of_players.append(team)
-        View.display_all_teams_in_first_round(self.match.pair_of_players)
-        return self.match.pair_of_players
+        View.display_all_teams_in_first_round(list_of_teams)
+        return list_of_teams
 
     def make_players_pairs_by_score_or_rank(self):
         """Make players pairs by score or rank after the first round
         by checking if they have already played together."""
-        sorted_by_score_or_rank = self.sort_players_by_score_then_rank()
+        players = self.sort_players_by_score_then_rank()
         competitors = self.sort_players_by_score_then_rank()
-        match_pairs = self.search_pairs_in_matchs()
+        match_pairs = self.search_players_already_played_together()
         print("competitors", competitors)
-        players = sorted_by_score_or_rank
-        self.list_of_teams = []
+        list_of_teams = []
         # while there is players, remove the first and the second player of the
         # list
         while(len(players) > 0):
@@ -187,7 +183,8 @@ class TournamentController:
                 print(i)
                 if i == the_pair or i == reversed_pair:
                     print(i, "exists")"""
-
+            print("the pair",the_pair)
+            print("match_pairs", match_pairs)
             if(the_pair in match_pairs or reversed_pair in match_pairs):
                 players.append(b)
                 b = players.pop(0)
@@ -197,16 +194,11 @@ class TournamentController:
                 print(True)
             else:
                 print("la paire", [a, b])
-            self.list_of_teams.append([a, b])
-        print("///self.match.pair_of_players", self.match.pair_of_players)
-        self.match.pair_of_players.clear()
-        for team in self.list_of_teams:
-            print("self.list_of_teams", self.list_of_teams)
-            self.match.pair_of_players.append(team)
-        View.display_all_teams_after_first_round(self.match.pair_of_players)
-        return self.match.pair_of_players
+            list_of_teams.append([a, b])
+        View.display_all_teams_after_first_round(list_of_teams)
+        return list_of_teams
 
-    def search_pairs_in_matchs(self):
+    def search_players_already_played_together(self):
         tournament_pairs = []
         for round in self.tournament.rounds:
             # print("round.matchs", round.matchs)
