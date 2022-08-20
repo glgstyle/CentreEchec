@@ -167,8 +167,8 @@ class TournamentController:
             print("a", a)
             b = players.pop(0)
             print("b", b)
-            the_pair = [a, b]
-            reversed_pair = [b, a]
+            the_pair = [a.id, b.id]
+            reversed_pair = [b.id, a.id]
             # if they have played together, put back b in list and take
             # the first of the list as b, then rearrange the list as it
             # was initially(put c in first index)
@@ -204,7 +204,8 @@ class TournamentController:
             # print("round.matchs", round.matchs)
             for match in round.matchs:
                 # print("match",match.pair_of_players)
-                tournament_pairs.append(match.pair_of_players)
+                tournament_pairs.append([match.pair_of_players[0].id, match.pair_of_players[1].id])
+                
         print(tournament_pairs)
         return tournament_pairs
 
