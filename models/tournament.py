@@ -211,25 +211,4 @@ class Tournament:
 
 # Embellir l'affichage
 # utiliser le rapport flake8 pour corriger les erreurs
-
-# mauvaise combinaison de pair
 # modifier le stockage des matchs en tuple
-
-# A controller :
-# attention aux joueurs qui ont déjà joué enssembles
-# (ne devrait pas arriver...)-->OK (à vérifier par Mamadou)
-
-# Résolu:
-# faire le fichier README
-# problème rapport 3, 4, 5, 6, 7
-
-# Modifier TinyDate pour s'afficher en format j/m/a vérifier
-# toutes les dates!!!!
-
-# essayer de créer une table pour ajouter dans la row"competitors"
-#  dans display info round
-# problème flake8 avec les titres des menus(escape sequence'\')
-# Revoir les trous dans le readme(mise en page)
-# segmenter report player et tournament controller juste
-# dans base il reste program start et main menu(si possible)
-# retirer self.match et self.round et voir si incidence ou non

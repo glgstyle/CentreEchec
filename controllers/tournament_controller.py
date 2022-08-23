@@ -160,41 +160,30 @@ class TournamentController:
         match_pairs = self.search_players_already_played_together()
         print("competitors", competitors)
         list_of_teams = []
-        # while there is players, remove the first and the second player of the
-        # list
+        # while there is players, remove the first player of the list
         while(len(players) > 0):
+            list_players_already_played_together = []
             a = players.pop(0)
-            print("a", a)
-            b = players.pop(0)
-            print("b", b)
-            the_pair = [a.id, b.id]
-            reversed_pair = [b.id, a.id]
-            # if they have played together, put back b in list and take
-            # the first of the list as b, then rearrange the list as it
-            # was initially(put c in first index)
-            """if(competitors[0] == a and competitors[1] == b
-                or competitors[0] == b and competitors[1] == a):
-                players.append(b)
-                b = players.pop(0)
-                if len(players) > 0:
-                    c = players.pop()
-                    players.insert(0, c)"""
-            """for i in match_pairs:
-                print(i)
-                if i == the_pair or i == reversed_pair:
-                    print(i, "exists")"""
-            print("the pair",the_pair)
-            print("match_pairs", match_pairs)
-            if(the_pair in match_pairs or reversed_pair in match_pairs):
-                players.append(b)
-                b = players.pop(0)
-                if len(players) > 0:
-                    c = players.pop()
-                    players.insert(0, c)
-                print(True)
+            # if there is always the possibility to choose a competitor
+            # becuse there is more players than rounds
+            if len(self.tournament.rounds) < len(self.tournament.players) -1:
+                while True:
+                    b = players.pop(0)
+                    print("a :",a ,"contre b :", b)
+                    the_pair = [a.id, b.id]
+                    reversed_pair = [b.id, a.id]
+                    # if b has already played with a, put b aside
+                    if(the_pair in match_pairs or reversed_pair in match_pairs):
+                        list_players_already_played_together.append(b)
+                    # a and b have never played together
+                    else :
+                        list_of_teams.append([a, b])
+                        break
+                players = list_players_already_played_together + players
+            # if A has already played with all players 
             else:
-                print("la paire", [a, b])
-            list_of_teams.append([a, b])
+                b = players.pop(0)
+                list_of_teams.append([a, b])
         View.display_all_teams_after_first_round(list_of_teams)
         return list_of_teams
 
