@@ -3,10 +3,7 @@
 
 from models.tournament import Tournament
 from views.base import View
-
-# from controllers.constants import ADD_NEW_PLAYERS, SELECT_EXISTING_PLAYERS
 import controllers.constants as CONSTANTE
-# (dans ce cas la ecrire CONSTANTE.ADD_NEW_PLAYER dans la fonction par exemple)
 
 
 class ReportController:

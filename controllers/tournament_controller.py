@@ -45,7 +45,8 @@ class TournamentController:
             option = View.display_add_players_or_not()
             try:
                 if option == CONSTANTE.ADD_NEW_PLAYERS:
-                    self.base_controller.make_a_tournament_team(self.tournament)
+                    self.base_controller.make_a_tournament_team(
+                                         self.tournament)
                     # insert in database
                     self.tournament.insert_tournament_in_database()
                     View.display_tournament_well_recorded()
@@ -114,9 +115,6 @@ class TournamentController:
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal,
          sort them by rank."""
-        # remove what there is after the eigth player in the list otherwise
-        # ther is a duplicate list with 16 players
-        #del self.tournament.players[8:]
         # -x.score is the reverse order because we need the most important
         # score first and t1he first of rank, second after etc....
         sorted_by_score_then_rank = sorted(
@@ -134,7 +132,8 @@ class TournamentController:
     def make_players_pairs(self):
         """Divide sorted players in two half, the best player of upper half play
         against the best player of lower half etc..Return the list of teams."""
-        sorted_players_by_rank = self.base_controller.sort_players_by_rank(self.tournament)
+        sorted_players_by_rank = self.base_controller.sort_players_by_rank(
+                                 self.tournament)
         half = len(sorted_players_by_rank) / 2
         half = int(half)
         upper_half = sorted_players_by_rank[0:half]
@@ -156,9 +155,7 @@ class TournamentController:
         """Make players pairs by score or rank after the first round
         by checking if they have already played together."""
         players = self.sort_players_by_score_then_rank()
-        competitors = self.sort_players_by_score_then_rank()
         match_pairs = self.search_players_already_played_together()
-        print("competitors", competitors)
         list_of_teams = []
         # while there is players, remove the first player of the list
         while(len(players) > 0):
@@ -166,21 +163,21 @@ class TournamentController:
             a = players.pop(0)
             # if there is always the possibility to choose a competitor
             # becuse there is more players than rounds
-            if len(self.tournament.rounds) < len(self.tournament.players) -1:
+            if len(self.tournament.rounds) < len(self.tournament.players) - 1:
                 while True:
                     b = players.pop(0)
-                    print("a :",a ,"contre b :", b)
                     the_pair = [a.id, b.id]
                     reversed_pair = [b.id, a.id]
                     # if b has already played with a, put b aside
-                    if(the_pair in match_pairs or reversed_pair in match_pairs):
+                    if(the_pair in match_pairs or reversed_pair in
+                       match_pairs):
                         list_players_already_played_together.append(b)
                     # a and b have never played together
-                    else :
+                    else:
                         list_of_teams.append([a, b])
                         break
                 players = list_players_already_played_together + players
-            # if A has already played with all players 
+            # if A has already played with all players
             else:
                 b = players.pop(0)
                 list_of_teams.append([a, b])
@@ -190,12 +187,9 @@ class TournamentController:
     def search_players_already_played_together(self):
         tournament_pairs = []
         for round in self.tournament.rounds:
-            # print("round.matchs", round.matchs)
             for match in round.matchs:
-                # print("match",match.pair_of_players)
-                tournament_pairs.append([match.pair_of_players[0].id, match.pair_of_players[1].id])
-                
-        print(tournament_pairs)
+                tournament_pairs.append([match.pair_of_players[0].id,
+                                         match.pair_of_players[1].id])
         return tournament_pairs
 
     def start_a_round(self, current_round_number=1):
@@ -272,13 +266,11 @@ class TournamentController:
         and their results in match."""
         round.matchs = []
         i = 1
-        # print(round.pairs_of_players)
         for pair in round.pairs_of_players:
             View.display_match_score_to_input(match_number=i)
             i = i + 1
             match = Match()
             match.pair_of_players = list(pair)
-            # print("///pair",pair)
             while True:
                 match.player_result = self.input_results(pair)
                 try:
@@ -286,13 +278,9 @@ class TournamentController:
                         raise ValueError
                     else:
                         round.matchs.append(match)
-                        # print(round.matchs)
                         break
                 except ValueError:
                     View.display_score_value_error()
-            # lst_tuple = [x for x in zip(*[iter(round.matchs)])]
-            # print(lst_tuple)
-        # round.matchs = lst_tuple
 
     def update_the_score(self):
         """Calculate players score by doing the sum of player points."""
