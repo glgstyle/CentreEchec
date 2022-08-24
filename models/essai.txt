@@ -1,0 +1,102 @@
+Rolland Garros
+15/03/2021
+Paris
+C'est la première fois que le tournoi sera joué à l'aide de l'application
+rapid
+4
+
+Rover
+18/04/2019
+Montecarlo
+Joueurs d'exception
+blitz
+4
+
+poet
+gaylord
+23/12/1985
+m
+5
+lein
+karine
+25/04/1996
+f
+7
+jouik
+melanie
+06/05/1976
+f
+3
+boutraingain
+alexandre 
+17/09/1988
+m
+1
+boutraingain
+william
+18/11/2019
+m
+2
+boutraingain
+azylis
+21/04/2021
+f
+8
+le guenno
+gwenaelle
+15/07/1985
+f
+4
+carvalho
+jessica
+23/07/1979
+f
+6
+
+premier round:
+deux parties :
+BOUTRAINGAIN Alexandre, BOUTRAINGAIN William, JOUIK Melanie, LE GUENNO Gwenaelle,       POET Gaylord, CARVALHO Jessica, LEIN Karine, BOUTRAINGAIN Azylis 
+
+│ A      │ BOUTRAINGAIN Alexandre      │1
+│        │ POET Gaylord                │5
+│        │                             │
+│ B      │ BOUTRAINGAIN William        │2
+│        │ CARVALHO Jessica            │6
+│        │                             │
+│ C      │ JOUIK Melanie               │3
+│        │ LEIN Karine                 │7
+│        │                             │
+│ D      │ LE GUENNO Gwenaelle         │4
+│        │ BOUTRAINGAIN Azylis         │8
+
+2eme round:
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┓
+┃ Nom                     ┃ Points ┃ Score ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━┩
+│ Gaylord POET            │ [0.0]  │ 0.0   │
+│ Karine LEIN             │ [0.0]  │ 0.0   │
+│ Melanie JOUIK           │ [1.0]  │ 1.0   │
+│ Alexandre  BOUTRAINGAIN │ [1.0]  │ 1.0   │
+│ William BOUTRAINGAIN    │ [1.0]  │ 1.0   │
+│ Azylis BOUTRAINGAIN     │ [0.0]  │ 0.0   │
+│ Gwenaelle LE GUENNO     │ [1.0]  │ 1.0   │
+│ Jessica CARVALHO        │ [0.0]  │ 0.0   │
+└─────────────────────────┴────────┴───────┘
+tri par points ou rang:
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┓
+┃ Nom                     ┃ Points ┃ Score ┃rang
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━┩
+│ Alexandre  BOUTRAINGAIN │ [1.0]  │ 1.0   │1
+│ William BOUTRAINGAIN    │ [1.0]  │ 1.0   │2
+
+│ Melanie JOUIK           │ [1.0]  │ 1.0   │3
+│ Gwenaelle LE GUENNO     │ [1.0]  │ 1.0   │4
+
+│ Gaylord POET            │ [0.0]  │ 0.0   │5
+│ Jessica CARVALHO        │ [0.0]  │ 0.0   │6
+
+│ Karine LEIN             │ [0.0]  │ 0.0   │7
+│ Azylis BOUTRAINGAIN     │ [0.0]  │ 0.0   │8
+└─────────────────────────┴────────┴───────┘
+

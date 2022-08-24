@@ -1,0 +1,19 @@
+[flake8]
+
+exclude =
+
+    env
+
+    .env
+
+    __pycache__
+
+    .qt_for_python
+
+    .vscode
+
+    chess_data_base
+
+    p4env
+
+    .p4env
