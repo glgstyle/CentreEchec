@@ -304,5 +304,4 @@ class TournamentController:
         for player in sorted_by_score:
             rank += 1
             player.rank = rank
-            # Player.update_rank_in_database(player.id, player.rank)
         return self.tournament.players
