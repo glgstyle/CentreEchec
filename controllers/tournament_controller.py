@@ -7,7 +7,6 @@ from models.match import Match
 from models.round import Round
 from views.base import View
 from rich.console import Console
-
 # from controllers.constants import ADD_NEW_PLAYERS, SELECT_EXISTING_PLAYERS
 import controllers.constants as CONSTANTE
 # (dans ce cas la ecrire CONSTANTE.ADD_NEW_PLAYER dans la fonction par exemple)
@@ -111,6 +110,8 @@ class TournamentController:
         if response.upper() == "O":
             for i in range(0, self.tournament.numbers_of_turns):
                 self.start_a_round((i+1))
+        else:
+            self.tournament = Tournament()
 
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal,

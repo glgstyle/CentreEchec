@@ -12,13 +12,13 @@ import uuid
 class Tournament:
     """A tournament"""
 
-    def __init__(self, id=uuid.uuid4().hex, name="",
+    def __init__(self, name="",
                  date="", place="", comment="",
                  numbers_of_turns=4, rounds=[],
                  time_control="", players=[]):
         """Has a name, a date, a place, a number of turns, turns,
            a pool of players,  time control, comments"""
-        self.id = id
+        self.id = uuid.uuid4().hex
         self.name = name
         self.date = date
         self.place = place
