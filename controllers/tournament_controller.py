@@ -38,8 +38,8 @@ class TournamentController:
 
     def create_a_tournament(self):
         """Set up a new tournament."""
+        self.tournament = Tournament()
         View.display_create_a_tournament(self.tournament)
-        # self.tournament.id = uuid.uuid4().hex
         while True:
             option = View.display_add_players_or_not()
             try:
@@ -110,8 +110,6 @@ class TournamentController:
         if response.upper() == "O":
             for i in range(0, self.tournament.numbers_of_turns):
                 self.start_a_round((i+1))
-        else:
-            self.tournament = Tournament()
 
     def sort_players_by_score_then_rank(self):
         """Sorted the list of players by score first and if score is equal,

@@ -65,5 +65,4 @@ class PlayerController:
         pool = 0
         while pool < 8:
             pool = pool + 1
-            player = Player.add_a_player()
-            self.tournament.players.append(player)
+            Player.add_a_player()

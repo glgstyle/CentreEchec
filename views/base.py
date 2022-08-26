@@ -96,6 +96,7 @@ class View:
             tournament.numbers_of_turns = 4
             print("Le nombre de tours est incorrect, utilisation de la valeur "
                   f"par défaut : {tournament.numbers_of_turns} ")
+        tournament.players = []
 
     def display_add_players_or_not():
         """Display the player menu."""
