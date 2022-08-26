@@ -53,50 +53,44 @@ jessica
 f
 6
 
-premier round:
-deux parties :
-BOUTRAINGAIN Alexandre, BOUTRAINGAIN William, JOUIK Melanie, LE GUENNO Gwenaelle,       POET Gaylord, CARVALHO Jessica, LEIN Karine, BOUTRAINGAIN Azylis 
 
-│ A      │ BOUTRAINGAIN Alexandre      │1
-│        │ POET Gaylord                │5
-│        │                             │
-│ B      │ BOUTRAINGAIN William        │2
-│        │ CARVALHO Jessica            │6
-│        │                             │
-│ C      │ JOUIK Melanie               │3
-│        │ LEIN Karine                 │7
-│        │                             │
-│ D      │ LE GUENNO Gwenaelle         │4
-│        │ BOUTRAINGAIN Azylis         │8
-
-2eme round:
-
-┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┓
-┃ Nom                     ┃ Points ┃ Score ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━┩
-│ Gaylord POET            │ [0.0]  │ 0.0   │
-│ Karine LEIN             │ [0.0]  │ 0.0   │
-│ Melanie JOUIK           │ [1.0]  │ 1.0   │
-│ Alexandre  BOUTRAINGAIN │ [1.0]  │ 1.0   │
-│ William BOUTRAINGAIN    │ [1.0]  │ 1.0   │
-│ Azylis BOUTRAINGAIN     │ [0.0]  │ 0.0   │
-│ Gwenaelle LE GUENNO     │ [1.0]  │ 1.0   │
-│ Jessica CARVALHO        │ [0.0]  │ 0.0   │
-└─────────────────────────┴────────┴───────┘
-tri par points ou rang:
-┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┓
-┃ Nom                     ┃ Points ┃ Score ┃rang
-┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━┩
-│ Alexandre  BOUTRAINGAIN │ [1.0]  │ 1.0   │1
-│ William BOUTRAINGAIN    │ [1.0]  │ 1.0   │2
-
-│ Melanie JOUIK           │ [1.0]  │ 1.0   │3
-│ Gwenaelle LE GUENNO     │ [1.0]  │ 1.0   │4
-
-│ Gaylord POET            │ [0.0]  │ 0.0   │5
-│ Jessica CARVALHO        │ [0.0]  │ 0.0   │6
-
-│ Karine LEIN             │ [0.0]  │ 0.0   │7
-│ Azylis BOUTRAINGAIN     │ [0.0]  │ 0.0   │8
-└─────────────────────────┴────────┴───────┘
-
+1
+1
+23/12/1985
+m
+15
+2
+2
+25/04/1996
+f
+17
+3
+3
+06/05/1976
+f
+3
+4
+4
+17/09/1988
+m
+11
+5
+5
+18/11/2019
+m
+12
+6
+6
+21/04/2021
+f
+18
+7
+7
+15/07/1985
+f
+14
+8
+8
+23/07/1979
+f
+16

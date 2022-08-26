@@ -183,7 +183,6 @@ class Player:
                 'sexe': self.sexe, 'score': self.score,
                 'points': self.points, 'rank': self.rank}
         players_table.insert(data)
-        print("dans insert database")
 
     def update_player_points_in_database(id, points):
         """Insert the player points after each match in database."""
