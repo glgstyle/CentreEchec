@@ -49,7 +49,7 @@ class ReportController:
             elif option == CONSTANTE.RETURN_TO_THE_MAIN_MENU:
                 self.base_controller.main_menu()
 
-    def find_players_by_rank_with_tournament_id(id):
+    def find_players_by_rank_with_tournament_id(self, id):
         """Allow to find the list of players from a tournament id."""
         tournament = Tournament.search_tournament_by_id(id)
         sorted_by_rank = sorted(

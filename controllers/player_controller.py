@@ -32,7 +32,7 @@ class PlayerController:
                     View.display_invalid_input(response)
                     View.display_player_added()
             elif option == CONSTANTE.ADD_A_TEAM_OF_PLAYERS:
-                self.base_controller.make_a_tournament_team()
+                self.make_a_team_of_players()
                 View.display_team_of_players_added()
             elif option == CONSTANTE.MODIFY_PLAYER_RANK:
                 players = View.display_list_of_players_by_rank()
@@ -59,3 +59,11 @@ class PlayerController:
         except ValueError:
             View.display_player_not_in_list(choice)
         return joueur_choisi
+
+    def make_a_team_of_players(self):
+        """Add players until players list = 8."""
+        pool = 0
+        while pool < 8:
+            pool = pool + 1
+            player = Player.add_a_player()
+            self.tournament.players.append(player)

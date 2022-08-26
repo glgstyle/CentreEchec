@@ -148,9 +148,7 @@ class Tournament:
                                   mat.player_result[0]])
                 matchData.append([mat.pair_of_players[1].id,
                                   mat.player_result[1]])
-                # matchData = tuple(matchData)
                 roundData['matchs'].append(matchData)
-            # print("////////////",roundData['matchs'])
             all_rounds.append(roundData)
         tournament_table.upsert({'rounds': all_rounds}, q.id == id)
 
@@ -208,7 +206,3 @@ class Tournament:
         """Search all the players with the tournament id."""
         tournament = Tournament.search_tournament_by_id(id)
         return tournament.players
-
-# Embellir l'affichage
-# utiliser le rapport flake8 pour corriger les erreurs
-# modifier le stockage des matchs en tuple
